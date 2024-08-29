@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa de Localização de Sementes e Monitoramento Ambiental - Projeto Plantar guilherme</title>
+    <title>Mapa de Localização de Sementes e Monitoramento Ambiental - Projeto Plantar 2024</title>
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <!-- Font Awesome CSS -->
@@ -19,20 +19,20 @@
             position: relative;
             background: #2c3e50;
             color: #ecf0f1;
-            padding: 18px;
+            padding: 20px;
             text-align: center;
         }
         .header-container h1 {
             margin: 0;
             font-size: 2em;
             position: absolute;
-            top: 19px;
+            top: 20px;
             left: 20px;
             font-size: 1.5em; /* Ajusta o tamanho do título para telas menores */
         }
         .header-text {
             margin: 0;
-            padding-top: 10px; /* Espaço suficiente para o cabeçalho */
+            padding-top: 60px; /* Espaço suficiente para o cabeçalho */
             font-size: 1em;
         }
         .development-info {
@@ -41,7 +41,7 @@
             font-weight: bold;
         }
         .description {
-            margin-top: 10px;
+            margin-top: 20px;
             font-size: 1em;
         }
         .bar {
@@ -54,8 +54,9 @@
             align-items: center;
             font-size: 1em; /* Ajusta o tamanho da fonte */
             font-weight: bold;
+            position: fixed;
             top: 170px;
-            left: 5;
+            left: 0;
             width: 100%;
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0,0,0,0.3);
@@ -72,31 +73,31 @@
         .bar .box:hover::after {
             content: attr(data-info);
             position: absolute;
-            top: 5%;
+            top: 100%;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #384;
+            background-color: #333;
             color: white;
-            padding: 15px 10px;
-            border-radius: 10px;
+            padding: 5px 10px;
+            border-radius: 5px;
             white-space: nowrap;
             z-index: 10;
-            box-shadow: 0 2px 5px rgba(10,0,0,0.3);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
             opacity: 1;
             transition: opacity 0.3s;
         }
         .info-box {
             display: none;
             position: fixed;
-            top: 45%;
+            top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: #384;
+            background: #333;
             color: white;
-            padding: 30px;
+            padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-            z-index: 3000;
+            z-index: 2000;
             max-width: 90%; /* Ajusta a largura para se adaptar a telas menores */
             width: 90%;
         }
@@ -113,7 +114,7 @@
         }
         #map {
            
-            height: 100vh;
+            height: 80vh;
             width: 100%;
              }
         .custom-icon-red, .custom-icon-green, .custom-icon-blue {
@@ -181,10 +182,10 @@
 </head>
 <body>
     <div class="header-container">
-        <h1>Projeto Plantar 2024 GUILHERME</h1>
+        <h1>Projeto Plantar 2024</h1>
         <div class="header-text">
             <p>Tecnologia de Monitoramento Ambiental Remoto</p>
-            <p class="development-info">Desenvolvimento: Porfessor josiel e Equipe de Robótica Guima</p>
+            <p class="development-info">Desenvolvimento: Equipe de Robótica Guima</p>
             <p class="description">Nos dias atuais, a preocupação com a sustentabilidade ambiental e a conservação dos recursos naturais tem se intensificado, gerando a necessidade de desenvolver soluções tecnológicas que possam contribuir para a preservação do meio ambiente. O projeto de um robô autônomo para coleta de dados ambientais e plantio de sementes em áreas de difícil acesso surge como uma resposta inovadora e eficaz a esses desafios.</p>
         </div>
     </div>
@@ -260,7 +261,7 @@
         "INTENSIDADE SOLAR:............:  8%",
         "Radiação UV:..................: 2%"
     ],
-    "icon": greenIcon
+    "icon": redIcon
  },
 
 {
