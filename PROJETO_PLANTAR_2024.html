@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Localização de Sementes e Monitoramento Ambiental - Projeto Plantar 2024</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .header-container {
+            position: relative;
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 18px;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            font-size: 2em;
+            position: absolute;
+            top: 19px;
+            left: 20px;
+            font-size: 1.5em; /* Ajusta o tamanho do título para telas menores */
+        }
+        .header-text {
+            margin: 0;
+            padding-top: 10px; /* Espaço suficiente para o cabeçalho */
+            font-size: 1em;
+        }
+        .development-info {
+            margin-top: 30px;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .description {
+            margin-top: 10px;
+            font-size: 1em;
+        }
+        .bar {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            display: flex;
+            flex-wrap: wrap; /* Permite que os itens se movam para a linha seguinte em telas menores */
+            justify-content: space-around;
+            align-items: center;
+            font-size: 1em; /* Ajusta o tamanho da fonte */
+            font-weight: bold;
+            top: 170px;
+            left: 5;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        .bar .box {
+            position: relative;
+            padding: 10px 20px;
+            background-color: #333;
+            border-radius: 5px;
+            margin: 5px;
+            cursor: pointer;
+            text-align: center; /* Centraliza o texto no botão */
+        }
+        .bar .box:hover::after {
+            content: attr(data-info);
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #384;
+            color: white;
+            padding: 15px 10px;
+            border-radius: 10px;
+            white-space: nowrap;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(10,0,0,0.3);
+            opacity: 1;
+            transition: opacity 0.3s;
+        }
+        .info-box {
+            display: none;
+            position: fixed;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #384;
+            color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            z-index: 3000;
+            max-width: 90%; /* Ajusta a largura para se adaptar a telas menores */
+            width: 90%;
+        }
+        .info-box h4 {
+            margin-top: 0;
+        }
+        .info-box .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            color: white;
+        }
+        #map {
+           
+            height: 100vh;
+            width: 100%;
+             }
+        .custom-icon-red, .custom-icon-green, .custom-icon-blue {
+            background-image: url('https://cdn-icons-png.flaticon.com/256/5587/5587696.png'); /* Imagem padrão do ícone */
+            background-color: transparent; /* Cor de fundo transparente */
+            border: 8px solid black; /* Borda branca para o ícone */
+            border-radius: 50%; /* Forma circular */
+            width: 70px; /* Tamanho do ícone (largura) */
+            height: 70px; /* Tamanho do ícone (altura) */
+            background-size: cover; /* Ajusta a imagem para cobrir todo o ícone */
+            background-repeat: no-repeat; /* Evita repetir a imagem */
+            background-position: center; /* Centraliza a imagem de fundo */
+        }
+        .custom-icon-red {
+            background-color: red; /* Cor de fundo para ícone vermelho */
+        }
+        .custom-icon-green {
+            background-color: green; /* Cor de fundo para ícone verde */
+        }
+        .custom-icon-blue {
+            background-color: blue; /* Cor de fundo para ícone azul */
+        }
+
+        /* Media Queries para Responsividade */
+        @media (max-width: 768px) {
+            .header-container h1 {
+                font-size: 1.2em; /* Ajusta o tamanho do título para telas menores */
+            }
+            .header-text {
+                font-size: 0.9em; /* Ajusta o tamanho da fonte para telas menores */
+            }
+            .development-info, .description {
+                font-size: 0.9em; /* Ajusta o tamanho da fonte para telas menores */
+            }
+            .bar {
+                flex-direction: column; /* Organiza os itens da barra verticalmente em telas menores */
+                padding: 5px;
+            }
+            .bar .box {
+                font-size: 0.9em; /* Ajusta o tamanho da fonte nos botões */
+                padding: 8px 15px; /* Ajusta o padding para caber melhor em telas menores */
+            }
+            .info-box {
+                padding: 15px; /* Ajusta o padding para telas menores */
+                max-width: 95%; /* Ajusta a largura máxima para telas menores */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-container h1 {
+                font-size: 1em; /* Ajusta ainda mais o tamanho do título para telas muito pequenas */
+            }
+            .header-text {
+                font-size: 0.8em; /* Ajusta ainda mais o tamanho da fonte */
+            }
+            .development-info, .description {
+                font-size: 0.8em; /* Ajusta ainda mais o tamanho da fonte */
+            }
+            .bar .box {
+                font-size: 0.8em; /* Ajusta o tamanho da fonte nos botões */
+                padding: 5px 10px; /* Ajusta o padding para caber melhor em telas muito pequenas */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <h1>Projeto Plantar 2024</h1>
+        <div class="header-text">
+            <p>Tecnologia de Monitoramento Ambiental Remoto</p>
+            <p class="development-info">Desenvolvimento: Porfessor josiel e Equipe de Robótica Guima</p>
+            <p class="description">Nos dias atuais, a preocupação com a sustentabilidade ambiental e a conservação dos recursos naturais tem se intensificado, gerando a necessidade de desenvolver soluções tecnológicas que possam contribuir para a preservação do meio ambiente. O projeto de um robô autônomo para coleta de dados ambientais e plantio de sementes em áreas de difícil acesso surge como uma resposta inovadora e eficaz a esses desafios.</p>
+        </div>
+    </div>
+
+    <div class="bar">
+        <div class="box" data-info="Informações sobre Comunicação Remota" onclick="showInfo('Comunicação Remota')">Comunicação Remota</div>
+        <div class="box" data-info="Informações sobre Gestão de Dados" onclick="showInfo('Gestão de Dados')">Gestão de Dados</div>
+        <div class="box" data-info="Informações sobre Plantio Sustentável" onclick="showInfo('Plantio Sustentável')">Plantio Sustentável</div>
+        <div class="box" data-info="Informações sobre Monitoramento" onclick="showInfo('Monitoramento')">Monitoramento</div>
+        <div class="box" data-info="Informações sobre Prevenção Ambiental" onclick="showInfo('Prevenção Ambiental')">Prevenção Ambiental</div>
+    </div>
+
+    <div id="info-box" class="info-box">
+        <span class="close-btn" onclick="closeInfo()">&times;</span>
+        <h4 id="info-title"></h4>
+        <p id="info-content"></p>
+    </div>
+
+    <div id="map"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Inicializa o mapa
+        var map = L.map('map').setView([-24.404, -53.511], 12);
+
+        // Adiciona a camada de mapa
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Define os ícones personalizados
+        var greenIcon = L.divIcon({className: 'custom-icon-green'});
+        var redIcon = L.divIcon({className: 'custom-icon-red'});
+
+        // Dados de localização com informações
+        var locations = [
+
+
+
+
+ // apartir daqui
+
+
+{
+    "lat": -24.403524,
+    "lng": -53.510307,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403524,-53.510307' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:18:24",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.70°C",
+        "Temperatura interna...........: 22.20°C",
+        "INTENSIDADE SOLAR:............: 11%",
+        "Radiação UV:..................: 3%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403593,
+    "lng": -53.510254,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403593,-53.510254' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:19:54",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.80°C",
+        "Temperatura interna...........: 22.20°C",
+        "INTENSIDADE SOLAR:............:  8%",
+        "Radiação UV:..................: 2%"
+    ],
+    "icon": greenIcon
+ },
+
+{
+    "lat": -24.403616,
+    "lng": -53.510246,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403616,-53.510246' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:20:54",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.70°C",
+        "Temperatura interna...........: 22.30°C",
+        "INTENSIDADE SOLAR:............:  9%",
+        "Radiação UV:..................: 3%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403561,
+    "lng": -53.510372,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403561,-53.510372' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:21:55",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.70°C",
+        "Temperatura interna...........: 22.60°C",
+        "INTENSIDADE SOLAR:............:  9%",
+        "Radiação UV:..................: 2%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403549,
+    "lng": -53.510330,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403549,-53.510330' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:22:55",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.70°C",
+        "Temperatura interna...........: 22.60°C",
+        "INTENSIDADE SOLAR:............:  8%",
+        "Radiação UV:..................: 2%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403540,
+    "lng": -53.510288,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403540,-53.510288' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:23:56",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.70°C",
+        "Temperatura interna...........: 22.60°C",
+        "INTENSIDADE SOLAR:............: 10%",
+        "Radiação UV:..................: 3%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403503,
+    "lng": -53.510281,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403503,-53.510281' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:24:56",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.70°C",
+        "Temperatura interna...........: 22.60°C",
+        "INTENSIDADE SOLAR:............:  9%",
+        "Radiação UV:..................: 1%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403505,
+    "lng": -53.510311,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403505,-53.510311' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:25:57",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.70°C",
+        "Temperatura interna...........: 22.60°C",
+        "INTENSIDADE SOLAR:............: 11%",
+        "Radiação UV:..................: 1%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403517,
+    "lng": -53.510368,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403517,-53.510368' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:26:58",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.70°C",
+        "Temperatura interna...........: 22.60°C",
+        "INTENSIDADE SOLAR:............: 13%",
+        "Radiação UV:..................: 2%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403551,
+    "lng": -53.510323,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403551,-53.510323' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:27:58",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.70°C",
+        "Temperatura interna...........: 22.80°C",
+        "INTENSIDADE SOLAR:............: 14%",
+        "Radiação UV:..................: 1%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403547,
+    "lng": -53.510303,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403547,-53.510303' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:29:0",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........:  NAN%",
+        "Temperatura Externa...........:  NAN°C",
+        "Temperatura interna...........:  NAN°C",
+        "INTENSIDADE SOLAR:............: 18%",
+        "Radiação UV:..................: 2%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403557,
+    "lng": -53.510292,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403557,-53.510292' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:30:1",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.80°C",
+        "Temperatura interna...........: 23.00°C",
+        "INTENSIDADE SOLAR:............: 25%",
+        "Radiação UV:..................: 3%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403580,
+    "lng": -53.510288,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403580,-53.510288' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:31:1",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.00°C",
+        "Temperatura interna...........: 23.00°C",
+        "INTENSIDADE SOLAR:............: 25%",
+        "Radiação UV:..................: 1%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403572,
+    "lng": -53.510303,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403572,-53.510303' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:32:2",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.00°C",
+        "Temperatura interna...........: 23.00°C",
+        "INTENSIDADE SOLAR:............: 20%",
+        "Radiação UV:..................: 3%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403574,
+    "lng": -53.510296,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403574,-53.510296' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:33:3",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.00°C",
+        "Temperatura interna...........: 23.00°C",
+        "INTENSIDADE SOLAR:............: 16%",
+        "Radiação UV:..................: 2%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403597,
+    "lng": -53.510288,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403597,-53.510288' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:34:3",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.00°C",
+        "Temperatura interna...........: 23.00°C",
+        "INTENSIDADE SOLAR:............: 19%",
+        "Radiação UV:..................: 2%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403572,
+    "lng": -53.510288,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403572,-53.510288' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:35:4",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.00°C",
+        "Temperatura interna...........: 23.00°C",
+        "INTENSIDADE SOLAR:............: 27%",
+        "Radiação UV:..................: 2%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403564,
+    "lng": -53.510288,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403564,-53.510288' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:36:4",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.00°C",
+        "Temperatura interna...........: 23.00°C",
+        "INTENSIDADE SOLAR:............: 22%",
+        "Radiação UV:..................: 4%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403547,
+    "lng": -53.510296,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403547,-53.510296' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:37:5",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.00°C",
+        "Temperatura interna...........: 23.00°C",
+        "INTENSIDADE SOLAR:............: 20%",
+        "Radiação UV:..................: 3%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403547,
+    "lng": -53.510311,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403547,-53.510311' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:38:5",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.00°C",
+        "Temperatura interna...........: 23.00°C",
+        "INTENSIDADE SOLAR:............: 33%",
+        "Radiação UV:..................: 4%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403551,
+    "lng": -53.510311,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403551,-53.510311' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:39:6",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.00°C",
+        "Temperatura interna...........: 23.00°C",
+        "INTENSIDADE SOLAR:............:  5%",
+        "Radiação UV:..................: 2%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403551,
+    "lng": -53.510277,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403551,-53.510277' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:40:7",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.00°C",
+        "Temperatura interna...........: 23.00°C",
+        "INTENSIDADE SOLAR:............:  7%",
+        "Radiação UV:..................: 2%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403526,
+    "lng": -53.510288,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403526,-53.510288' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:41:7",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.00°C",
+        "Temperatura interna...........: 23.00°C",
+        "INTENSIDADE SOLAR:............:  6%",
+        "Radiação UV:..................: 4%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403536,
+    "lng": -53.510307,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403536,-53.510307' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:42:8",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.00°C",
+        "Temperatura interna...........: 23.00°C",
+        "INTENSIDADE SOLAR:............: 13%",
+        "Radiação UV:..................: 4%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403536,
+    "lng": -53.510311,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403536,-53.510311' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:43:8",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.00°C",
+        "Temperatura interna...........: 23.00°C",
+        "INTENSIDADE SOLAR:............:  3%",
+        "Radiação UV:..................: 3%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403528,
+    "lng": -53.510311,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403528,-53.510311' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:44:9",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.00°C",
+        "Temperatura interna...........: 23.00°C",
+        "INTENSIDADE SOLAR:............:  4%",
+        "Radiação UV:..................: 4%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403557,
+    "lng": -53.510296,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403557,-53.510296' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:45:10",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.00°C",
+        "Temperatura interna...........: 23.30°C",
+        "INTENSIDADE SOLAR:............:  3%",
+        "Radiação UV:..................: 2%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403561,
+    "lng": -53.510296,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403561,-53.510296' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:46:10",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.00°C",
+        "Temperatura interna...........: 23.40°C",
+        "INTENSIDADE SOLAR:............:  4%",
+        "Radiação UV:..................: 4%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403540,
+    "lng": -53.510300,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403540,-53.510300' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:47:11",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.00°C",
+        "Temperatura interna...........: 23.40°C",
+        "INTENSIDADE SOLAR:............:  3%",
+        "Radiação UV:..................: 4%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403536,
+    "lng": -53.510292,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403536,-53.510292' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:48:11",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.00°C",
+        "Temperatura interna...........: 23.40°C",
+        "INTENSIDADE SOLAR:............:  3%",
+        "Radiação UV:..................: 1%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403547,
+    "lng": -53.510300,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403547,-53.510300' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:49:12",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.00°C",
+        "Temperatura interna...........: 23.40°C",
+        "INTENSIDADE SOLAR:............:  3%",
+        "Radiação UV:..................: 4%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403557,
+    "lng": -53.510319,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403557,-53.510319' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:50:12",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.00°C",
+        "Temperatura interna...........: 23.40°C",
+        "INTENSIDADE SOLAR:............:  2%",
+        "Radiação UV:..................: 2%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403555,
+    "lng": -53.510323,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403555,-53.510323' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:51:13",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.00°C",
+        "Temperatura interna...........: 23.40°C",
+        "INTENSIDADE SOLAR:............:  4%",
+        "Radiação UV:..................: 4%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403559,
+    "lng": -53.510303,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403559,-53.510303' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:52:14",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.00°C",
+        "Temperatura interna...........: 23.40°C",
+        "INTENSIDADE SOLAR:............:  2%",
+        "Radiação UV:..................: 4%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403566,
+    "lng": -53.510300,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403566,-53.510300' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:53:14",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.00°C",
+        "Temperatura interna...........: 23.40°C",
+        "INTENSIDADE SOLAR:............:  3%",
+        "Radiação UV:..................: 2%"
+    ],
+    "icon": redIcon
+ },
+
+{
+    "lat": -24.403568,
+    "lng": -53.510296,
+    "info": [
+        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403568,-53.510296' target='_blank'>Ver Localização</a>",
+        "Data e Hora:..................: 26/8/2024 17:54:15",
+        "Umidade Solo: BAIXA:..........: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS:..: 0",
+        "Umidade relativa do ar........: 20.00%",
+        "Temperatura Externa...........: 23.00°C",
+        "Temperatura interna...........: 23.40°C",
+        "INTENSIDADE SOLAR:............:  8%",
+        "Radiação UV:..................: 2%"
+    ],
+    "icon": redIcon
+ },
+
+
+
+// ate daqui
+
+
+
+        ];
+
+        // Adiciona marcadores com pop-ups ao mapa
+        locations.forEach(function(location) {
+            var infoContent = location.info.join("<br>");
+            L.marker([location.lat, location.lng], {icon: location.icon}).addTo(map)
+                .bindPopup(`
+                    <strong>Informações:</strong><br>
+                    ${infoContent}
+                `);
+        });
+
+        // Função para mostrar informações ao clicar
+        function showInfo(section) {
+            var infoBox = document.getElementById('info-box');
+            var infoTitle = document.getElementById('info-title');
+            var infoContent = document.getElementById('info-content');
+
+            switch(section) {
+                case 'Comunicação Remota':
+                    infoTitle.textContent = 'Comunicação Remota';
+                    infoContent.innerHTML = 'A capacidade do robô de responder a comandos via SMS e fornecer informações detalhadas sobre o último plantio realizado facilita o monitoramento remoto das atividades.';
+                    break;
+                case 'Gestão de Dados':
+                    infoTitle.textContent = 'Gestão de Dados';
+                    infoContent.innerHTML = 'A gestão dos dados coletados é especialmente útil para pesquisadores e gestores ambientais que precisam acessar informações atualizadas sem estar fisicamente presentes no local.';
+                    break;
+                case 'Plantio Sustentável':
+                    infoTitle.textContent = 'Plantio Sustentável';
+                    infoContent.innerHTML = 'A restauração de áreas degradadas através do plantio de sementes é uma prática essencial para a conservação da biodiversidade e a manutenção dos serviços ecossistêmicos. No entanto, o sucesso desse plantio depende de condições ambientais adequadas, especialmente a umidade do solo. O uso de um robô que avalie a umidade antes de plantar as sementes garante que elas sejam colocadas em condições ótimas para germinação, aumentando a eficiência do plantio e a taxa de sucesso das plantas.';
+                    break;
+                case 'Monitoramento':
+                    infoTitle.textContent = 'Monitoramento';
+                    infoContent.innerHTML = 'A mudança climática e a degradação ambiental são questões prementes que afetam diretamente a saúde dos ecossistemas e a qualidade de vida das populações humanas. O monitoramento constante de variáveis ambientais, como umidade do solo, temperatura, umidade do ar, luminosidade e níveis de radiação UV, é fundamental para compreender os impactos dessas mudanças e para tomar medidas preventivas e corretivas. Um robô equipado com sensores capazes de coletar esses dados em tempo real oferece uma maneira eficiente e precisa de realizar esse monitoramento, especialmente em áreas remotas onde a presença humana é limitada ou inviável.';
+                    break;
+                case 'Prevenção Ambiental':
+                    infoTitle.textContent = 'Prevenção Ambiental';
+                    infoContent.innerHTML = 'Os incêndios florestais representam uma ameaça significativa aos ecossistemas, destruindo habitats, reduzindo a biodiversidade e contribuindo para as emissões de gases de efeito estufa. A integração de um sistema de detecção de fumaça no robô permite a identificação precoce de focos de incêndio, possibilitando a emissão de alertas e a adoção de medidas rápidas para conter o fogo, evitando desastres maiores.';
+                    break;
+            }
+
+            infoBox.style.display = 'block';
+        }
+
+        // Função para fechar a caixa de informações
+        function closeInfo() {
+            document.getElementById('info-box').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
