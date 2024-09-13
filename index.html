@@ -15,6 +15,8 @@
             padding: 0;
             color: #333;
         }
+
+        /* Estilos para o cabeçalho */
         .header-container {
             position: relative;
             background: #2c3e50;
@@ -24,67 +26,53 @@
         }
         .header-container h1 {
             margin: 0;
-            font-size: 2em;
+            font-size: 1.5em;
             position: absolute;
             top: 19px;
             left: 20px;
-            font-size: 1.5em; /* Ajusta o tamanho do título para telas menores */
         }
         .header-text {
             margin: 0;
-            padding-top: 10px; /* Espaço suficiente para o cabeçalho */
+            padding-top: 10px;
             font-size: 1em;
         }
-        .development-info {
-            margin-top: 30px;
-            font-size: 1.1em;
-            font-weight: bold;
+
+        /* Barra lateral para logomarcas */
+        .sidebar {
+            position: absolute;
+            right: 0; /* Movendo para o lado direito */
+            top: 225px; /* Ajusta para baixo do cabeçalho (alterar valor conforme necessário) */
+            width: 150px; /* Largura fixa da barra */
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-left: 2px solid #ddd; /* Alterado para a borda esquerda */
+            z-index: 1001;
         }
-        .description {
-            margin-top: 10px;
-            font-size: 1em;
+
+        .sidebar img {
+            display: block;
+            margin: 10px auto;
+            width: 60px; /* Tamanho máximo das logomarcas */
+            height: auto;
         }
+
         .bar {
             background-color: black;
             color: white;
             padding: 10px;
             display: flex;
-            flex-wrap: wrap; /* Permite que os itens se movam para a linha seguinte em telas menores */
+            flex-wrap: wrap;
             justify-content: space-around;
             align-items: center;
-            font-size: 1em; /* Ajusta o tamanho da fonte */
+            font-size: 1em;
             font-weight: bold;
-            top: 170px;
-            left: 5;
-            width: 100%;
-            z-index: 1000;
+            margin-top: 20px; /* Espaço em relação ao cabeçalho */
+            width: calc(100% - 150px); /* Ajusta a largura para evitar sobreposição com a barra lateral */
+            margin-left: auto; /* Alinhamento à esquerda */
+            margin-right: 150px; /* Considera a barra lateral */
             box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
-        .bar .box {
-            position: relative;
-            padding: 10px 20px;
-            background-color: #333;
-            border-radius: 5px;
-            margin: 5px;
-            cursor: pointer;
-            text-align: center; /* Centraliza o texto no botão */
-        }
-        .bar .box:hover::after {
-            content: attr(data-info);
-            position: absolute;
-            top: 5%;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #384;
-            color: white;
-            padding: 15px 10px;
-            border-radius: 10px;
-            white-space: nowrap;
-            z-index: 10;
-            box-shadow: 0 2px 5px rgba(10,0,0,0.3);
-            opacity: 1;
-            transition: opacity 0.3s;
-        }
+
         .info-box {
             display: none;
             position: fixed;
@@ -97,85 +85,78 @@
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.3);
             z-index: 3000;
-            max-width: 90%; /* Ajusta a largura para se adaptar a telas menores */
+            max-width: 90%;
             width: 90%;
         }
-        .info-box h4 {
-            margin-top: 0;
-        }
-        .info-box .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 1.2em;
-            cursor: pointer;
-            color: white;
-        }
+
         #map {
-           
             height: 100vh;
-            width: 100%;
-             }
-        .custom-icon-red, .custom-icon-green, .custom-icon-blue {
-            background-image: url('https://cdn-icons-png.flaticon.com/256/5587/5587696.png'); /* Imagem padrão do ícone */
-            background-color: transparent; /* Cor de fundo transparente */
-            border: 8px solid black; /* Borda branca para o ícone */
-            border-radius: 50%; /* Forma circular */
-            width: 70px; /* Tamanho do ícone (largura) */
-            height: 70px; /* Tamanho do ícone (altura) */
-            background-size: cover; /* Ajusta a imagem para cobrir todo o ícone */
-            background-repeat: no-repeat; /* Evita repetir a imagem */
-            background-position: center; /* Centraliza a imagem de fundo */
-        }
-        .custom-icon-red {
-            background-color: red; /* Cor de fundo para ícone vermelho */
-        }
-        .custom-icon-green {
-            background-color: green; /* Cor de fundo para ícone verde */
-        }
-        .custom-icon-blue {
-            background-color: blue; /* Cor de fundo para ícone azul */
+            width: calc(100% - 150px); /* Ajusta a largura para considerar a barra lateral */
+            margin-left: auto; /* Alinhamento à esquerda */
+            margin-right: 150px; /* Considera a barra lateral */
         }
 
         /* Media Queries para Responsividade */
         @media (max-width: 768px) {
             .header-container h1 {
-                font-size: 1.2em; /* Ajusta o tamanho do título para telas menores */
+                font-size: 1.2em;
             }
             .header-text {
-                font-size: 0.9em; /* Ajusta o tamanho da fonte para telas menores */
-            }
-            .development-info, .description {
-                font-size: 0.9em; /* Ajusta o tamanho da fonte para telas menores */
+                font-size: 0.9em;
             }
             .bar {
-                flex-direction: column; /* Organiza os itens da barra verticalmente em telas menores */
+                flex-direction: column;
                 padding: 5px;
             }
             .bar .box {
-                font-size: 0.9em; /* Ajusta o tamanho da fonte nos botões */
-                padding: 8px 15px; /* Ajusta o padding para caber melhor em telas menores */
+                font-size: 0.9em;
+                padding: 8px 15px;
             }
             .info-box {
-                padding: 15px; /* Ajusta o padding para telas menores */
-                max-width: 95%; /* Ajusta a largura máxima para telas menores */
+                padding: 15px;
+                max-width: 95%;
+            }
+            .sidebar {
+                width: 100px;
+                top: 80px; /* Ajusta a posição para telas menores */
             }
         }
 
         @media (max-width: 480px) {
             .header-container h1 {
-                font-size: 1em; /* Ajusta ainda mais o tamanho do título para telas muito pequenas */
+                font-size: 1em;
             }
             .header-text {
-                font-size: 0.8em; /* Ajusta ainda mais o tamanho da fonte */
-            }
-            .development-info, .description {
-                font-size: 0.8em; /* Ajusta ainda mais o tamanho da fonte */
+                font-size: 0.8em;
             }
             .bar .box {
-                font-size: 0.8em; /* Ajusta o tamanho da fonte nos botões */
-                padding: 5px 10px; /* Ajusta o padding para caber melhor em telas muito pequenas */
+                font-size: 0.8em;
+                padding: 5px 10px;
             }
+            .sidebar {
+                width: 60px;
+                top: 60px; /* Ajusta a posição para telas menores */
+            }
+            .sidebar img {
+                width: 50px;
+            }
+        }
+
+        /* Estilos para os ícones personalizados */
+        .custom-icon-green {
+            background-color: #00FF00;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+        }
+
+        .custom-icon-red {
+            background-color: #FF0000;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            display: inline-block;
         }
     </style>
 </head>
@@ -184,9 +165,17 @@
         <h1>Projeto Plantar 2024</h1>
         <div class="header-text">
             <p>Tecnologia de Monitoramento Ambiental Remoto</p>
-            <p class="development-info">Desenvolvimento: Porfessor Josiel e Equipe de Robótica Guima</p>
-            <p class="description">Nos dias atuais, a preocupação com a sustentabilidade ambiental e a conservação dos recursos naturais tem se intensificado, gerando a necessidade de desenvolver soluções tecnológicas que possam contribuir para a preservação do meio ambiente. O projeto de um robô autônomo para coleta de dados ambientais e plantio de sementes em áreas de difícil acesso surge como uma resposta inovadora e eficaz a esses desafios.</p>
+            <p class="development-info">Desenvolvimento: Professor Josiel e Equipe de Robótica Guima</p>
+            <p class="description">Nos dias atuais, a preocupação com a sustentabilidade ambiental e a conservação dos recursos naturais tem se intensificado...</p>
         </div>
+    </div>
+
+    <!-- Barra lateral para logomarcas -->
+    <div class="sidebar">
+        <img src="logo1.png" alt="Logo Empresa 1">
+        <img src="logo2.png" alt="Logo Empresa 2">
+        <img src="logo3.png" alt="Logo Empresa 3">
+        <!-- Adicione mais logos conforme necessário -->
     </div>
 
     <div class="bar">
@@ -223,641 +212,1934 @@
         // Dados de localização com informações
         var locations = [
 
-
-
-
- // apartir daqui
-
-
 {
-    "lat": -24.403524,
-    "lng": -53.510307,
+    "lat": -24.403263,
+    "lng": -53.510193,
     "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403524,-53.510307' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:18:24",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.70°C",
-        "Temperatura interna...........: 22.20°C",
-        "INTENSIDADE SOLAR:............: 11%",
-        "Radiação UV:..................: 3%"
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403263,-53.510193\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:16:15",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 33.80°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.14V",
+        "Eficiência Placa Solar em: 64.72%",
+        "Radiação UV: 8%"
     ],
-    "icon": redIcon
- },
+    "icon": "greenIcon"
+},
 
 {
-    "lat": -24.403593,
-    "lng": -53.510254,
+    "lat": -24.403271,
+    "lng": -53.510193,
     "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403593,-53.510254' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:19:54",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.80°C",
-        "Temperatura interna...........: 22.20°C",
-        "INTENSIDADE SOLAR:............:  8%",
-        "Radiação UV:..................: 2%"
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403271,-53.510193\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:16:35",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 33.80°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.14V",
+        "Eficiência Placa Solar em: 64.51%",
+        "Radiação UV: 6%"
     ],
-    "icon": greenIcon
- },
+    "icon": "greenIcon"
+},
 
 {
-    "lat": -24.403616,
-    "lng": -53.510246,
+    "lat": -24.403700,
+    "lng": -53.509907,
     "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403616,-53.510246' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:20:54",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.70°C",
-        "Temperatura interna...........: 22.30°C",
-        "INTENSIDADE SOLAR:............:  9%",
-        "Radiação UV:..................: 3%"
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403700,-53.509907\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:16:55",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 34.00°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.79%",
+        "Voltagem Atual (Placa Solar): 14.55V",
+        "Eficiência Placa Solar em: 64.51%",
+        "Radiação UV: 6%"
     ],
-    "icon": redIcon
- },
+    "icon": "greenIcon"
+},
 
 {
-    "lat": -24.403561,
-    "lng": -53.510372,
+    "lat": -24.404396,
+    "lng": -53.510971,
     "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403561,-53.510372' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:21:55",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.70°C",
-        "Temperatura interna...........: 22.60°C",
-        "INTENSIDADE SOLAR:............:  9%",
-        "Radiação UV:..................: 2%"
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404396,-53.510971\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:17:16",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 34.20°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.09V",
+        "Eficiência Placa Solar em: 64.41%",
+        "Radiação UV: 8%"
     ],
-    "icon": redIcon
- },
+    "icon": "greenIcon"
+},
 
 {
-    "lat": -24.403549,
-    "lng": -53.510330,
+    "lat": -24.404490,
+    "lng": -53.511822,
     "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403549,-53.510330' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:22:55",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.70°C",
-        "Temperatura interna...........: 22.60°C",
-        "INTENSIDADE SOLAR:............:  8%",
-        "Radiação UV:..................: 2%"
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404490,-53.511822\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:17:36",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 34.20°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.12V",
+        "Eficiência Placa Solar em: 64.41%",
+        "Radiação UV: 6%"
     ],
-    "icon": redIcon
- },
+    "icon": "greenIcon"
+},
 
 {
-    "lat": -24.403540,
-    "lng": -53.510288,
+    "lat": -24.404282,
+    "lng": -53.512913,
     "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403540,-53.510288' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:23:56",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.70°C",
-        "Temperatura interna...........: 22.60°C",
-        "INTENSIDADE SOLAR:............: 10%",
-        "Radiação UV:..................: 3%"
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404282,-53.512913\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:17:56",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 34.20°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.69%",
+        "Voltagem Atual (Placa Solar): 14.02V",
+        "Eficiência Placa Solar em: 64.41%",
+        "Radiação UV: 6%"
     ],
-    "icon": redIcon
- },
+    "icon": "greenIcon"
+},
 
 {
-    "lat": -24.403503,
-    "lng": -53.510281,
+    "lat": -24.403868,
+    "lng": -53.513634,
     "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403503,-53.510281' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:24:56",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.70°C",
-        "Temperatura interna...........: 22.60°C",
-        "INTENSIDADE SOLAR:............:  9%",
-        "Radiação UV:..................: 1%"
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403868,-53.513634\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:18:16",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 34.20°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.09V",
+        "Eficiência Placa Solar em: 64.41%",
+        "Radiação UV: 6%"
     ],
-    "icon": redIcon
- },
+    "icon": "greenIcon"
+},
 
 {
-    "lat": -24.403505,
-    "lng": -53.510311,
+    "lat": -24.403072,
+    "lng": -53.513466,
     "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403505,-53.510311' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:25:57",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.70°C",
-        "Temperatura interna...........: 22.60°C",
-        "INTENSIDADE SOLAR:............: 11%",
-        "Radiação UV:..................: 1%"
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403072,-53.513466\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:18:37",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 34.40°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.70%",
+        "Voltagem Atual (Placa Solar): 14.07V",
+        "Eficiência Placa Solar em: 64.31%",
+        "Radiação UV: 6%"
     ],
-    "icon": redIcon
- },
+    "icon": "greenIcon"
+},
 
 {
-    "lat": -24.403517,
-    "lng": -53.510368,
+    "lat": -24.402786,
+    "lng": -53.514515,
     "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403517,-53.510368' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:26:58",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.70°C",
-        "Temperatura interna...........: 22.60°C",
-        "INTENSIDADE SOLAR:............: 13%",
-        "Radiação UV:..................: 2%"
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.402786,-53.514515\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:18:57",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 34.70°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.12V",
+        "Eficiência Placa Solar em: 64.21%",
+        "Radiação UV: 8%"
     ],
-    "icon": redIcon
- },
+    "icon": "greenIcon"
+},
 
 {
-    "lat": -24.403551,
-    "lng": -53.510323,
+    "lat": -24.402620,
+    "lng": -53.515388,
     "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403551,-53.510323' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:27:58",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.70°C",
-        "Temperatura interna...........: 22.80°C",
-        "INTENSIDADE SOLAR:............: 14%",
-        "Radiação UV:..................: 1%"
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.402620,-53.515388\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:19:17",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 34.70°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.72%",
+        "Voltagem Atual (Placa Solar): 14.17V",
+        "Eficiência Placa Solar em: 63.80%",
+        "Radiação UV: 6%"
     ],
-    "icon": redIcon
- },
+    "icon": "greenIcon"
+},
 
 {
-    "lat": -24.403547,
+    "lat": -24.402704,
+    "lng": -53.516407,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.402704,-53.516407\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:19:37",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 34.70°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.76%",
+        "Voltagem Atual (Placa Solar): 14.40V",
+        "Eficiência Placa Solar em: 63.60%",
+        "Radiação UV: 5%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.401739,
+    "lng": -53.516647,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.401739,-53.516647\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:19:58",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.50°C",
+        "Temperatura interna: 34.70°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.76%",
+        "Voltagem Atual (Placa Solar): 14.37V",
+        "Eficiência Placa Solar em: 63.70%",
+        "Radiação UV: 8%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.400856,
+    "lng": -53.516834,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400856,-53.516834\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:20:18",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 34.80°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.09V",
+        "Eficiência Placa Solar em: 64.72%",
+        "Radiação UV: 6%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.400433,
+    "lng": -53.517799,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400433,-53.517799\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:20:38",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 35.20°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.09V",
+        "Eficiência Placa Solar em: 63.90%",
+        "Radiação UV: 8%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.400436,
+    "lng": -53.517803,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400436,-53.517803\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:20:59",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 35.20°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.12V",
+        "Eficiência Placa Solar em: 64.01%",
+        "Radiação UV: 5%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.400393,
+    "lng": -53.517914,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400393,-53.517914\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:21:19",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 35.20°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.70%",
+        "Voltagem Atual (Placa Solar): 14.07V",
+        "Eficiência Placa Solar em: 63.90%",
+        "Radiação UV: 8%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.399900,
+    "lng": -53.518929,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.399900,-53.518929\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:21:39",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 35.20°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.14V",
+        "Eficiência Placa Solar em: 63.90%",
+        "Radiação UV: 3%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.399345,
+    "lng": -53.520073,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.399345,-53.520073\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:22:00",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 35.20°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.70%",
+        "Voltagem Atual (Placa Solar): 14.07V",
+        "Eficiência Placa Solar em: 63.90%",
+        "Radiação UV: 5%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.398676,
+    "lng": -53.521439,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.398676,-53.521439\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:22:20",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.50°C",
+        "Temperatura interna: 35.20°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.82%",
+        "Voltagem Atual (Placa Solar): 14.70V",
+        "Eficiência Placa Solar em: 63.90%",
+        "Radiação UV: 8%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.397970,
+    "lng": -53.522907,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.397970,-53.522907\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:22:40",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 35.20°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.72%",
+        "Voltagem Atual (Placa Solar): 14.20V",
+        "Eficiência Placa Solar em: 63.50%",
+        "Radiação UV: 6%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.397432,
+    "lng": -53.523979,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.397432,-53.523979\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:23:01",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 35.50°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.72%",
+        "Voltagem Atual (Placa Solar): 14.17V",
+        "Eficiência Placa Solar em: 63.80%",
+        "Radiação UV: 6%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.396904,
+    "lng": -53.525093,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.396904,-53.525093\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:23:21",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.50°C",
+        "Temperatura interna: 35.60°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.74%",
+        "Voltagem Atual (Placa Solar): 14.30V",
+        "Eficiência Placa Solar em: 63.09%",
+        "Radiação UV: 8%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.396254,
+    "lng": -53.526367,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.396254,-53.526367\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:23:41",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 35.60°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.14V",
+        "Eficiência Placa Solar em: 64.01%",
+        "Radiação UV: 6%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.395624,
+    "lng": -53.526604,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.395624,-53.526604\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:24:02",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 35.60°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.73%",
+        "Voltagem Atual (Placa Solar): 14.25V",
+        "Eficiência Placa Solar em: 63.29%",
+        "Radiação UV: 8%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.395519,
+    "lng": -53.526714,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.395519,-53.526714\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:24:22",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 35.60°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.74%",
+        "Voltagem Atual (Placa Solar): 14.27V",
+        "Eficiência Placa Solar em: 63.19%",
+        "Radiação UV: 8%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.395563,
+    "lng": -53.528160,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.395563,-53.528160\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:24:42",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 35.60°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.09V",
+        "Eficiência Placa Solar em: 63.60%",
+        "Radiação UV: 8%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.395723,
+    "lng": -53.530521,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.395723,-53.530521\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:25:02",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 35.60°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.14V",
+        "Eficiência Placa Solar em: 63.60%",
+        "Radiação UV: 5%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.396503,
+    "lng": -53.532276,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.396503,-53.532276\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:25:23",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 35.60°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.73%",
+        "Voltagem Atual (Placa Solar): 14.25V",
+        "Eficiência Placa Solar em: 63.60%",
+        "Radiação UV: 7%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.397184,
+    "lng": -53.534233,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.397184,-53.534233\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:25:43",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 35.60°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.12V",
+        "Eficiência Placa Solar em: 63.70%",
+        "Radiação UV: 5%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.397415,
+    "lng": -53.534458,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.397415,-53.534458\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:26:03",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 35.60°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.73%",
+        "Voltagem Atual (Placa Solar): 14.22V",
+        "Eficiência Placa Solar em: 63.29%",
+        "Radiação UV: 4%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.398468,
+    "lng": -53.534138,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.398468,-53.534138\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:26:24",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 35.60°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.14V",
+        "Eficiência Placa Solar em: 63.29%",
+        "Radiação UV: 3%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.399490,
+    "lng": -53.533844,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.399490,-53.533844\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:26:44",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 35.70°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.12V",
+        "Eficiência Placa Solar em: 63.60%",
+        "Radiação UV: 5%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.400732,
+    "lng": -53.533482,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400732,-53.533482\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:27:04",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 35.90°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.14V",
+        "Eficiência Placa Solar em: 63.50%",
+        "Radiação UV: 8%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.402096,
+    "lng": -53.533070,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.402096,-53.533070\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:27:25",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.72%",
+        "Voltagem Atual (Placa Solar): 14.17V",
+        "Eficiência Placa Solar em: 63.50%",
+        "Radiação UV: 8%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.402864,
+    "lng": -53.532841,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.402864,-53.532841\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:27:45",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.72%",
+        "Voltagem Atual (Placa Solar): 14.20V",
+        "Eficiência Placa Solar em: 63.40%",
+        "Radiação UV: 8%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403820,
+    "lng": -53.532551,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403820,-53.532551\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:28:05",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.12V",
+        "Eficiência Placa Solar em: 63.50%",
+        "Radiação UV: 6%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.404833,
+    "lng": -53.532242,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404833,-53.532242\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:28:25",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.70%",
+        "Voltagem Atual (Placa Solar): 14.07V",
+        "Eficiência Placa Solar em: 63.50%",
+        "Radiação UV: 8%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.405848,
+    "lng": -53.531940,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.405848,-53.531940\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:28:46",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.14V",
+        "Eficiência Placa Solar em: 63.50%",
+        "Radiação UV: 6%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.406359,
+    "lng": -53.531105,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.406359,-53.531105\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:29:06",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.72%",
+        "Voltagem Atual (Placa Solar): 14.17V",
+        "Eficiência Placa Solar em: 63.40%",
+        "Radiação UV: 8%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.406548,
+    "lng": -53.530121,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.406548,-53.530121\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:29:26",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.72%",
+        "Voltagem Atual (Placa Solar): 14.17V",
+        "Eficiência Placa Solar em: 63.40%",
+        "Radiação UV: 8%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.406784,
+    "lng": -53.528950,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.406784,-53.528950\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:29:47",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.14V",
+        "Eficiência Placa Solar em: 63.50%",
+        "Radiação UV: 6%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.406977,
+    "lng": -53.527939,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.406977,-53.527939\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:30:07",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.14V",
+        "Eficiência Placa Solar em: 63.29%",
+        "Radiação UV: 5%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.407280,
+    "lng": -53.526352,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.407280,-53.526352\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:30:27",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.72%",
+        "Voltagem Atual (Placa Solar): 14.17V",
+        "Eficiência Placa Solar em: 63.29%",
+        "Radiação UV: 8%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.407560,
+    "lng": -53.524940,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.407560,-53.524940\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:30:48",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.09V",
+        "Eficiência Placa Solar em: 63.50%",
+        "Radiação UV: 6%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.407774,
+    "lng": -53.523842,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.407774,-53.523842\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:31:08",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.12V",
+        "Eficiência Placa Solar em: 63.29%",
+        "Radiação UV: 7%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.408024,
+    "lng": -53.522652,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.408024,-53.522652\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:31:28",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.72%",
+        "Voltagem Atual (Placa Solar): 14.17V",
+        "Eficiência Placa Solar em: 63.29%",
+        "Radiação UV: 8%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.408638,
+    "lng": -53.523193,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.408638,-53.523193\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:31:48",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 36.40°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.12V",
+        "Eficiência Placa Solar em: 63.19%",
+        "Radiação UV: 8%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.408615,
+    "lng": -53.522949,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.408615,-53.522949\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:32:09",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.60°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.14V",
+        "Eficiência Placa Solar em: 63.29%",
+        "Radiação UV: 6%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.408033,
+    "lng": -53.521973,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.408033,-53.521973\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:32:29",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.70°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.12V",
+        "Eficiência Placa Solar em: 63.19%",
+        "Radiação UV: 8%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.407284,
+    "lng": -53.520687,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.407284,-53.520687\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:32:49",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.80°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.09V",
+        "Eficiência Placa Solar em: 63.29%",
+        "Radiação UV: 8%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.406706,
+    "lng": -53.519745,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.406706,-53.519745\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:33:10",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.90°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.09V",
+        "Eficiência Placa Solar em: 63.19%",
+        "Radiação UV: 4%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.405968,
+    "lng": -53.518799,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.405968,-53.518799\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:33:30",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.90°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.70%",
+        "Voltagem Atual (Placa Solar): 14.07V",
+        "Eficiência Placa Solar em: 62.89%",
+        "Radiação UV: 4%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.405439,
+    "lng": -53.518894,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.405439,-53.518894\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:33:50",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.90°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.70%",
+        "Voltagem Atual (Placa Solar): 14.07V",
+        "Eficiência Placa Solar em: 63.19%",
+        "Radiação UV: 6%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.405224,
+    "lng": -53.518673,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.405224,-53.518673\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:34:11",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.90°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.72%",
+        "Voltagem Atual (Placa Solar): 14.17V",
+        "Eficiência Placa Solar em: 63.40%",
+        "Radiação UV: 5%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.404785,
+    "lng": -53.518051,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404785,-53.518051\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:34:31",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.90°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.14V",
+        "Eficiência Placa Solar em: 62.99%",
+        "Radiação UV: 8%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.404383,
+    "lng": -53.518375,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404383,-53.518375\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:34:51",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 36.90°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.69%",
+        "Voltagem Atual (Placa Solar): 14.02V",
+        "Eficiência Placa Solar em: 63.29%",
+        "Radiação UV: 5%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403906,
+    "lng": -53.518677,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403906,-53.518677\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:35:11",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.90°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.70%",
+        "Voltagem Atual (Placa Solar): 14.04V",
+        "Eficiência Placa Solar em: 63.29%",
+        "Radiação UV: 6%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403902,
+    "lng": -53.518688,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403902,-53.518688\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:35:32",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.90°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.70%",
+        "Voltagem Atual (Placa Solar): 14.07V",
+        "Eficiência Placa Solar em: 63.40%",
+        "Radiação UV: 6%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403896,
+    "lng": -53.518681,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403896,-53.518681\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:35:52",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.90°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.70%",
+        "Voltagem Atual (Placa Solar): 14.07V",
+        "Eficiência Placa Solar em: 63.19%",
+        "Radiação UV: 2%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403839,
+    "lng": -53.518677,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403839,-53.518677\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:36:12",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.90°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.70%",
+        "Voltagem Atual (Placa Solar): 14.07V",
+        "Eficiência Placa Solar em: 63.50%",
+        "Radiação UV: 8%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403845,
+    "lng": -53.518665,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403845,-53.518665\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:36:33",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.90°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.70%",
+        "Voltagem Atual (Placa Solar): 14.04V",
+        "Eficiência Placa Solar em: 63.40%",
+        "Radiação UV: 5%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403849,
+    "lng": -53.518665,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403849,-53.518665\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:36:53",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.90°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.70%",
+        "Voltagem Atual (Placa Solar): 14.04V",
+        "Eficiência Placa Solar em: 63.40%",
+        "Radiação UV: 8%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403852,
+    "lng": -53.518665,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403852,-53.518665\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:37:13",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.90°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.09V",
+        "Eficiência Placa Solar em: 63.50%",
+        "Radiação UV: 8%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403852,
+    "lng": -53.518665,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403852,-53.518665\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:37:33",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 36.90°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.69%",
+        "Voltagem Atual (Placa Solar): 14.02V",
+        "Eficiência Placa Solar em: 63.40%",
+        "Radiação UV: 4%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403858,
+    "lng": -53.518665,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403858,-53.518665\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:37:54",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.90°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.70%",
+        "Voltagem Atual (Placa Solar): 14.07V",
+        "Eficiência Placa Solar em: 63.50%",
+        "Radiação UV: 8%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403860,
+    "lng": -53.518665,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403860,-53.518665\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:38:14",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.90°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.70%",
+        "Voltagem Atual (Placa Solar): 14.04V",
+        "Eficiência Placa Solar em: 63.50%",
+        "Radiação UV: 3%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403860,
+    "lng": -53.518665,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403860,-53.518665\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:38:34",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.90°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.69%",
+        "Voltagem Atual (Placa Solar): 14.02V",
+        "Eficiência Placa Solar em: 63.40%",
+        "Radiação UV: 6%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403856,
+    "lng": -53.518661,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403856,-53.518661\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:38:55",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 36.90°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.70%",
+        "Voltagem Atual (Placa Solar): 14.04V",
+        "Eficiência Placa Solar em: 63.40%",
+        "Radiação UV: 8%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403872,
+    "lng": -53.518646,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403872,-53.518646\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:39:15",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 36.90°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.70%",
+        "Voltagem Atual (Placa Solar): 14.07V",
+        "Eficiência Placa Solar em: 63.09%",
+        "Radiação UV: 3%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403915,
+    "lng": -53.518665,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403915,-53.518665\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:39:35",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 36.80°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.09V",
+        "Eficiência Placa Solar em: 63.29%",
+        "Radiação UV: 3%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403917,
+    "lng": -53.518673,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403917,-53.518673\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:39:56",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 36.50°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.70%",
+        "Voltagem Atual (Placa Solar): 14.07V",
+        "Eficiência Placa Solar em: 63.40%",
+        "Radiação UV: 3%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403921,
+    "lng": -53.518681,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403921,-53.518681\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:40:16",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.70%",
+        "Voltagem Atual (Placa Solar): 14.04V",
+        "Eficiência Placa Solar em: 63.40%",
+        "Radiação UV: 5%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403934,
+    "lng": -53.518688,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403934,-53.518688\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:40:36",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.70%",
+        "Voltagem Atual (Placa Solar): 14.04V",
+        "Eficiência Placa Solar em: 63.29%",
+        "Radiação UV: 5%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.404282,
+    "lng": -53.518559,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404282,-53.518559\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:40:56",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.81%",
+        "Voltagem Atual (Placa Solar): 14.65V",
+        "Eficiência Placa Solar em: 64.01%",
+        "Radiação UV: 3%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.404629,
+    "lng": -53.517990,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404629,-53.517990\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:41:17",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.74%",
+        "Voltagem Atual (Placa Solar): 14.30V",
+        "Eficiência Placa Solar em: 62.99%",
+        "Radiação UV: 6%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.405037,
+    "lng": -53.518436,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.405037,-53.518436\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:41:37",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 35.40°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 97%",
+        "Sensor Placa Solar - Tensão Lida: 2.73%",
+        "Voltagem Atual (Placa Solar): 14.22V",
+        "Eficiência Placa Solar em: 62.89%",
+        "Radiação UV: 1%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.405628,
+    "lng": -53.518890,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.405628,-53.518890\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:41:57",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.70%",
+        "Voltagem Atual (Placa Solar): 14.07V",
+        "Eficiência Placa Solar em: 62.89%",
+        "Radiação UV: 5%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.406033,
+    "lng": -53.518711,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.406033,-53.518711\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:42:18",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.70%",
+        "Voltagem Atual (Placa Solar): 14.04V",
+        "Eficiência Placa Solar em: 63.29%",
+        "Radiação UV: 5%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.405600,
+    "lng": -53.517838,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.405600,-53.517838\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:42:38",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.68%",
+        "Voltagem Atual (Placa Solar): 13.94V",
+        "Eficiência Placa Solar em: 63.40%",
+        "Radiação UV: 3%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.404867,
+    "lng": -53.516582,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404867,-53.516582\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:42:58",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.70%",
+        "Voltagem Atual (Placa Solar): 14.04V",
+        "Eficiência Placa Solar em: 62.99%",
+        "Radiação UV: 3%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.404060,
+    "lng": -53.515263,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404060,-53.515263\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:43:18",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.72%",
+        "Voltagem Atual (Placa Solar): 14.17V",
+        "Eficiência Placa Solar em: 63.29%",
+        "Radiação UV: 4%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403246,
+    "lng": -53.513870,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403246,-53.513870\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:43:39",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.69%",
+        "Voltagem Atual (Placa Solar): 13.99V",
+        "Eficiência Placa Solar em: 63.50%",
+        "Radiação UV: 4%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.402828,
+    "lng": -53.513367,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.402828,-53.513367\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:43:59",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.69%",
+        "Voltagem Atual (Placa Solar): 13.99V",
+        "Eficiência Placa Solar em: 62.99%",
+        "Radiação UV: 5%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.402546,
+    "lng": -53.512512,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.402546,-53.512512\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:44:19",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.68%",
+        "Voltagem Atual (Placa Solar): 13.97V",
+        "Eficiência Placa Solar em: 63.09%",
+        "Radiação UV: 4%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.402811,
+    "lng": -53.511169,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.402811,-53.511169\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:44:40",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.71%",
+        "Voltagem Atual (Placa Solar): 14.09V",
+        "Eficiência Placa Solar em: 63.09%",
+        "Radiação UV: 4%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403175,
+    "lng": -53.510216,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403175,-53.510216\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:45:00",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.69%",
+        "Voltagem Atual (Placa Solar): 13.99V",
+        "Eficiência Placa Solar em: 63.29%",
+        "Radiação UV: 2%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403231,
+    "lng": -53.510220,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403231,-53.510220\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:45:20",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.70%",
+        "Voltagem Atual (Placa Solar): 14.04V",
+        "Eficiência Placa Solar em: 63.40%",
+        "Radiação UV: 3%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403219,
+    "lng": -53.510231,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403219,-53.510231\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:45:41",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.69%",
+        "Voltagem Atual (Placa Solar): 13.99V",
+        "Eficiência Placa Solar em: 63.50%",
+        "Radiação UV: 3%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403212,
+    "lng": -53.510235,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403212,-53.510235\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:46:01",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.69%",
+        "Voltagem Atual (Placa Solar): 14.02V",
+        "Eficiência Placa Solar em: 63.50%",
+        "Radiação UV: 3%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403206,
+    "lng": -53.510227,
+    "info": [
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403206,-53.510227\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:46:21",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.68%",
+        "Voltagem Atual (Placa Solar): 13.97V",
+        "Eficiência Placa Solar em: 63.40%",
+        "Radiação UV: 3%"
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403326,
     "lng": -53.510303,
     "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403547,-53.510303' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:29:0",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........:  NAN%",
-        "Temperatura Externa...........:  NAN°C",
-        "Temperatura interna...........:  NAN°C",
-        "INTENSIDADE SOLAR:............: 18%",
-        "Radiação UV:..................: 2%"
+        "Localização Solo SECO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403326,-53.510303\" target=\"_blank\">Ver Localização</a>",
+        "Data e Hora: 12/9/2024 15:46:41",
+        "Umidade Solo: BAIXA: 0.00%",
+        "TOTAL DE SEMENTES PLANTADAS: 0",
+        "Alerta de fumaça em: 56%",
+        "Umidade relativa do ar: 20.00%",
+        "Temperatura Externa: 36.30°C",
+        "Temperatura interna: 36.30°C",
+        "INTENSIDADE SOLAR: 98%",
+        "Sensor Placa Solar - Tensão Lida: 2.68%",
+        "Voltagem Atual (Placa Solar): 13.94V",
+        "Eficiência Placa Solar em: 63.40%",
+        "Radiação UV: 4%"
     ],
-    "icon": redIcon
- },
-
-{
-    "lat": -24.403557,
-    "lng": -53.510292,
-    "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403557,-53.510292' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:30:1",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.80°C",
-        "Temperatura interna...........: 23.00°C",
-        "INTENSIDADE SOLAR:............: 25%",
-        "Radiação UV:..................: 3%"
-    ],
-    "icon": redIcon
- },
-
-{
-    "lat": -24.403580,
-    "lng": -53.510288,
-    "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403580,-53.510288' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:31:1",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.00°C",
-        "Temperatura interna...........: 23.00°C",
-        "INTENSIDADE SOLAR:............: 25%",
-        "Radiação UV:..................: 1%"
-    ],
-    "icon": redIcon
- },
-
-{
-    "lat": -24.403572,
-    "lng": -53.510303,
-    "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403572,-53.510303' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:32:2",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.00°C",
-        "Temperatura interna...........: 23.00°C",
-        "INTENSIDADE SOLAR:............: 20%",
-        "Radiação UV:..................: 3%"
-    ],
-    "icon": redIcon
- },
-
-{
-    "lat": -24.403574,
-    "lng": -53.510296,
-    "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403574,-53.510296' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:33:3",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.00°C",
-        "Temperatura interna...........: 23.00°C",
-        "INTENSIDADE SOLAR:............: 16%",
-        "Radiação UV:..................: 2%"
-    ],
-    "icon": redIcon
- },
-
-{
-    "lat": -24.403597,
-    "lng": -53.510288,
-    "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403597,-53.510288' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:34:3",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.00°C",
-        "Temperatura interna...........: 23.00°C",
-        "INTENSIDADE SOLAR:............: 19%",
-        "Radiação UV:..................: 2%"
-    ],
-    "icon": redIcon
- },
-
-{
-    "lat": -24.403572,
-    "lng": -53.510288,
-    "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403572,-53.510288' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:35:4",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.00°C",
-        "Temperatura interna...........: 23.00°C",
-        "INTENSIDADE SOLAR:............: 27%",
-        "Radiação UV:..................: 2%"
-    ],
-    "icon": redIcon
- },
-
-{
-    "lat": -24.403564,
-    "lng": -53.510288,
-    "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403564,-53.510288' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:36:4",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.00°C",
-        "Temperatura interna...........: 23.00°C",
-        "INTENSIDADE SOLAR:............: 22%",
-        "Radiação UV:..................: 4%"
-    ],
-    "icon": redIcon
- },
-
-{
-    "lat": -24.403547,
-    "lng": -53.510296,
-    "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403547,-53.510296' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:37:5",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.00°C",
-        "Temperatura interna...........: 23.00°C",
-        "INTENSIDADE SOLAR:............: 20%",
-        "Radiação UV:..................: 3%"
-    ],
-    "icon": redIcon
- },
-
-{
-    "lat": -24.403547,
-    "lng": -53.510311,
-    "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403547,-53.510311' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:38:5",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.00°C",
-        "Temperatura interna...........: 23.00°C",
-        "INTENSIDADE SOLAR:............: 33%",
-        "Radiação UV:..................: 4%"
-    ],
-    "icon": redIcon
- },
-
-{
-    "lat": -24.403551,
-    "lng": -53.510311,
-    "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403551,-53.510311' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:39:6",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.00°C",
-        "Temperatura interna...........: 23.00°C",
-        "INTENSIDADE SOLAR:............:  5%",
-        "Radiação UV:..................: 2%"
-    ],
-    "icon": redIcon
- },
-
-{
-    "lat": -24.403551,
-    "lng": -53.510277,
-    "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403551,-53.510277' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:40:7",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.00°C",
-        "Temperatura interna...........: 23.00°C",
-        "INTENSIDADE SOLAR:............:  7%",
-        "Radiação UV:..................: 2%"
-    ],
-    "icon": redIcon
- },
-
-{
-    "lat": -24.403526,
-    "lng": -53.510288,
-    "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403526,-53.510288' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:41:7",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.00°C",
-        "Temperatura interna...........: 23.00°C",
-        "INTENSIDADE SOLAR:............:  6%",
-        "Radiação UV:..................: 4%"
-    ],
-    "icon": redIcon
- },
-
-{
-    "lat": -24.403536,
-    "lng": -53.510307,
-    "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403536,-53.510307' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:42:8",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.00°C",
-        "Temperatura interna...........: 23.00°C",
-        "INTENSIDADE SOLAR:............: 13%",
-        "Radiação UV:..................: 4%"
-    ],
-    "icon": redIcon
- },
-
-{
-    "lat": -24.403536,
-    "lng": -53.510311,
-    "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403536,-53.510311' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:43:8",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.00°C",
-        "Temperatura interna...........: 23.00°C",
-        "INTENSIDADE SOLAR:............:  3%",
-        "Radiação UV:..................: 3%"
-    ],
-    "icon": redIcon
- },
-
-{
-    "lat": -24.403528,
-    "lng": -53.510311,
-    "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403528,-53.510311' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:44:9",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.00°C",
-        "Temperatura interna...........: 23.00°C",
-        "INTENSIDADE SOLAR:............:  4%",
-        "Radiação UV:..................: 4%"
-    ],
-    "icon": redIcon
- },
-
-{
-    "lat": -24.403557,
-    "lng": -53.510296,
-    "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403557,-53.510296' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:45:10",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.00°C",
-        "Temperatura interna...........: 23.30°C",
-        "INTENSIDADE SOLAR:............:  3%",
-        "Radiação UV:..................: 2%"
-    ],
-    "icon": redIcon
- },
-
-{
-    "lat": -24.403561,
-    "lng": -53.510296,
-    "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403561,-53.510296' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:46:10",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.00°C",
-        "Temperatura interna...........: 23.40°C",
-        "INTENSIDADE SOLAR:............:  4%",
-        "Radiação UV:..................: 4%"
-    ],
-    "icon": redIcon
- },
-
-{
-    "lat": -24.403540,
-    "lng": -53.510300,
-    "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403540,-53.510300' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:47:11",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.00°C",
-        "Temperatura interna...........: 23.40°C",
-        "INTENSIDADE SOLAR:............:  3%",
-        "Radiação UV:..................: 4%"
-    ],
-    "icon": redIcon
- },
-
-{
-    "lat": -24.403536,
-    "lng": -53.510292,
-    "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403536,-53.510292' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:48:11",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.00°C",
-        "Temperatura interna...........: 23.40°C",
-        "INTENSIDADE SOLAR:............:  3%",
-        "Radiação UV:..................: 1%"
-    ],
-    "icon": redIcon
- },
-
-{
-    "lat": -24.403547,
-    "lng": -53.510300,
-    "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403547,-53.510300' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:49:12",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.00°C",
-        "Temperatura interna...........: 23.40°C",
-        "INTENSIDADE SOLAR:............:  3%",
-        "Radiação UV:..................: 4%"
-    ],
-    "icon": redIcon
- },
-
-{
-    "lat": -24.403557,
-    "lng": -53.510319,
-    "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403557,-53.510319' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:50:12",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.00°C",
-        "Temperatura interna...........: 23.40°C",
-        "INTENSIDADE SOLAR:............:  2%",
-        "Radiação UV:..................: 2%"
-    ],
-    "icon": redIcon
- },
-
-{
-    "lat": -24.403555,
-    "lng": -53.510323,
-    "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403555,-53.510323' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:51:13",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.00°C",
-        "Temperatura interna...........: 23.40°C",
-        "INTENSIDADE SOLAR:............:  4%",
-        "Radiação UV:..................: 4%"
-    ],
-    "icon": redIcon
- },
-
-{
-    "lat": -24.403559,
-    "lng": -53.510303,
-    "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403559,-53.510303' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:52:14",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.00°C",
-        "Temperatura interna...........: 23.40°C",
-        "INTENSIDADE SOLAR:............:  2%",
-        "Radiação UV:..................: 4%"
-    ],
-    "icon": redIcon
- },
-
-{
-    "lat": -24.403566,
-    "lng": -53.510300,
-    "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403566,-53.510300' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:53:14",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.00°C",
-        "Temperatura interna...........: 23.40°C",
-        "INTENSIDADE SOLAR:............:  3%",
-        "Radiação UV:..................: 2%"
-    ],
-    "icon": redIcon
- },
-
-{
-    "lat": -24.403568,
-    "lng": -53.510296,
-    "info": [
-        "Localização Solo SECO: <a href='https://maps.google.com/maps/?&z=10&q=-24.403568,-53.510296' target='_blank'>Ver Localização</a>",
-        "Data e Hora:..................: 26/8/2024 17:54:15",
-        "Umidade Solo: BAIXA:..........: 0.00%",
-        "TOTAL DE SEMENTES PLANTADAS:..: 0",
-        "Umidade relativa do ar........: 20.00%",
-        "Temperatura Externa...........: 23.00°C",
-        "Temperatura interna...........: 23.40°C",
-        "INTENSIDADE SOLAR:............:  8%",
-        "Radiação UV:..................: 2%"
-    ],
-    "icon": redIcon
- },
+    "icon": "greenIcon"
+},
 
 
 
-// ate daqui
 
 
 
         ];
-
         // Adiciona marcadores com pop-ups ao mapa
-        locations.forEach(function(location) {
-            var infoContent = location.info.join("<br>");
-            L.marker([location.lat, location.lng], {icon: location.icon}).addTo(map)
-                .bindPopup(`
-                    <strong>Informações:</strong><br>
-                    ${infoContent}
-                `);
-        });
+       locations.forEach(function(location) {
+       var infoContent = location.info.join("<br>");
+       var icon = location.icon === 'redIcon' ? redIcon : greenIcon;
+       L.marker([location.lat, location.lng], {icon: icon}).addTo(map)
+        .bindPopup(`
+            <strong>Informações:</strong><br>
+            ${infoContent}
+        `);
+});
+
 
         // Função para mostrar informações ao clicar
         function showInfo(section) {
