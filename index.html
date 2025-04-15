@@ -9,10 +9,32 @@
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
+
+ .box {
+    margin: 10px;
+    cursor: pointer;
+  }
+
+  .box span {
+    background-color: #4CAF50; /* Cor de fundo do "botão" */
+    color: white; /* Cor da fonte */
+    padding: 8px 10px; /* Espaço interno */
+    border-radius: 90px; /* Arredondamento nas bordas */
+    display: inline-block; /* Aqui o truque: só ocupa o tamanho do conteúdo */
+    transition: background-color 0.3s ease;
+  }
+
+  .box:hover span {
+    background-color: #388e3c; /* Cor ao passar o mouse */
+  }
+
+
+
+        
     .footer {
     background-color: #000000;
     color: white;
-    text-align: center;
+    text-align: left;
     padding: 15px 10px;
     position: relative;
     bottom: 0;
@@ -26,18 +48,18 @@
             color: #333;
         }
              .sidebar-title {
-            text-align: center;
+            text-align: l;
             font-size: 1em;
             font-weight: bold;
             margin-bottom: 10px;
             color: white; /* aqui você muda a cor */
         }
-        /* Cor do cabeçalho (fundo azul escuro e texto branco)*/
+        /* Cor do cabeçalho onde tem as info inicial*/
         .header-container {
             position: relative;
             background: #000000; /*  Aqui muda a cor do fundo do cabeçalho */
             color: #ffffff;    /*  Aqui muda a cor do texto do cabeçalho */
-            padding: 18px;
+            padding: 10px;
             text-align: center;
         }
         .header-container h1 {
@@ -52,20 +74,21 @@
             padding-top: 10px;
             font-size: 1em;
         }
-        /* Barra lateral para logomarcas */
+         /* Barra lateral para logomarcas */
         .sidebar {
             position: absolute;
             right: 0; /* Movendo para o lado direito */
-            top: 184px; /* Ajusta para baixo do cabeçalho (alterar valor conforme necessário) */
+            top: 219px; /* Ajusta para baixo do cabeçalho (alterar valor conforme necessário) */
             width: 150px; /* Largura fixa da barra */
             background-color: #000000; /* Cor de fundo da barra lateral */
-            padding: 10px;
+            padding: 40px;
             border-left: 2px solid #000000; /*Cor da borda lateral */
             z-index: 1001;
         }
+        }
         .sidebar img {
             display: block;
-            margin: 10px auto;
+            margin: 100px auto; /* Tamanho máximo das logomarcas */
             width: 150px; /* Tamanho máximo das logomarcas */
             height: auto;
         }
@@ -73,34 +96,34 @@
         .bar {
             background-color: black; /* Cor de fundo da barra */
             color: white;    /*  Cor do texto nos botões */
-            padding: 10px;
+            padding: 8px;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
             align-items: center;
-            font-size: 1em;
+            font-size: 0.88em;
             font-weight: bold;
-            margin-top: 20px; /* Espaço em relação ao cabeçalho */
-            width: calc(100% - 150px); /* Ajusta a largura para evitar sobreposição com a barra lateral */
+            margin-top: 2px; /* Espaço em relação ao cabeçalho */
+            width: calc(110% - 10px); /* Ajusta a largura para evitar sobreposição com a barra lateral */
             margin-left: auto; /* Alinhamento à esquerda */
             margin-right: 150px; /* Considera a barra lateral */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 5px rgba(10,50,0,.3);
         }
 /* Caixa de informações (quando você clica nos botões)*/
         .info-box {
             display: none;
             position: fixed;
             top: 45%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #384; /* Fundo da caixinha popup (verde escuro no seu caso) */
+            left: 30%;
+            transform: translate(-40%, -40%);
+            background: #3179; /* Fundo da caixinha popup */
             color: white;  /* Cor do texto dentro da caixinha */
             padding: 30px;
             border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-            z-index: 3000;
-            max-width: 90%;
-            width: 90%;
+            box-shadow: 0 10px 9px rgba(4,0,4,0.8);
+            z-index: 500;
+            max-width: 80%;
+            width: 70%;
         }
         #map { 
             height: 100vh;
@@ -109,7 +132,7 @@
             margin-right: 150px; /* Considera a barra lateral */
         }
         /* Media Queries para Responsividade */
-        @media (max-width: 768px) {
+        @media (max-width: 800px) {
             .header-container h1 {
                 font-size: 1.2em;
             }
@@ -173,9 +196,10 @@
     <div class="header-container">
         <h1>Projeto Agro Detector 2025</h1>
         <div class="header-text">
-            <p>Agro Detector</p>
-            <p class="development-info">Desenvolvimento: Prof. Josiel e Equipe de Robótica Guima 2025</p>
             <p class="description">Agro Detector...</p>
+            <p class="description">...</p>
+
+            <p class="development-info">Desenvolvimento: Prof. Josiel e Equipe de Robótica Guima 2025</p>
         </div>
     </div>
     <!-- Barra lateral para logomarcas -->
@@ -188,12 +212,13 @@
         <!-- Adicione mais logos conforme necessário -->
     </div>
 <div class="bar">
-    <div class="box" onclick="showInfo('porque')">Porque do Projeto</div>
-    <div class="box" onclick="showInfo('ideia')">A Ideia</div>
-    <div class="box" onclick="showInfo('como')">Como Funciona</div>
-    <div class="box" onclick="showInfo('materiais')">Materiais</div>
-    <div class="box" onclick="showInfo('experiencia')">A Experiência</div>
-    <div class="box" onclick="showInfo('creditos')">Créditos e Agradecimentos</div>
+   
+<div class="box" onclick="showInfo('porque')"><span>Porque do Projeto</span></div>
+<div class="box" onclick="showInfo('ideia')"><span>A Ideia</span></div>
+<div class="box" onclick="showInfo('como')"><span>Como Funciona</span></div>
+<div class="box" onclick="showInfo('materiais')"><span>Materiais</span></div>
+<div class="box" onclick="showInfo('experiencia')"><span>A Experiência</span></div>
+<div class="box" onclick="showInfo('creditos')"><span>Créditos e Agradecimentos</span></div>
 </div>
     <div id="info-box" class="info-box">
         <span class="close-btn" onclick="closeInfo()">&times;</span>
@@ -208,7 +233,7 @@
         var map = L.map('map').setView([-24.404, -53.511], 12);
         // Adiciona a camada de mapa
        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    /*attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'*/
 }).addTo(map);
         // Define os ícones personalizados
         var greenIcon = L.divIcon({className: 'custom-icon-green'});
@@ -216,25 +241,378 @@
         // Dados de localização com informações
         var locations = [
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 {
-    "lat": -24.403109,
-    "lng": -53.510445,
+    "lat": -24.404499,
+    "lng": -53.511448,
     "info": [
-        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403109,-53.510445\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 28/3/2025 17:33:40",
+        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404499,-53.511448\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:11:37",
     ],
     "icon": "greenIcon"
 },
 
 {
-    "lat": -24.403036,
-    "lng": -53.510754,
+    "lat": -24.404509,
+    "lng": -53.511414,
     "info": [
-        "LIXO TOXICO: <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403036,-53.510754\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA COLETA: 28/3/2025 17:34:22",
+        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404509,-53.511414\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:11:39",
     ],
     "icon": "redIcon"
 },
+
+{
+    "lat": -24.404427,
+    "lng": -53.511108,
+    "info": [
+        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404427,-53.511108\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:12:03",
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.404371,
+    "lng": -53.511051,
+    "info": [
+        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404371,-53.511051\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:12:08",
+    ],
+    "icon": "redIcon"
+},
+
+{
+    "lat": -24.404316,
+    "lng": -53.511017,
+    "info": [
+        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404316,-53.511017\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:12:14",
+    ],
+    "icon": "redIcon"
+},
+
+{
+    "lat": -24.404194,
+    "lng": -53.510742,
+    "info": [
+        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404194,-53.510742\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:12:43",
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.404106,
+    "lng": -53.510609,
+    "info": [
+        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404106,-53.510609\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:12:58",
+    ],
+    "icon": "redIcon"
+},
+
+{
+    "lat": -24.404106,
+    "lng": -53.510609,
+    "info": [
+        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404106,-53.510609\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:13:00",
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.404022,
+    "lng": -53.510468,
+    "info": [
+        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404022,-53.510468\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:13:13",
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403984,
+    "lng": -53.510395,
+    "info": [
+        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403984,-53.510395\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:13:18",
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403984,
+    "lng": -53.510395,
+    "info": [
+        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403984,-53.510395\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:13:22",
+    ],
+    "icon": "redIcon"
+},
+
+{
+    "lat": -24.403845,
+    "lng": -53.510185,
+    "info": [
+        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403845,-53.510185\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:13:36",
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403845,
+    "lng": -53.510185,
+    "info": [
+        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403845,-53.510185\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:13:40",
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403719,
+    "lng": -53.509972,
+    "info": [
+        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403719,-53.509972\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:13:56",
+    ],
+    "icon": "redIcon"
+},
+
+{
+    "lat": -24.403719,
+    "lng": -53.509972,
+    "info": [
+        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403719,-53.509972\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:13:59",
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403637,
+    "lng": -53.509991,
+    "info": [
+        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403637,-53.509991\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:14:02",
+    ],
+    "icon": "redIcon"
+},
+
+{
+    "lat": -24.403637,
+    "lng": -53.509991,
+    "info": [
+        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403637,-53.509991\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:14:04",
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403637,
+    "lng": -53.509991,
+    "info": [
+        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403637,-53.509991\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:14:07",
+    ],
+    "icon": "redIcon"
+},
+
+{
+    "lat": -24.403568,
+    "lng": -53.510029,
+    "info": [
+        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403568,-53.510029\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:14:09",
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403568,
+    "lng": -53.510029,
+    "info": [
+        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403568,-53.510029\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:14:12",
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403528,
+    "lng": -53.510090,
+    "info": [
+        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403528,-53.510090\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:14:20",
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403507,
+    "lng": -53.510155,
+    "info": [
+        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403507,-53.510155\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:14:40",
+    ],
+    "icon": "redIcon"
+},
+
+{
+    "lat": -24.403507,
+    "lng": -53.510155,
+    "info": [
+        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403507,-53.510155\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:14:43",
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403507,
+    "lng": -53.510155,
+    "info": [
+        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403507,-53.510155\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:14:45",
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403507,
+    "lng": -53.510155,
+    "info": [
+        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403507,-53.510155\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:14:47",
+    ],
+    "icon": "redIcon"
+},
+
+{
+    "lat": -24.403605,
+    "lng": -53.510303,
+    "info": [
+        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403605,-53.510303\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:15:04",
+    ],
+    "icon": "redIcon"
+},
+
+{
+    "lat": -24.403605,
+    "lng": -53.510303,
+    "info": [
+        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403605,-53.510303\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:15:07",
+    ],
+    "icon": "redIcon"
+},
+
+{
+    "lat": -24.403641,
+    "lng": -53.510372,
+    "info": [
+        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403641,-53.510372\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:15:16",
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403608,
+    "lng": -53.510437,
+    "info": [
+        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403608,-53.510437\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:15:28",
+    ],
+    "icon": "redIcon"
+},
+
+{
+    "lat": -24.403608,
+    "lng": -53.510437,
+    "info": [
+        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403608,-53.510437\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:15:31",
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403433,
+    "lng": -53.510384,
+    "info": [
+        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403433,-53.510384\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:16:32",
+    ],
+    "icon": "redIcon"
+},
+
+{
+    "lat": -24.403433,
+    "lng": -53.510384,
+    "info": [
+        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403433,-53.510384\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:16:36",
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403433,
+    "lng": -53.510384,
+    "info": [
+        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403433,-53.510384\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:16:38",
+    ],
+    "icon": "redIcon"
+},
+
+{
+    "lat": -24.403440,
+    "lng": -53.510376,
+    "info": [
+        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403440,-53.510376\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 14:16:43",
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403765,
+    "lng": -53.511005,
+    "info": [
+        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403765,-53.511005\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 16:40:07",
+    ],
+    "icon": "redIcon"
+},
+
+{
+    "lat": -24.403765,
+    "lng": -53.511005,
+    "info": [
+        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403765,-53.511005\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 16:40:10",
+    ],
+    "icon": "greenIcon"
+},
+
+{
+    "lat": -24.403795,
+    "lng": -53.511040,
+    "info": [
+        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403795,-53.511040\" target=\"_blank\">Ver Localização</a>",
+        "DATA/HORA: 14/4/2025 16:57:05",
+    ],
+    "icon": "redIcon"
+},
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ];
         // Adiciona marcadores com pop-ups ao mapa
@@ -255,27 +633,27 @@
     switch(section) {
         case 'porque':
             infoTitle.textContent = 'Porque do Projeto';
-            infoContent.innerHTML = 'Como surgiu a necessidade ou a ideia base.';
+            infoContent.innerHTML = 'Apesar do avanço na educação ambiental e nas políticas públicas, muitos resíduos tóxicos do passado — como frascos de agrotóxicos — ainda permanecem esquecidos em áreas rurais, especialmente em beiras de roças e rios. Esses resíduos, descartados antes da conscientização, continuam contaminando o solo e os lençóis freáticos. O Agro Detector nasce da necessidade de corrigir esse passivo ambiental histórico e também de monitorar o lixo doméstico descartado irregularmente.';
             break;
         case 'ideia':
             infoTitle.textContent = 'A Ideia';
-            infoContent.innerHTML = 'Como a ideia foi construída com os alunos, professores.';
+            infoContent.innerHTML = 'A grande sacada do projeto é simples, mas poderosa: criar uma ferramenta tecnológica acessível, que permita identificar e mapear locais com resíduos tóxicos ou domésticos. Tudo isso de forma rápida, com um botão, registrando data, hora, GPS e tipo de lixo. E mais: empoderar jovens e agentes do campo para atuarem como parceiros nesse monitoramento, promovendo renda, consciência e ação ambiental.';
             break;
         case 'como':
             infoTitle.textContent = 'Como Funciona';
-            infoContent.innerHTML = 'GPS, registro no cartão SD, etc.';
+            infoContent.innerHTML = 'O O usuário carrega o dispositivo Agro Detector em campo. Ao encontrar lixo visível (doméstico ou tóxico), ele pressiona um botão. O sistema registra automaticamente a localização via GPS, data e hora. O tipo de lixo é classificado (manual ou automático). Os dados são armazenados em formato digital (JSON) e podem ser enviados para análise posterior. No caso de lixo tóxico, a equipe realiza a coleta com EPIs adequados. Os dados do lixo doméstico são entregues às prefeituras para futuras coletas.   .';
             break;
         case 'materiais':
             infoTitle.textContent = 'Materiais';
-            infoContent.innerHTML = 'Eletrônicos, estrutura física, equipamentos de segurança, etc.';
+            infoContent.innerHTML = ' Microcontrolador Arduino Uno;•  Módulo GPS NEO-6M; Módulo cartão SD (para armazenamento dos dados); Botão push; Display OLED (para visualização em tempo real); Caixa de metal portátil; Fontes de energia (Baterias 1865); EPIs para coleta (luvas, máscara, óculos, etc.)';
             break;
         case 'experiencia':
             infoTitle.textContent = 'A Experiência';
-            infoContent.innerHTML = 'Impacto social e ambiental, etc.';
+            infoContent.innerHTML = 'A execução do projeto foi transformadora. Envolver os alunos na construção de uma solução real, com impacto direto no meio ambiente e na comunidade rural, despertou neles senso de responsabilidade e protagonismo. Além da parte técnica — montagem, programação e testes — os alunos desenvolveram habilidades de pesquisa, comunicação e empreendedorismo. Ver o brilho nos olhos deles ao mapear o primeiro ponto foi uma prova de que estamos no caminho certo.';
             break;
         case 'creditos':
             infoTitle.textContent = 'Créditos e Agradecimentos';
-            infoContent.innerHTML = 'apoiadores, escola, alunos e parceiros';
+            infoContent.innerHTML = 'Agradecemos a todos que acreditaram na proposta desde o início, aos nossos alunos por se entregarem ao projeto com tanta dedicação, às famílias que apoiaram e às instituições que estenderam a mão. Que esse seja só o começo de um movimento maior, onde tecnologia e consciência ambiental caminhem lado a lado em benefício do nosso planeta.';
             break;
     }
     infoBox.style.display = 'block';
@@ -289,6 +667,8 @@
     <!-- ... resto do conteúdo do site ... -->
     <!-- Rodapé -->
     <footer class="footer">
-        <p>&copy; 2025 - Agro Detector. Todos os direitos reservados.</p>
+        <p>2025 - Agro Detector. </p>
+        <p>&copy;Todos os direitos reservados.</p>
+
     </footer>
 </html>
