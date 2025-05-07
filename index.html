@@ -1,15 +1,70 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agro Detector</title>
-    
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
     <style>
-        
+<meta charset="UTF-8">
+    <title>Agro Detector</title>
+    <style>
+
+
+    
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+       body {
+    font-family: 'Arial', sans-serif;
+    background-color: #000;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#map {
+    flex-grow: 1; /* Para ocupar o espaço disponível */
+}
+
+footer {
+    background-color: #0a0a0a;
+    color: #00ff88;
+    padding: 10px 20px;
+    font-family: 'Arial', sans-serif;
+    font-size: 0.95em;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 -2px 10px rgba(0, 255, 136, 0.1);
+    margin-top: auto; /* garante que o rodapé sempre fique no final da página */
+}
+
+footer img {
+    position: absolute;
+    bottom: -10px; /* Pode ajustar pra subir ou descer */
+    left: 10px; /* Move mais pra direita ou esquerda */
+    height: 200px;  /* Tamanho da imagem */
+    z-index: 9999; /* MUITO acima do mapa */
+}
+
+        .container {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .footer-text {
+            margin: 4px 0;
+            line-height: 1.2em;
+        }
         /* Barra lateral fixa no lado direito */
         .sidebar {
             position: fixed;
@@ -17,45 +72,46 @@
             right: 0;
             transform: translateY(-50%);
             width: 150px;
-            background-color: #f8f9fa;
+            background-color: #ffffff;
             padding: 15px;
             border-radius: 10px 0 0 10px;
             box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.2);
             z-index: 1000;
             text-align: center;
         }
-
         .sidebar-title {
-            font-size: 16px;
+               color: #00ff88; padding: 20px; 
+              // text-align: center; 
+               font-family: 'Arial', sans-serif; 
+               font-size: 3em; 
+               font-weight: bold; 
+            justify-content: center;
+            font-size: 25px;
             font-weight: bold;
             margin-bottom: 10px;
             color: #333;
         }
-
         .logos {
             display: flex;
             flex-direction: column;
             gap: 10px;
             align-items: center;
         }
-
         .logo {
-            width: 100px;
-            height: auto;
+            width: 175px;
+            height: auto;   
         }
-
         /* === CONTADORES === */
         .counters-container {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 200px;
             background-color: #111;
             color: white;
             padding: 1px;
             font-family: 'Arial', sans-serif;
             animation: fadeIn 4.2s ease-in;
         }
-
         .counter-box {
             text-align: center;
             padding: 1px;
@@ -65,26 +121,22 @@
             background-color: #1e1e1e;
             transition: transform 0.3s ease;
         }
-
         .counter-box:hover { transform: scale(1.05); }
 
         .counter-box i {
             font-size: 2.2em;
             margin-bottom: 1px;
         }
-
         .counter-number { font-size: 2.0em; font-weight: bold; color: #00ff88; }
 
         .counter-label { font-size: 1em; margin-top: 5px; }
 
         .counter-box.toxic i { color: #ff4444; }
         .counter-box.domestic i { color: #4CAF50; }
-
         #map {
             height: 80vh;
             width: 100%;
         }
-
         /* === ÍCONES PERSONALIZADOS === */
         .custom-icon-green, .custom-icon-red {
             border-radius: 50%;
@@ -92,33 +144,28 @@
             height: 16px;
             display: inline-block;
         }
-
         .custom-icon-green { background-color: #00FF00; }
         .custom-icon-red { background-color: #FF0000; }
-
         /* Estilo do menu */
         nav {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 80px;
             background-color: #f0f0f0;
             padding: 1px;
             flex-wrap: wrap;
         }
-
         .box {
             
             padding: 1px 20px;
             background-color: #008CBA;
             color: white;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 54px;
         }
-
         .box:hover {
             background-color: #006F88;
         }
-
 /* Estilo do balão */
 .tooltip {
     display: none;
@@ -135,12 +182,10 @@
     z-index: 1000;
     font-size: 16px;
 }
-
         /* Exibir o balão quando necessário */
         .tooltip.show {
             display: block;
         }
-
         /* Estilo do ícone de fechar */
         .tooltip .close-btn {
             position: absolute;
@@ -152,42 +197,37 @@
             color: #333;
             cursor: pointer;
         }
-
     </style>
 </head>
 <body>
-    
     <!-- Barra lateral fixa à direita para logomarcas -->
     <div class="sidebar">
         <h3 class="sidebar-title">Apoiadores</h3>
         <div class="logos">
+            <img src="iriedi.png" alt="IRIEDI" class="logo">
             <img src="Senar_Assis.png" alt="Logo Senar Assis" class="logo">
+            <img src="jrc.png" alt="jrc" class="logo">
             <img src="Guima.png" alt="Logo Guima" class="logo">
-            <img src="logo3.png" alt="Logo Empresa 3" class="logo">
-            <img src="logo4.png" alt="Logo Empresa 4" class="logo">
-        </div>
+        </div> 
     </div>
-
     <header style="background-color: #0a0a0a; color: #00ff88; padding: 20px; text-align: center; font-family: 'Arial', sans-serif; font-size: 3em; font-weight: bold; box-shadow: 0 2px 10px rgba(0, 255, 136, 0.2);">
         Projeto Agro Detector
     </header>
-    
     <!-- Menu horizontal -->
     <nav>
-        <div class="box" onclick="showInfo('porque')"><span>Porque do Projeto</span></div>
+        <div class="box" onclick="showInfo('porque')"><span>O Projeto</span></div>
         <div class="box" onclick="showInfo('ideia')"><span>A Ideia</span></div>
         <div class="box" onclick="showInfo('como')"><span>Como Funciona</span></div>
         <div class="box" onclick="showInfo('materiais')"><span>Materiais</span></div>
-        <div class="box" onclick="showInfo('experiencia')"><span>A Experiência</span></div>
-        <div class="box" onclick="showInfo('creditos')"><span>Créditos e Agradecimentos</span></div>
+        <div class="box" onclick="showInfo('experiencia')"><span>Experiência</span></div>
+        <div class="box" onclick="showInfo('creditos')"><span>Agradecimentos</span></div>
+        
     </nav>
-
     <!-- Balão de informações -->
     <div id="tooltip" class="tooltip">
         <button class="close-btn" onclick="closeInfo()">X</button>
         <div id="tooltip-content"></div>
     </div>
-
     <div class="counters-container">
         <div class="counter-box toxic">
             <i class="fas fa-exclamation-triangle"></i>
@@ -197,23 +237,30 @@
         <div class="counter-box domestic">
             <i class="fas fa-trash-alt"></i>
             <div class="counter-number" id="domestic-count">0</div>
-            <div class="counter-label">Lixo Doméstico a Ser Coletado</div>
+            <div class="counter-label">Lixo Doméstico a Ser Coletado
+</div>
         </div>
     </div>
 
-    <div id="map"></div>
+   <div id="map"></div> 
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script>
-        var map = L.map('map').setView([-24.404, -53.511], 12);
-        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(map);
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    var map = L.map('map', {
+        center: [-24.404, -53.511],
+        zoom: 13,
+        minZoom: 8,
+        maxZoom: 18,
+        zoomControl: true
+    });
 
-        var greenIcon = L.divIcon({ className: 'custom-icon-green' });
-        var redIcon = L.divIcon({ className: 'custom-icon-red' });
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(map);
 
-        let locations = [
-          
+    var greenIcon = L.divIcon({ className: 'custom-icon-green' });
+    var redIcon = L.divIcon({ className: 'custom-icon-red' });
 
+    let locations = [
+ ////////////////////////////////////////////////////////////
 {
     "lat": -24.404499,
     "lng": -53.511448,
@@ -583,9 +630,8 @@
     ],
     "icon": "redIcon"
 },
-
+////////////////////////////////////////////////////////////
         ];
-
         let toxicoCount = 0;
         let domesticoCount = 0;
 
@@ -595,17 +641,14 @@
             L.marker([location.lat, location.lng], { icon: markerIcon })
                 .addTo(map)
                 .bindPopup(`<strong>Informações:</strong><br>${popupContent}`);
-
             if (location.icon === "redIcon") {
                 toxicoCount++;
             } else if (location.icon === "greenIcon") {
                 domesticoCount++;
             }
         });
-
         document.getElementById('toxic-count').textContent = toxicoCount;
         document.getElementById('domestic-count').textContent = domesticoCount;
-
         function showInfo(section) {
             var tooltip = document.getElementById('tooltip');
             var content = '';
@@ -614,16 +657,16 @@
                     content = 'Apesar do avanço na educação ambiental e nas políticas públicas, muitos resíduos tóxicos do passado — como frascos de agrotóxicos — ainda permanecem esquecidos em áreas rurais, especialmente em beiras de roças e rios. Esses resíduos, descartados antes da conscientização, continuam contaminando o solo e os lençóis freáticos. O Agro Detector nasce da necessidade de corrigir esse passivo ambiental histórico e também de monitorar o lixo doméstico descartado irregularmente.';
                     break;
                 case 'ideia':
-                    content = 'A grande sacada do projeto é simples, mas poderosa: criar uma ferramenta tecnológica acessível, que permita identificar e mapear locais com resíduos tóxicos ou domésticos. Tudo isso de forma rápida, com um botão, registrando data, hora, GPS e tipo de lixo. E mais: empoderar jovens e agentes do campo para atuarem como parceiros nesse monitoramento, promovendo renda, consciência e ação ambiental.';
+                    content = 'A grande sacada do projeto é simples, mas poderosa: criar uma ferramenta tecnológica acessível, que permita identificar e mapear locais com resíduos tóxicos ou domésticos através de uma API gráfica. ';
                     break;
                 case 'como':
-                    content = 'O usuário carrega o dispositivo Agro Detector em campo. Ao encontrar lixo visível (doméstico ou tóxico), ele pressiona um botão. O sistema registra automaticamente a localização via GPS, data e hora. O tipo de lixo é classificado (manual ou automático). Os dados são armazenados em formato digital (JSON) e podem ser enviados para análise posterior. No caso de lixo tóxico, a equipe realiza a coleta com EPIs adequados. Os dados do lixo doméstico são entregues às prefeituras para futuras coletas.  ';
+                    content = 'O usuário carrega o dispositivo Agro Detector em campo. Ao encontrar lixo visível (doméstico ou tóxico), ele pressiona o botão. O sistema registra automaticamente a localização via GPS, data e hora. O tipo de lixo é classificado de maneira visual (TÓXICO ou DOMÉSTICO). Os dados são armazenados em formato digital (JSON) e podem ser enviados para análise posterior em API gráfica. No caso de lixo tóxico, a equipe realiza a coleta com EPIs adequados. Os dados do lixo doméstico são entregues às prefeituras para futuras coletas.';
                     break;
                 case 'materiais':
-                    content = 'Microcontrolador Arduino Uno;•  Módulo GPS NEO-6M; Módulo cartão SD (para armazenamento dos dados); Botão push; Display OLED (para visualização em tempo real); Caixa de metal portátil; Fontes de energia (Baterias 1865); EPIs para coleta (luvas, máscara, óculos, etc.)';
+                    content = 'Microcontrolador Arduino MEGA 2560, Módulo GPS NEO-6M; Módulo cartão SD card; Botão push; Display OLED e LCD (para visualização em tempo real dos dados); Caixa de metal portátil reciclada; Fontes de energia (Baterias 1865); RTC de data e hora; EPIs para coleta (luvas, máscara, óculos, etc.)';
                     break;
                 case 'experiencia':
-                    content = 'A execução do projeto foi transformadora. Envolver os alunos na construção de uma solução real, com impacto direto no meio ambiente e na comunidade rural, despertou neles senso de responsabilidade e protagonismo. Além da parte técnica — montagem, programação e testes — os alunos desenvolveram habilidades de pesquisa, comunicação e empreendedorismo. Ver o brilho nos olhos deles ao mapear o primeiro ponto foi uma prova de que estamos no caminho certo.';
+                    content = 'A execução do projeto é transformadora. Envolver os alunos na construção de uma solução real, com impacto direto no meio ambiente e na comunidade rural, desperta neles senso de responsabilidade e protagonismo. Além da parte técnica — montagem, programação e testes — os alunos desenvolvem habilidades de pesquisa, comunicação e empreendedorismo. Ver o brilho nos olhos deles ao mapear o primeiro ponto e efetuar o 1° resgate de frasco de agrotóxico é uma prova de que estamos no caminho certo.';
                     break;
                 case 'creditos':
                     content = 'Agradecemos a todos que acreditaram na proposta desde o início, aos nossos alunos por se entregarem ao projeto com tanta dedicação, às famílias que apoiaram e às instituições que estenderam a mão. Que esse seja só o começo de um movimento maior, onde tecnologia e consciência ambiental caminhem lado a lado em benefício do nosso planeta.';
@@ -631,20 +674,28 @@
                 default:
                     content = '';
             }
-
             document.getElementById('tooltip-content').innerHTML = content;
             tooltip.classList.add('show');
         }
-
         function closeInfo() {
             document.getElementById('tooltip').classList.remove('show');
         }
     </script>
+</header>
 <body>
-    <!-- Rodapé -->
-    <footer class="footer">
-        <p>2025 - Agro Detector. </p>
-        <p>&copy;Todos os direitos reservados.</p>
 
-    </footer>
+    <div class="container">
+        <footer>
+             <!-- Rodapé -->
+    <footer class="footer">
+        <p>&copy;Todos os direitos reservados.</p>
+    <img src="ID.png" alt="ID">
+    <div class="footer-text">Desenvolvimento Prof. Josiel e Alunos</div>
+</footer>
+    </div>
+
+</body>
 </html>
+
+<body>
+   
