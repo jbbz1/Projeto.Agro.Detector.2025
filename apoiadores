@@ -1,1 +1,13 @@
-CVCV 
+/meu-site
+│
+├── index.html
+├── css/
+│   └── estilo.css
+├── js/
+│   └── script.js
+├── img/
+│   └── logo.png
+├── icons/
+│   └── icone1.png
+│   └── icone2.png
+└── README.md
