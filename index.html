@@ -12,7 +12,38 @@
     <title>Agro Detector</title>
     <style>
 
+.sidebar {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 150px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-left: 2px solid #ddd;
+    height: 100vh;
+    overflow-y: auto;
+    text-align: center;
+}
 
+.sidebar-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.logos a {
+    display: block;
+    margin: 10px 0;
+}
+
+.logo {
+    max-width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.1);
+}
     
         * {
             margin: 0;
@@ -71,7 +102,7 @@ footer img {
             top: 50%;
             right: 0;
             transform: translateY(-50%);
-            width: 150px;
+            width: 180px;
             background-color: #ffffff;
             padding: 15px;
             border-radius: 10px 0 0 10px;
@@ -200,16 +231,24 @@ footer img {
     </style>
 </head>
 <body>
-    <!-- Barra lateral fixa à direita para logomarcas -->
-    <div class="sidebar">
-        <h3 class="sidebar-title">Apoiadores</h3>
-        <div class="logos">
+  <!-- Barra lateral fixa à direita para logomarcas -->
+<div class="sidebar">
+    <h3 class="sidebar-title">Apoiadores</h3>
+    <div class="logos">
+        <a href="https://iriedi.com.br/" target="_blank" title="IRIEDI">
             <img src="iriedi.png" alt="IRIEDI" class="logo">
-            <img src="Senar_Assis.png" alt="Logo Senar Assis" class="logo">
-            <img src="jrc.png" alt="jrc" class="logo">
-            <img src="Guima.png" alt="Logo Guima" class="logo">
-        </div> 
+        </a>
+        <a href="https://www.instagram.com/sindicatoruraldeassischat?igsh=MXN0aHhpeTNqN2Jsbg==" target="_blank" title="Senar Assis">
+            <img src="Senar_Assis.png" alt="Senar Assis" class="logo">
+        </a>
+        <a href="https://www.instagram.com/junior_colchoes?igsh=aTAwYWE4NGRyeno=" target="_blank" title="JRC Colchões">
+            <img src="jrc.png" alt="JRC" class="logo">
+        </a>
+        <a href="https://www.instagram.com/ccmguima?igsh=YjRtOTlybGUyaDFn" target="_blank" title="Guima CCM">
+            <img src="Guima.png" alt="Guima" class="logo">
+        </a>
     </div>
+</div>
     <header style="background-color: #0a0a0a; color: #00ff88; padding: 20px; text-align: center; font-family: 'Arial', sans-serif; font-size: 3em; font-weight: bold; box-shadow: 0 2px 10px rgba(0, 255, 136, 0.2);">
         Projeto Agro Detector
     </header>
@@ -261,355 +300,6 @@ footer img {
 
     let locations = [
  ////////////////////////////////////////////////////////////
-{
-    "lat": -24.404499,
-    "lng": -53.511448,
-    "info": [
-        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404499,-53.511448\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:11:37",
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.404509,
-    "lng": -53.511414,
-    "info": [
-        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404509,-53.511414\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:11:39",
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.404427,
-    "lng": -53.511108,
-    "info": [
-        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404427,-53.511108\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:12:03",
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.404371,
-    "lng": -53.511051,
-    "info": [
-        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404371,-53.511051\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:12:08",
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.404316,
-    "lng": -53.511017,
-    "info": [
-        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404316,-53.511017\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:12:14",
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.404194,
-    "lng": -53.510742,
-    "info": [
-        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404194,-53.510742\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:12:43",
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.404106,
-    "lng": -53.510609,
-    "info": [
-        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404106,-53.510609\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:12:58",
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.404106,
-    "lng": -53.510609,
-    "info": [
-        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404106,-53.510609\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:13:00",
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.404022,
-    "lng": -53.510468,
-    "info": [
-        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404022,-53.510468\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:13:13",
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.403984,
-    "lng": -53.510395,
-    "info": [
-        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403984,-53.510395\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:13:18",
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.403984,
-    "lng": -53.510395,
-    "info": [
-        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403984,-53.510395\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:13:22",
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.403845,
-    "lng": -53.510185,
-    "info": [
-        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403845,-53.510185\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:13:36",
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.403845,
-    "lng": -53.510185,
-    "info": [
-        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403845,-53.510185\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:13:40",
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.403719,
-    "lng": -53.509972,
-    "info": [
-        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403719,-53.509972\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:13:56",
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.403719,
-    "lng": -53.509972,
-    "info": [
-        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403719,-53.509972\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:13:59",
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.403637,
-    "lng": -53.509991,
-    "info": [
-        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403637,-53.509991\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:14:02",
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.403637,
-    "lng": -53.509991,
-    "info": [
-        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403637,-53.509991\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:14:04",
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.403637,
-    "lng": -53.509991,
-    "info": [
-        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403637,-53.509991\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:14:07",
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.403568,
-    "lng": -53.510029,
-    "info": [
-        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403568,-53.510029\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:14:09",
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.403568,
-    "lng": -53.510029,
-    "info": [
-        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403568,-53.510029\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:14:12",
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.403528,
-    "lng": -53.510090,
-    "info": [
-        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403528,-53.510090\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:14:20",
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.403507,
-    "lng": -53.510155,
-    "info": [
-        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403507,-53.510155\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:14:40",
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.403507,
-    "lng": -53.510155,
-    "info": [
-        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403507,-53.510155\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:14:43",
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.403507,
-    "lng": -53.510155,
-    "info": [
-        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403507,-53.510155\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:14:45",
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.403507,
-    "lng": -53.510155,
-    "info": [
-        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403507,-53.510155\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:14:47",
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.403605,
-    "lng": -53.510303,
-    "info": [
-        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403605,-53.510303\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:15:04",
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.403605,
-    "lng": -53.510303,
-    "info": [
-        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403605,-53.510303\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:15:07",
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.403641,
-    "lng": -53.510372,
-    "info": [
-        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403641,-53.510372\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:15:16",
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.403608,
-    "lng": -53.510437,
-    "info": [
-        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403608,-53.510437\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:15:28",
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.403608,
-    "lng": -53.510437,
-    "info": [
-        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403608,-53.510437\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:15:31",
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.403433,
-    "lng": -53.510384,
-    "info": [
-        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403433,-53.510384\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:16:32",
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.403433,
-    "lng": -53.510384,
-    "info": [
-        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403433,-53.510384\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:16:36",
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.403433,
-    "lng": -53.510384,
-    "info": [
-        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403433,-53.510384\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:16:38",
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.403440,
-    "lng": -53.510376,
-    "info": [
-        "LIXO DOMESTICO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403440,-53.510376\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 14:16:43",
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.403765,
-    "lng": -53.511005,
-    "info": [
-        "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403765,-53.511005\" target=\"_blank\">Ver Localização</a>",
-        "DATA/HORA: 14/4/2025 16:40:07",
-    ],
-    "icon": "redIcon"
-},
 
 {
     "lat": -24.403765,
