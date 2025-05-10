@@ -10,24 +10,68 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
 @media (max-width: 768px) {
+    /* Container dos contadores empilhados e centralizados */
     .counters-container {
-        flex-direction: column;
-        gap: 20px;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 1px;
     }
+
+    /* Estilização dos blocos dos contadores */
+    .counter-box {
+        width: 90%;
+        max-width: 150px;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        background-color: #f9f9f9;
+        margin: 0 auto;
+    }
+
+    .counter {
+        font-size: 1.8rem !important; /* Número do contador */
+    }
+
+    .counter-label {
+        font-size: 1rem !important; /* Texto abaixo do número */
+    }
+
+    /* Ajuste específico para frascos e lixo */
+    .counter-frascos,
+    .counter-lixo {
+        font-size: 2rem !important;
+    }
+
+    /* Menu responsivo */
     nav {
         gap: 20px;
         padding: 10px;
     }
+
+    /* Sidebar some no mobile */
     .sidebar {
-        width: 100%;
+        width: 50%;
         position: static;
         transform: none;
         border-radius: 0;
+        display: none;
     }
+
+    /* Logo reduzida */
     .logo {
-        width: 120px;
+        width: 75px;
+    }
+
+    /* Imagem do rodapé redimensionada */
+    #rodape img {
+        width: 50% !important;
+        height: auto !important;
+        display: block;
+        margin: 20px auto;
     }
 }
+
  
     .box {
         display: inline-block;
