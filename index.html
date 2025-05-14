@@ -13,62 +13,37 @@
     <style>
         /* Responsividade para telas menores 
         @media (max-width: 768px) {
-            .counters-container {
-                align-items: center;
-                justify-content: center;
-                gap: 10px;
-                padding: 1px;
-            }
+    .sidebar {
+        width: 100%;
+        position: relative;
+        top: auto;
+        right: auto;
+        transform: none;
+        border-radius: 0;
+        padding: 10px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
-            .counter-box {
-                width: 90%;
-                max-width: 300px;
-                padding: 15px;
-                text-align: center;
-                border-radius: 10px;
-                box-shadow: 0 0 10px rgba(0,0,0,0.1);
-                background-color: #f9f9f9;
-                margin: 0 auto;
-            }
+    .sidebar-title {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+        color: #00ff88;
+    }
 
-            .counter {
-                font-size: 1.8rem !important;
-            }
+    .logos {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
 
-            .counter-label {
-                font-size: 1rem !important;
-            }
-
-            .counter-frascos, .counter-lixo {
-                font-size: 2rem !important;
-            }
-
-            nav {
-                gap: 20px;
-                padding: 10px;
-                flex-direction: block;
-            }
-
-            .sidebar {
-                width: 50%;
-                position: static;
-                transform: none;
-                border-radius: 0;
-                display: none;
-            }
-
-            .logo {
-                width: 75px;
-            }
-
-            #rodape img {
-                width: 50% !important;
-                height: auto !important;
-                display: block;
-                margin: 20px auto;
-            }
-        }*/
-
+    .logo {
+        width: 80px;
+        height: auto;
+    }
+}
         /* Estilos gerais do site */
         .box {
             display: inline-block;
@@ -91,16 +66,12 @@
             box-shadow: 0px 0 15px rgba(0, 255, 136, 0.5);
         }
 
-        .cabecalho {
+       .cabecalho {
+            background-color: #28a745;
+            color: white;
+            padding: 20px;
             text-align: center;
-            padding: 1px;
-            min-width: 180px;
-            box-shadow: 0 0 10px rgba(255,255,255,0.1);
-            background-color: #1e1e1e;
-            transition: transform 0.3s ease;
-            color: #00ff88;
-            font-family: 'Arial', sans-serif;
-            font-size: 3em;
+            font-size: 1.8rem;
             font-weight: bold;
         }
 
@@ -193,27 +164,28 @@ footer img {
         /* Barra lateral fixa no lado direito */
         .sidebar {
             position: fixed;
-            top: 43%;
+            top: 50%;
             right: 0;
             transform: translateY(-30%);
-            width: 200px;
+            width: 100px;
             background-color: #ffffff;
             padding: 14px;
             border-radius: 101px  0 100px;
             box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.2);
-          z-index: 500;
+            z-index: 500;
             text-align: center;
         }
         .sidebar-title {
-            color: #00ff88; padding: 20px; 
-            //text-align: center; 
+            color: #00ff88; 
+            padding: 30px; 
+            text-align: center; 
             font-family: 'Arial', sans-serif; 
             font-size: 3em; 
             font-weight: bold; 
             justify-content: center;
-            font-size: 25px;
+            font-size: 15px;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 160px;
             color: #333;
         }
         .logos {
@@ -289,11 +261,12 @@ footer img {
         }
         
         .box {
-            padding: 1px 20px;
+            margin: 0 15px;
+            padding: 10px 20px;
             background-color: #008CBA;
-            color: black;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
             cursor: pointer;
-            border-radius: 54px;
         }
         .box:hover {
             background-color: ##000000;
@@ -407,67 +380,6 @@ var redIcon = L.icon({
 
     let locations = [
  ////////////////////////////////////////////////////////////
-{
-    "lat": -24.403540,
-    "lng": -53.510399,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403540,-53.510399\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 9/5/2025 15:54:04",
-    "Temperatura: 28.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.403406,
-    "lng": -53.510559,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403406,-53.510559\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 9/5/2025 15:54:23",
-    "Temperatura: 28.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.403296,
-    "lng": -53.510635,
-    "info": [
-    "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403296,-53.510635\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 9/5/2025 15:54:39",
-    "Temperatura: 28.75 °C",
-    "<img src='frascos/TOX.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.403284,
-    "lng": -53.510479,
-    "info": [
-    "LIXO TOXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403284,-53.510479\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 9/5/2025 15:55:05",
-    "Temperatura: 29.00 °C",
-    "<img src='frascos/TOX.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.403353,
-    "lng": -53.510300,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403353,-53.510300\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 9/5/2025 15:55:20",
-    "Temperatura: 29.00 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-
 
 ////////////////////////////////////////////////////////////
         ];
