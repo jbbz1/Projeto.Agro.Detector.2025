@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Agro Detector</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #000;
+            color: #66ffb3; /* Verde suave para texto */
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 0 1rem;
+        }
+
+        header.cabecalho {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #1e1e1e;
+            font-size: 3em;
+            color: #00ff88; /* Verde neon */
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
+            user-select: none;
+        }
+
+        .animated-title {
+            text-align: center;
+            color: #33ccff; /* Azul claro */
+            font-family: 'Arial', sans-serif;
+            font-size: 2.8em;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            animation: fadeDown 2s ease forwards;
+            opacity: 0;
+            user-select: none;
+        }
+
+        @keyframes fadeDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .project-text {
+            max-width: 800px;
+            margin: 0 auto 20px auto;
+            font-weight: normal;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #66ffb3; /* Verde suave */
+            text-align: justify;
+            user-select: text;
+        }
+
+        .project-text ul {
+            padding-left: 1.5rem;
+        }
+
+        .project-text ul li {
+            margin-bottom: 1rem;
+            list-style-type: disc;
+        }
+
+        .image-container {
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            text-align: center;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.6);
+        }
+
+        /* Ajustes para celulares */
+        @media (max-width: 600px) {
+            header.cabecalho {
+                font-size: 2em;
+                padding: 15px 0;
+            }
+
+            .animated-title {
+                font-size: 2em;
+                margin: 15px 0 8px 0;
+            }
+
+            .project-text {
+                font-size: 1rem;
+                margin-bottom: 20px;
+                padding: 0 10px;
+                line-height: 1.6;
+            }
+
+            .image-container {
+                margin-bottom: 30px;
+            }
+        }
+
+        footer {
+            background-color: #222;
+            color: #00cc66; /* Verde mais discreto */
+            padding: 10px 0;
+            text-align: center;
+            font-size: 0.95em;
+            box-shadow: 0 -2px 10px rgba(0, 204, 102, 0.2);
+            margin-top: auto;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="cabecalho">
+        Projeto Agro Detector
+    </header>
+
+    <h2 class="animated-title">O Projeto</h2>
+
+    <div class="project-text">
+        <ul>
+            <li>Mesmo com avanços na educação ambiental e políticas públicas, muitos resíduos tóxicos do passado — como frascos de agrotóxicos — ainda estão esquecidos em áreas rurais, principalmente nas beiras de roças e rios.</li>
+            <li>Esses resíduos foram descartados antes da conscientização e continuam contaminando o solo e os lençóis freáticos, causando impactos ambientais graves.</li>
+            <li>Apesar da <strong>Lei nº 9.974/2000</strong>, que obriga a devolução das embalagens vazias, muitos agricultores ainda não retornam para recolher esses frascos.</li>
+            <li>O <strong>Agro Detector</strong> foi criado para ajudar a identificar esses resíduos tóxicos e também monitorar o descarte irregular do lixo doméstico nas áreas rurais.</li>
+            <li>O projeto busca transformar esse problema ambiental em uma oportunidade de educação, conscientização e cuidado com o meio ambiente.</li>
+        </ul>
+    </div>
+
+    <div class="image-container">
+        <!-- Troque o src pela URL ou caminho da sua imagem -->
+        <img src="caminho/para/sua-imagem.jpg" alt=" Agro Detector" />
+    </div>
+
+    <footer>
+        &copy; 2025 Agro Detector - Todos os direitos reservados
+    </footer>
+
+</body>
+</html>
