@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Projeto Agro Detector - Galeria</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f6f6f6;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 20px 10px;
+      background-color: #4CAF50;
+      color: white;
+      margin: 0;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.02);
+    }
+
+    #ver-mais {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 20px auto;
+      display: block;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: background 0.3s;
+    }
+
+    #ver-mais:hover {
+      background-color: #45a049;
+    }
+
+    #popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    #popup img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Galeria do Projeto Agro Detector</h1>
+
+  <div class="gallery"></div>
+
+  <button id="ver-mais" onclick="carregarProximaPagina()">Ver mais fotos</button>
+
+  <div id="popup">
+    <img id="popup-img" src="" alt="Foto ampliada">
+  </div>
+
+  <footer>
+    © Projeto Agro Detector - Desenvolvido por Josiel e alunos.
+  </footer>
+
+  <script>
+    const fotos = [
+  "GOPR2916.JPG",
+  "GOPR2917.JPG",
+  "GOPR2918.JPG",
+  "GOPR2919.JPG",
+  "GOPR2920.JPG",
+  "GOPR2923.JPG",
+  "GOPR2924.JPG",
+  "GOPR2925.JPG",
+  "GOPR2926.JPG",
+  "GOPR2927.JPG",
+  "GOPR2928.JPG",
+  "GOPR2929.JPG",
+  "GOPR2931.JPG",
+  "GOPR2932.JPG",
+  "GOPR2933.JPG",
+  "GOPR2934.JPG",
+  "GOPR2935.JPG",
+  "GOPR2937.JPG",
+  "GOPR2939.JPG",
+  "GOPR2940.JPG",
+  "GOPR2942.JPG",
+  "GOPR2943.JPG",
+  "GOPR2944.JPG",
+  "GOPR2945.JPG",
+  "GOPR2946.JPG",
+  "GOPR2948.JPG",
+  "GOPR2949.JPG",
+  "GOPR2950.JPG",
+  "GOPR2951.JPG",
+  "GOPR2952.JPG",
+  "GOPR2953.JPG",
+  "GOPR2954.JPG",
+  "GOPR2956.JPG",
+  "GOPR2957.JPG",
+  "IMG_20250407_140538.JPG",
+  "IMG_20250407_140541.JPG",
+  "IMG_20250407_140547.JPG",
+  "IMG_20250407_140604.JPG",
+  "IMG_20250407_140607.JPG",
+  "IMG_20250407_145901.JPG",
+  "IMG_20250407_145902.JPG",
+  "IMG_20250407_145904.JPG",
+  "IMG_20250407_145905_1.JPG",
+  "IMG_20250407_145905.JPG",
+  "IMG_20250407_145906.JPG",
+  "IMG_20250407_145909.JPG",
+  "IMG_20250407_145914.JPG",
+  "IMG_20250407_145919.JPG",
+  "IMG_20250407_152232.JPG",
+  "IMG_20250407_162252.JPG"
+];
+
+    const container = document.querySelector('.gallery');
+    const popup = document.getElementById('popup');
+    const popupImg = document.getElementById('popup-img');
+    const btnVerMais = document.getElementById('ver-mais');
+
+    let paginaAtual = 0;
+    const fotosPorPagina = 15;
+
+    function carregarProximaPagina() {
+      const inicio = paginaAtual * fotosPorPagina;
+      const fim = inicio + fotosPorPagina;
+      const fotosPagina = fotos.slice(inicio, fim);
+
+      fotosPagina.forEach((nome, index) => {
+        const img = document.createElement('img');
+        img.src = `fotos_projeto_agro_detector/${nome}`;
+        img.alt = `Foto ${inicio + index + 1}`;
+        img.loading = "lazy";
+        img.addEventListener('click', () => {
+          popupImg.src = img.src;
+          popup.style.display = 'flex';
+        });
+        container.appendChild(img);
+      });
+
+      paginaAtual++;
+
+      if (paginaAtual * fotosPorPagina >= fotos.length) {
+        btnVerMais.style.display = 'none';
+      }
+    }
+
+    function fecharPopup() {
+      popup.style.display = 'none';
+      popupImg.src = '';
+    }
+
+    popup.addEventListener('click', (e) => {
+      if (e.target === popup) fecharPopup();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') fecharPopup();
+    });
+
+    // Inicia com as primeiras fotos
+    carregarProximaPagina();
+  </script>
+
+</body>
+</html>
