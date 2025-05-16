@@ -116,24 +116,8 @@
         }
 
         .logos a {
-            display: block;
+            display: block; 
             margin: 8px 0;
-        }
-
-        .tooltip.show {
-            display: block;
-        }
-
-        .tooltip .close-btn {
-            position: absolute;
-            top: -15px;
-            font-weight: bold;
-            right: 270px;
-            background: none;
-            border: none;
-            font-size: 41px;
-            color: #ed1111;
-            cursor: pointer;
         }
 
         .logo {
@@ -280,7 +264,7 @@ footer img {
         .counter-box.toxic i { color: #ff4444; }
         .counter-box.domestic i { color: #4CAF50; }
         #map {
-            height: 0;
+    height: 60vh;
             width: 100%;
         }
         /* === ÍCONES PERSONALIZADOS === */
@@ -296,11 +280,12 @@ footer img {
         
         nav {
             display: flex;
+                        flex-wrap: wrap;
+
             justify-content: center;
-            gap: 5px;
+    gap: 10px;
             background-color: #000000;
             padding: 1px;
-            flex-wrap: wrap;
 
         }
         
@@ -312,16 +297,9 @@ footer img {
             border-radius: 54px;
         }
         .box:hover {
-            background-color: ##000000;
+    background-color: #008CBA;
         }
-/* Estilo do balão */
-.tooltip {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-90%, -50%); /* Centraliza o balão */
-   background-color: rgba(240, 240, 255, 0.95);
+
  
  /* Cor translúcida (90% opacidade) */
     border: 10px solid #ccc;
@@ -339,6 +317,7 @@ footer img {
 
   <!-- Barra lateral fixa à direita para logomarcas -->
 <div class="sidebar">
+    
     <h3 class="sidebar-title">Apoiadores</h3>
     <div class="logos">
         <a href="https://iriedi.com.br/" target="_blank" title="IRIEDI">
@@ -354,27 +333,28 @@ footer img {
             <img src="apoiadores/Guima.png" alt="Guima" class="logo">
         </a>
     </div>
+    
 </div>
   <head>
    
 </head>
-<body>
+<body> 
     <header class="cabecalho">
         Projeto Agro Detector
     </header>
 </body>
-
-
     <!-- Menu horizontal -->
-    <nav>
-        <div class="box" onclick="showInfo('porque')"><span>O Projeto</span></div>
-        <div class="box" onclick="showInfo('ideia')"><span>A Ideia</span></div>
-        <div class="box" onclick="showInfo('como')"><span>Como Funciona</span></div>
-        <div class="box" onclick="showInfo('materiais')"><span>Materiais</span></div>
-        <div class="box" onclick="showInfo('experiencia')"><span>Experiência</span></div>
-        <div class="box" onclick="showInfo('creditos')"><span>Agradecimentos</span></div>
-        
-    </nav>
+<nav>
+<a href="O Projeto.html" class="box" target="_blank">O Projeto</a> 
+<a href="A Ideia.html" class="box" target="_blank">A Ideia</a>
+<a href="Como Funciona.html" class="box" target="_blank">Como Funciona</a>
+<a href="Materiais.html" class="box" target="_blank">Materiais</a>
+<a href="Experiência.html" class="box" target="_blank">Experiência</a>
+<a href="Agradecimentos.html" class="box" target="_blank">Agradecimentos</a>
+</nav>
+<a href="fotos_projeto_agro_detector.html" class="box" target="_blank">📸 Álbum de Fotos</a>
+
+</nav>
     <!-- Balão de informações -->
     <div id="tooltip" class="tooltip">
         <button class="close-btn" onclick="closeInfo()">X</button>
@@ -437,318 +417,6 @@ var redIcon = L.icon({
     "icon": "greenIcon"
 },
 
-{
-    "lat": -24.406025,
-    "lng": -53.521175,
-    "info": [
-    "LIXO TÓXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.406025,-53.521175\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:41:45",
-    "Temperatura: 25.50 °C",
-    "<img src='frascos/TOX.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.405457,
-    "lng": -53.521599,
-    "info": [
-    "LIXO TÓXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.405457,-53.521599\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:43:09",
-    "Temperatura: 25.50 °C",
-    "<img src='frascos/TOX.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.405155,
-    "lng": -53.521809,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.405155,-53.521809\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:43:48",
-    "Temperatura: 25.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.404064,
-    "lng": -53.524017,
-    "info": [
-    "LIXO TÓXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404064,-53.524017\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:49:19",
-    "Temperatura: 26.00 °C",
-    "<img src='frascos/TOX.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.404013,
-    "lng": -53.524296,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404013,-53.524296\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:49:48",
-    "Temperatura: 26.00 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.403975,
-    "lng": -53.524399,
-    "info": [
-    "LIXO TÓXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403975,-53.524399\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:50:48",
-    "Temperatura: 26.25 °C",
-    "<img src='frascos/TOX.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.403828,
-    "lng": -53.524567,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403828,-53.524567\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:52:14",
-    "Temperatura: 26.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.402576,
-    "lng": -53.526535,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.402576,-53.526535\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:57:13",
-    "Temperatura: 27.00 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.401712,
-    "lng": -53.527641,
-    "info": [
-    "LIXO TÓXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.401712,-53.527641\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:59:19",
-    "Temperatura: 27.00 °C",
-    "<img src='frascos/TOX.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.400837,
-    "lng": -53.527931,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400837,-53.527931\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:01:17",
-    "Temperatura: 27.25 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.400370,
-    "lng": -53.527065,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400370,-53.527065\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:03:05",
-    "Temperatura: 27.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.400255,
-    "lng": -53.527111,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400255,-53.527111\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:03:47",
-    "Temperatura: 27.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.400362,
-    "lng": -53.527218,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400362,-53.527218\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:04:06",
-    "Temperatura: 27.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.400686,
-    "lng": -53.527119,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400686,-53.527119\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:16:15",
-    "Temperatura: 26.25 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.400734,
-    "lng": -53.526951,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400734,-53.526951\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:16:40",
-    "Temperatura: 26.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.400751,
-    "lng": -53.526943,
-    "info": [
-    "LIXO TÓXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400751,-53.526943\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:16:44",
-    "Temperatura: 26.50 °C",
-    "<img src='frascos/TOX.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.401491,
-    "lng": -53.526848,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.401491,-53.526848\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:20:21",
-    "Temperatura: 27.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.403645,
-    "lng": -53.525505,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403645,-53.525505\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:27:21",
-    "Temperatura: 28.00 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.404324,
-    "lng": -53.523632,
-    "info": [
-    "LIXO TÓXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404324,-53.523632\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:30:47",
-    "Temperatura: 28.25 °C",
-    "<img src='frascos/TOX.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.404692,
-    "lng": -53.522022,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404692,-53.522022\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:33:42",
-    "Temperatura: 27.75 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.405600,
-    "lng": -53.521488,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.405600,-53.521488\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:35:28",
-    "Temperatura: 27.75 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.406761,
-    "lng": -53.520168,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.406761,-53.520168\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:40:02",
-    "Temperatura: 27.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.405560,
-    "lng": -53.518108,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.405560,-53.518108\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:43:03",
-    "Temperatura: 27.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.404545,
-    "lng": -53.516438,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404545,-53.516438\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:46:28",
-    "Temperatura: 28.00 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.402525,
-    "lng": -53.513138,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.402525,-53.513138\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:53:02",
-    "Temperatura: 29.75 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.403423,
-    "lng": -53.510132,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403423,-53.510132\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:57:22",
-    "Temperatura: 30.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
 
 ////////////////////////////////////////////////////////////
         ];
@@ -773,24 +441,7 @@ var redIcon = L.icon({
             var tooltip = document.getElementById('tooltip');
             var content = '';
             switch(section) {
-                case 'porque':
-                    content = 'Apesar do avanço na educação ambiental e nas políticas públicas, muitos resíduos tóxicos do passado — como frascos de agrotóxicos — ainda permanecem esquecidos em áreas rurais, especialmente em beiras de roças e rios. Esses resíduos, descartados antes da conscientização, continuam contaminando o solo e os lençóis freáticos. O Agro Detector nasce da necessidade de corrigir esse passivo ambiental histórico e também de monitorar o lixo doméstico descartado irregularmente.';
-                    break;
-                case 'ideia':
-                    content = 'A grande sacada do projeto é simples, mas poderosa: criar uma ferramenta tecnológica acessível, que permita identificar e mapear locais com resíduos tóxicos ou domésticos através de uma API gráfica. ';
-                    break;
-                case 'como':
-                    content = 'O usuário carrega o dispositivo Agro Detector em campo. Ao encontrar lixo visível (doméstico ou tóxico), ele pressiona o botão. O sistema registra automaticamente a localização via GPS, data e hora. O tipo de lixo é classificado de maneira visual (TÓXICO ou DOMÉSTICO). Os dados são armazenados em formato digital (JSON) e podem ser enviados para análise posterior em API gráfica. No caso de lixo tóxico, a equipe realiza a coleta com EPIs adequados. Os dados do lixo doméstico são entregues às prefeituras para futuras coletas.';
-                    break;
-                case 'materiais':
-                    content = 'Microcontrolador Arduino MEGA 2560, Módulo GPS NEO-6M; Módulo cartão SD card; Botão push; Display OLED e LCD (para visualização em tempo real dos dados); Caixa de metal portátil reciclada; Fontes de energia (Baterias 1865); RTC de data e hora; EPIs para coleta (luvas, máscara, óculos, etc.)';
-                    break;
-                case 'experiencia':
-                    content = 'A execução do projeto é transformadora. Envolver os alunos na construção de uma solução real, com impacto direto no meio ambiente e na comunidade rural, desperta neles senso de responsabilidade e protagonismo. Além da parte técnica — montagem, programação e testes — os alunos desenvolvem habilidades de pesquisa, comunicação e empreendedorismo. Ver o brilho nos olhos deles ao mapear o primeiro ponto e efetuar o 1° resgate de frasco de agrotóxico é uma prova de que estamos no caminho certo.';
-                    break;
-                case 'creditos':
-                    content = 'Agradecemos a todos que acreditaram na proposta desde o início, aos nossos alunos por se entregarem ao projeto com tanta dedicação, às famílias que apoiaram e às instituições que estenderam a mão. Que esse seja só o começo de um movimento maior, onde tecnologia e consciência ambiental caminhem lado a lado em benefício do nosso planeta.';
-                    break;
+               
                 default:
                     content = '';
             }
@@ -811,5 +462,4 @@ var redIcon = L.icon({
 </footer>
 </body>
 </html>
-
 
