@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Agro Detector - Diagrama</title>
+    
+<style>
+  .titulo-header {
+  font-size: 1.3em;
+  font-weight: 600;
+  margin-bottom: 0px;
+}
+.voltar-btn {
+  display: inline-block;
+  background-color: white;
+  color: var(--verde-principal);
+  padding: 1px 21px;
+  border-radius: 8px;
+  font-size: 2rem;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.voltar-btn:hover {
+  background-color: var(--verde-suave);
+  color: white;
+}
+
+header {
+  background-color: var(--verde-principal);
+  color: white;
+  padding: 30px 20px 40px 20px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+    .materiais { 
+  font-size: 1.8em;
+  font-weight: bold;
+  margin-top: 20px;
+  opacity: 0;
+  animation: slideDown 1.5s ease-out forwards;
+} 
+ 
+/* Animação */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+    :root {
+      --verde-principal: #00a86b;
+      --azul-suave: #3498db;
+      --cinza-claro: #f9f9f9;
+      --fonte-principal: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--fonte-principal);
+      background-color: var(--cinza-claro);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      align-items: center;
+    }
+
+    header {
+      background-color: var(--verde-principal);
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 2em;
+      font-weight: 600;
+      width: 100%;
+    }
+
+    .diagram-container {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      height: 700px;
+      margin: 40px auto;
+    }
+
+    .central-img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 220px;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    .component {
+      position: absolute;
+      width: 160px;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #333;
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .component img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin-bottom: 8px;
+    }
+
+    .line { 
+      position: absolute;
+      width: 2px;
+      background-color: var(--azul-suave);
+      transform-origin: top left;
+      animation: drawLine 1.5s ease forwards;
+    }
+
+    /* Animações */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -60%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes drawLine {
+      from { height: 0; }
+      to { height: 100%; }
+    }
+
+    /* Posicionamento das peças */
+    .top-left     { top: 30px; left: 50px; }
+    .top-right    { top: 30px; right: 50px; }
+    .bottom-left  { bottom: 30px; left: 50px; }
+    .bottom-right { bottom: 30px; right: 50px; }
+    .left-center  { top: 50%; left: 10px; transform: translateY(-50%); }
+    .right-center { top: 50%; right: 10px; transform: translateY(-50%); }
+
+    footer {
+      margin-top: auto;
+      background-color: #1e1e1e;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9em;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <header>Agro Detector</header>
+  <div class="titulo-header"></div>
+
+
+
+
+
+  <header>
+  <div class="titulo-header"> Esquema de Montagem
+</div>
+  </header>
+<a href="Index.html" class="voltar-btn" title="Voltar para a página principal">
+  &#8592; Página principal
+</a>
+
+ 
+
+
+
+
+
+  
+<div class="materiais">Materiais</div>
+
+  <div class="diagram-container">
+    <!-- Imagem central do projeto montado -->
+    <img src="caminho/para/projeto-central.jpg" class="central-img" alt="Projeto Agro Detector Montado" />
+
+    <!-- Componentes ao redor -->
+    <div class="component top-left">
+      <img src="caminho/para/arduino.jpg" alt="Arduino Mega">
+      Arduino Mega 2560
+    </div>
+
+    <div class="component top-right">
+      <img src="caminho/para/gps.jpg" alt="GPS">
+      Módulo GPS NEO-6M
+    </div>
+
+    <div class="component left-center">
+      <img src="caminho/para/sdcard.jpg" alt="SD Card">
+      Módulo SD Card
+    </div>
+
+    <div class="component right-center">
+      <img src="caminho/para/rtc.jpg" alt="RTC">
+      RTC de Data e Hora
+    </div>
+
+    <div class="component bottom-left">
+      <img src="caminho/para/oled.jpg" alt="OLED">
+      Display OLED
+    </div>
+
+    <div class="component bottom-right">
+      <img src="caminho/para/baterias.jpg" alt="Baterias">
+      Baterias 18650
+    </div>
+        </ul>
+    </div>
+  <div class="image-container">
+  <img src="RGGUIMA/ID.png" alt="ID">
+  </div>
+
+  <footer>
+    &copy; 2025 Agro Detector - Todos os direitos reservados
+  </footer>
+
+</body>
+</html>
