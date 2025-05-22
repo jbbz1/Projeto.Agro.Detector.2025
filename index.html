@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"/>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <link type="text/css" rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" />
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,44 +14,46 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <style>
-
- .leaflet-control-attribution {
-    bottom: 0px !important; /* distância da base */
-    right: 720px !important;  /* distância da direita */
-    background-color: rgba(0, 0, 0, 0.0); /* mais legível */
-    font-size: 0.0000001px;
-    padding: 1px 1px;
-    border-radius: 1px;
-  }
+        .leaflet-control-attribution {
+            bottom: 0px !important;
+            /* distância da base */
+            right: 720px !important;
+            /* distância da direita */
+            background-color: rgba(0, 0, 0, 0.0);
+            /* mais legível */
+            font-size: 0.0000001px;
+            padding: 1px 1px;
+            border-radius: 1px;
+        }
 
 
         /* Estilo para os popups do Leaflet */
-.leaflet-popup {
-    margin-bottom: 10px;
-}
+        .leaflet-popup {
+            margin-bottom: 10px;
+        }
 
-.leaflet-popup-content-wrapper {
-    width: 20.5em0px;
-    max-width: 80vw;
-    background-color: rgba(30, 30, 30, 0.6);
-    border-radius: 50px;
-    box-shadow: 0 0 100px rgba(0,255,136,0.3);
-    padding: 45px;
-}
+        .leaflet-popup-content-wrapper {
+            width: 20.5em0px;
+            max-width: 80vw;
+            background-color: rgba(30, 30, 30, 0.6);
+            border-radius: 50px;
+            box-shadow: 0 0 100px rgba(0, 255, 136, 0.3);
+            padding: 45px;
+        }
 
-.leaflet-popup-content {
-    font-size: 1.4em;
-    font-weight: bold;
-    color: #00ff88;
-    text-align: center;
-    margin: 10;
-}
+        .leaflet-popup-content {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #00ff88;
+            text-align: center;
+            margin: 10;
+        }
 
-.leaflet-popup-tip {
-    background: #1e1e1e;
-    width: 30px;
-    height: 20px;
-}
+        .leaflet-popup-tip {
+            background: #1e1e1e;
+            width: 30px;
+            height: 20px;
+        }
 
 
 
@@ -61,7 +66,7 @@
 
         /* Responsividade para telas menores */
         @media (max-width: 768px) {
-            .counters-container { 
+            .counters-container {
                 align-items: center;
                 justify-content: center;
                 gap: 10px;
@@ -74,7 +79,7 @@
                 padding: 15px;
                 text-align: center;
                 border-radius: 10px;
-                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
                 background-color: #f9f9f9;
                 margin: 10 auto;
             }
@@ -87,7 +92,8 @@
                 font-size: 1rem !important;
             }
 
-            .counter-frascos, .counter-lixo {
+            .counter-frascos,
+            .counter-lixo {
                 font-size: 2rem !important;
             }
 
@@ -97,19 +103,19 @@
                 flex-direction: block;
             }
 
-             .sidebar {
-            position: fixed;
-            top: 43%;
-            right: 0;
-            transform: translateY(-30%);
-            width: 150px;
-            background-color: #ffffff;
-            padding: 14px;
-            border-radius: 101px  0 100px;
-            box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.2);
-            z-index: 500;
-            text-align: center;
-        }
+            .sidebar {
+                position: fixed;
+                top: 43%;
+                right: 0;
+                transform: translateY(-30%);
+                width: 150px;
+                background-color: #ffffff;
+                padding: 14px;
+                border-radius: 101px 0 100px;
+                box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.2);
+                z-index: 500;
+                text-align: center;
+            }
 
             .logo {
                 width: 75px;
@@ -149,8 +155,7 @@
         .cabecalho {
             text-align: center;
             padding: 0px;
-            min-width: 180px;
-            box-shadow: 0 0 10px rgba(255,255,255,0.1);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
             background-color: #1e1e1e;
             transition: transform 0.3s ease;
             color: #00ff88;
@@ -160,11 +165,11 @@
         }
 
         .cabecalho:hover {
-            transform: scale(1.05);
+            transform: scale(1.00);
         }
 
         .logos a {
-            display: block; 
+            display: block;
             margin: 8px 0;
         }
 
@@ -178,7 +183,7 @@
             transform: scale(1.1);
         }
 
-        {
+            {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -195,29 +200,35 @@
             flex-direction: column;
         }
 
-#map {
-    flex-grow: 1; /* Para ocupar o espaço disponível */
-}
-/* config roda pé */
-footer {
-    background-color: #0a0a0a;
-    color: #00ff88;
-    padding: 0px 0px;
-    font-family: 'Arial', sans-serif;
-    font-size: 0.95em;
-    text-align: center;
-    position: relative;
-    box-shadow: 0 -2px 10px rgba(0, 255, 136, 0.1); /* sombra suave */
-    margin-top: auto;
-}
+        #map {
+            flex-grow: 1;
+            /* Para ocupar o espaço disponível */
+        }
 
-footer img {
-    position: absolute;
-    bottom: 10px; /* Ajuste vertical */
-    left: 10px;   /* Ajuste horizontal */
-    height: 200px;
-    z-index: 9999;
-}
+        /* config roda pé */
+        footer {
+            background-color: #0a0a0a;
+            color: #00ff88;
+            padding: 0px 0px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.95em;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 -2px 10px rgba(0, 255, 136, 0.1);
+            /* sombra suave */
+            margin-top: auto;
+        }
+
+        footer img {
+            position: absolute;
+            bottom: 10px;
+            /* Ajuste vertical */
+            left: 10px;
+            /* Ajuste horizontal */
+            height: 200px;
+            z-index: 9999;
+        }
+
         .container {
             min-height: 100%;
             display: flex;
@@ -229,6 +240,7 @@ footer img {
             margin: 4px 0;
             line-height: 1.2em;
         }
+
         /* Barra lateral fixa no lado direito */
         .sidebar {
             position: fixed;
@@ -238,44 +250,57 @@ footer img {
             width: 115px;
             background-color: #ffffff;
             padding: 14px;
-            border-radius: 101px  0 100px;
+            border-radius: 101px 0 100px;
             box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.2);
-          z-index: 500;
+            z-index: 500;
             text-align: center;
         }
-     .sidebar-title {
-    color: #333; /* cor do texto */
-  //  padding: 10px 20px; /* espaço interno: top/bottom 10px, left/right 20px */
-    font-family: 'Arial', sans-serif;
-    font-size: 20px;
-    font-weight: bold;
 
-    /* Posição do elemento */
-    margin-top: 50px;    /* distância de cima */
-    margin-bottom: 10px; /* distância de baixo */
-    margin-left: -10px;    /* distância da esquerda */
-    margin-right: 10px;   /* distância da direita */
+        .sidebar-title {
+            color: #333;
+            /* cor do texto */
 
-    /* Alinhamento dentro do container pai */
-    text-align: right; /* ou center, right */
 
-    /* Se quiser mais controle ainda: usar position */
+            //  padding: 10px 20px; /* espaço interno: top/bottom 10px, left/right 20px */
+            font-family: 'Arial', sans-serif;
+            font-size: 20px;
+            font-weight: bold;
 
-    /* Se o pai for flex, você pode alinhar melhor ainda */
-    display: flex;
-    justify-content: flex-start; /* center, flex-end, space-between */
-    align-items: center;         /* top/center/bottom em eixo vertical */
-}
+            /* Posição do elemento */
+            margin-top: 50px;
+            /* distância de cima */
+            margin-bottom: 100px;
+            /* distância de baixo */
+            margin-left: -10px;
+            /* distância da esquerda */
+            margin-right: 100px;
+            /* distância da direita */
+
+            /* Alinhamento dentro do container pai */
+            text-align: right;
+            /* ou center, right */
+
+
+            /* Se o pai for flex, você pode alinhar melhor ainda */
+            display: flex;
+            justify-content: flex-start;
+            /* center, flex-end, space-between */
+            align-items: center;
+            /* top/center/bottom em eixo vertical */
+        }
+
         .logos {
             display: flex;
             flex-direction: column;
             gap: 10px;
             align-items: center;
         }
+
         .logo {
             width: 175px;
-            height: auto;   
+            height: auto;
         }
+
         /* === CONTADORES === */
         .counters-container {
             display: flex;
@@ -284,141 +309,155 @@ footer img {
             background-color: #111;
             color: white;
             padding: 0px;
-        
             font-family: 'Arial', sans-serif;
-                        font-weight: bold; 
-
+            font-weight: bold;
             animation: fadeIn 1.2s ease-in;
         }
+
         .counter-box {
             text-align: center;
-            padding: 10px;
+            padding: 1px;
             border-radius: 30px;
             min-width: 100px;
-            box-shadow: 0 0 10px rgba(255,255,255,0.1);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
             background-color: #1e1e1e;
             transition: transform 0.10s ease;
-            
+
         }
-        .counter-box:hover { transform: scale(1.05); }
+
+        .counter-box:hover {
+            transform: scale(1.05);
+        }
 
         .counter-box i {
-            font-size: 2.2em;
+            font-size: 2.1em;
             margin-bottom: 0px;
         }
-        .counter-number { font-size: 2.5em;
-         font-weight: bold; color: #00ff88; }
-        .counter-label { font-size: 1.4em; margin-top: 1px; }
-        .counter-box.toxic i { color: #ff4444; }
-        .counter-box.domestic i { color: #4CAF50; }
+
+        .counter-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #00ff88;
+        }
+
+        .counter-label {
+            font-size: 1.4em;
+            margin-top: 1px;
+        }
+
+        .counter-box.toxic i {
+            color: #ff4444;
+        }
+
+        .counter-box.domestic i {
+            color: #4CAF50;
+        }
+
         #map {
-    height: 60vh;
+            height: 60vh;
             width: 100%;
         }
+
         /* === ÍCONES PERSONALIZADOS === */
-        .custom-icon-green, .custom-icon-red {
+        .custom-icon-green,
+        .custom-icon-red {
             border-radius: 50%;
             width: 16px;
             height: 16px;
             display: inline-block;
         }
-        .custom-icon-green { background-color: #00FF00; }
-        .custom-icon-red { background-color: #FF0000; }
+
+        .custom-icon-green {
+            background-color: #00FF00;
+        }
+
+        .custom-icon-red {
+            background-color: #FF0000;
+        }
+
         /* Estilo do menu */
-        
+
         nav {
             display: flex;
-                        flex-wrap: wrap;
-
+            flex-wrap: wrap;
             justify-content: center;
-    gap: 10px;
+            gap: 10px;
             background-color: #000000;
             padding: 1px;
 
         }
-        
+
         .box {
-            padding: 1px 20px;
+            padding: 1px 5px;
             background-color: #008CBA;
             color: black;
             cursor: pointer;
             border-radius: 54px;
+            text-align: center;
+            font-weight: bold;
+            border: 0.001px solid white;
+            text-decoration: none;
+
+
         }
+
         .box:hover {
-    background-color: #008CBA;
+            background: linear-gradient(45deg, #008CBA, #00FFD1);
         }
-
- 
- /* Cor translúcida (90% opacidade) */
-    border: 10px solid #ccc;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 15px rgba(0, 0, 20, 0.2);
-    max-width: 90%;
-    z-index: 1000;
-    font-size: 25px;
-}
-
-        
     </style>
+
 <body>
 
-  <!-- Barra lateral fixa à direita para logomarcas -->
-<div class="sidebar">
-    
-    <h3 class="sidebar-title">Apoiadores</h3>
-    <div class="logos">
+    <!-- Barra lateral fixa à direita para logomarcas -->
+    <div class="sidebar">
 
+        <h3 class="sidebar-title">Apoiadores</h3>
+        <div class="logos">
+            <a href="https://www.camarassis.pr.gov.br/" target="_blank" title="camarassis">
+                <img src="apoiadores/camara.png" alt="camarassis" class="logo">
+            </a>
+            <a href="https://www.instagram.com/motopauto1687/" target="_blank" title="motopauto">
+                <img src="apoiadores/motopauto.png" alt="motopauto" class="logo">
+            </a>
+            <a href="https://iriedi.com.br/" target="_blank" title="IRIEDI">
+                <img src="apoiadores/iriedi.png" alt="IRIEDI" class="logo">
+            </a>
+            <a href="https://www.instagram.com/sindicatoruraldeassischat?igsh=MXN0aHhpeTNqN2Jsbg==" target="_blank"
+                title="Senar Assis">
+                <img src="apoiadores/Senar_Assis.png" alt="Senar Assis" class="logo">
+            </a>
+            <a href="https://www.instagram.com/junior_colchoes?igsh=aTAwYWE4NGRyeno=" target="_blank"
+                title="JRC Colchões">
+                <img src="apoiadores/jrc.png" alt="JRC" class="logo">
+            </a>
+            <a href="https://www.instagram.com/ccmguima?igsh=YjRtOTlybGUyaDFn" target="_blank" title="Guima CCM">
+                <img src="apoiadores/Guima.png" alt="Guima" class="logo">
+            </a>
+        </div>
 
-
-
-
-        <a href="https://www.copacol.com.br/" target="_blank" title="Copacol">
-            <img src="apoiadores/copacol.png" alt="Copacol" class="logo">
-        </a>
-        <a href="https://www.assischateaubriand.pr.gov.br/" target="_blank" title="Pref. M. Assis Chateaubriand">
-            <img src="apoiadores/pref.png" alt="Pref. M. Assis Chateaubriand" class="logo">
-        </a>
-        <a href="https://www.camarassis.pr.gov.br/" target="_blank" title="Câmara Assis">
-            <img src="apoiadores/camara.png" alt="Câmara Assis" class="logo">
-        </a>
-        <a href="https://www.instagram.com/motopauto1687/" target="_blank" title="Moto Pauto">
-            <img src="apoiadores/motopauto.png" alt="Moto Pauto" class="logo">
-        </a>
-        <a href="https://iriedi.com.br/" target="_blank" title="IRIEDI">
-            <img src="apoiadores/iriedi.png" alt="IRIEDI" class="logo">
-        </a>
-        <a href="https://www.instagram.com/sindicatoruraldeassischat?igsh=MXN0aHhpeTNqN2Jsbg==" target="_blank" title="Senar Assis">
-            <img src="apoiadores/Senar_Assis.png" alt="Senar Assis" class="logo">
-        </a>
-        <a href="https://www.instagram.com/junior_colchoes?igsh=aTAwYWE4NGRyeno=" target="_blank" title="Junior Colchões">
-            <img src="apoiadores/jrc.png" alt="Junior Colchões" class="logo">
-        </a>
-        <a href="https://www.instagram.com/ccmguima?igsh=YjRtOTlybGUyaDFn" target="_blank" title="CCM Guima">
-            <img src="apoiadores/Guima.png" alt="CCM Guima" class="logo">
-        </a>
     </div>
-    
-</div>
-  <head>
-   
-</head>
-<body> 
-    <header class="cabecalho">
-        Projeto Agro Detector
-    </header>
-</body>
+
+    <head>
+
+    </head>
+
+    <body>
+        <header class="cabecalho">
+            Projeto Agro Detector
+        </header>
+    </body>
     <!-- Menu horizontal -->
-<nav>
-  <a href="projeto.html" class="box">O Projeto</a> 
-  <a href="ideia.html" class="box">A Ideia</a>
-  <a href="comofunciona.html" class="box">Como Funciona</a>
-  <a href="materiais.html" class="box">Materiais</a>
-  <a href="experiencia.html" class="box">Experiência</a>
-  <a href="agradecimentos.html" class="box">Agradecimentos</a>
- </nav>
-  <a href="fotos_projeto_agro_detector.html" class="box">📸 Álbum de Fotos</a>
-</nav>
+    <nav>
+        <a href="projeto.html" class="box">Projeto</a>
+
+        <a href="comofunciona.html" class="box">Como Funciona</a>
+
+        <a href="ideia.html" class="box">Ideia</a>
+        <a href="materiais.html" class="box">Materiais</a>
+        <a href="experiencia.html" class="box">Experiência</a>
+        <a href="agradecimentos.html" class="box">Agradecimentos</a>
+        <a href="fotos_projeto_agro_detector.html" class="box">📸 Álbum Fotos</a>
+    </nav>
 
     <!-- Balão de contadores -->
     <div class="counters-container">
@@ -431,15 +470,15 @@ footer img {
             <i class="fas fa-trash-alt"></i>
             <div class="counter-number" id="domestic-count">0</div>
             <div class="counter-label">Lixo Doméstico a Ser Coletado
-</div>
+            </div>
         </div>
     </div>
 
-   <div id="map"></div> 
+    <div id="map"></div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-    var map = L.map('map', {
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map', {
         center: [-24.404, -53.511],
         zoom: 13,
         minZoom: 8,
@@ -466,317 +505,7 @@ var redIcon = L.icon({
 
     let locations = [
  ////////////////////////////////////////////////////////////
-{
-    "lat": -24.406860,
-    "lng": -53.520542,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.406860,-53.520542\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:39:02",
-    "Temperatura: 25.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
 
-{
-    "lat": -24.406025,
-    "lng": -53.521175,
-    "info": [
-    "LIXO TÓXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.406025,-53.521175\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:41:45",
-    "Temperatura: 25.50 °C",
-    "<img src='frascos/TOX.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.405457,
-    "lng": -53.521599,
-    "info": [
-    "LIXO TÓXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.405457,-53.521599\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:43:09",
-    "Temperatura: 25.50 °C",
-    "<img src='frascos/TOX.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.405155,
-    "lng": -53.521809,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.405155,-53.521809\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:43:48",
-    "Temperatura: 25.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.404064,
-    "lng": -53.524017,
-    "info": [
-    "LIXO TÓXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404064,-53.524017\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:49:19",
-    "Temperatura: 26.00 °C",
-    "<img src='frascos/TOX.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.404013,
-    "lng": -53.524296,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404013,-53.524296\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:49:48",
-    "Temperatura: 26.00 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.403975,
-    "lng": -53.524399,
-    "info": [
-    "LIXO TÓXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403975,-53.524399\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:50:48",
-    "Temperatura: 26.25 °C",
-    "<img src='frascos/TOX.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.403828,
-    "lng": -53.524567,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403828,-53.524567\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:52:14",
-    "Temperatura: 26.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.402576,
-    "lng": -53.526535,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.402576,-53.526535\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:57:13",
-    "Temperatura: 27.00 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.401712,
-    "lng": -53.527641,
-    "info": [
-    "LIXO TÓXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.401712,-53.527641\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:59:19",
-    "Temperatura: 27.00 °C",
-    "<img src='frascos/TOX.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.400837,
-    "lng": -53.527931,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400837,-53.527931\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:01:17",
-    "Temperatura: 27.25 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.400370,
-    "lng": -53.527065,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400370,-53.527065\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:03:05",
-    "Temperatura: 27.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.400255,
-    "lng": -53.527111,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400255,-53.527111\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:03:47",
-    "Temperatura: 27.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.400362,
-    "lng": -53.527218,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400362,-53.527218\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:04:06",
-    "Temperatura: 27.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.400686,
-    "lng": -53.527119,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400686,-53.527119\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:16:15",
-    "Temperatura: 26.25 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.400734,
-    "lng": -53.526951,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400734,-53.526951\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:16:40",
-    "Temperatura: 26.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.400751,
-    "lng": -53.526943,
-    "info": [
-    "LIXO TÓXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400751,-53.526943\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:16:44",
-    "Temperatura: 26.50 °C",
-    "<img src='frascos/TOX.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.401491,
-    "lng": -53.526848,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.401491,-53.526848\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:20:21",
-    "Temperatura: 27.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.403645,
-    "lng": -53.525505,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403645,-53.525505\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:27:21",
-    "Temperatura: 28.00 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.404324,
-    "lng": -53.523632,
-    "info": [
-    "LIXO TÓXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404324,-53.523632\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:30:47",
-    "Temperatura: 28.25 °C",
-    "<img src='frascos/TOX.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.404692,
-    "lng": -53.522022,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404692,-53.522022\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:33:42",
-    "Temperatura: 27.75 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.405600,
-    "lng": -53.521488,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.405600,-53.521488\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:35:28",
-    "Temperatura: 27.75 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.406761,
-    "lng": -53.520168,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.406761,-53.520168\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:40:02",
-    "Temperatura: 27.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.405560,
-    "lng": -53.518108,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.405560,-53.518108\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:43:03",
-    "Temperatura: 27.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.404545,
-    "lng": -53.516438,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404545,-53.516438\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:46:28",
-    "Temperatura: 28.00 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.402525,
-    "lng": -53.513138,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.402525,-53.513138\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:53:02",
-    "Temperatura: 29.75 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
 
 {
     "lat": -24.403423,
@@ -825,15 +554,16 @@ var redIcon = L.icon({
         function closeInfo() {
             document.getElementById('tooltip').classList.remove('show');
         }
-</script>
-<body>
-    <!-- Conteúdo do corpo da página -->
+    </script>
 
-<footer class="footer">
-    <p>&copy; Todos os direitos reservados.</p>
-    <img src="RGGUIMA/ID.png" alt="ID">
-    <div class="footer-text">Desenvolvimento: Prof. Josiel e Alunos</div>
-</footer>
-</body>
+    <body>
+        <!-- Conteúdo do corpo da página -->
+
+        <footer class="footer">
+            <p>&copy; Todos os direitos reservados.</p>
+            <img src="RGGUIMA/ID.png" alt="ID">
+            <div class="footer-text">Desenvolvimento: Prof. Josiel e Alunos</div>
+        </footer>
+    </body>
+
 </html>
-
