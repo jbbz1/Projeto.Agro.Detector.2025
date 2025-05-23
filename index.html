@@ -33,8 +33,7 @@
         }
 
         .leaflet-popup-content-wrapper {
-            width: 20.5em0px;
-            max-width: 80vw;
+            width: 30.5em;
             background-color: rgba(30, 30, 30, 0.6);
             border-radius: 50px;
             box-shadow: 0 0 100px rgba(0, 255, 136, 0.3);
@@ -59,10 +58,12 @@
 
         @media (max-width: 576px) {
             .counters-container {
-                align-items: center;
-                justify-content: center;
-                gap: 10000px;
-                padding: 1px;
+                flex-direction: flex !important;
+                align-items: center !important;
+                justify-content: flex-start !important;
+                /* esquerda */
+                gap: 10px !important;
+                padding: 0px !important;
             }
 
             .counter-label {
@@ -76,24 +77,37 @@
 
             nav {
 
-                flex-direction: column;
-                /* muda para vertical */
-                gap: 10px;
-                padding: 5px;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr) !important;
+                /* 2 colunas */
+                grid-template-rows: repeat(2, auto) !important;
+                /* 4 linhas */
+                gap: 0px !important;
+                width: 457px !important;
+                margin-right: 10px !important;
+                /* Afasta da sidebar branca */
+                justify-content: start !important;
+
+
             }
 
             nav a {
-                width: 80%;
-                text-align: center;
-                padding: 10px 0;
-                display: block;
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                height: 25px !important;
+                background-color: #00a9c9 !important;
+                color: black !important;
+                font-weight: bold !important;
+                text-decoration: none !important;
+                border: 2px solid white !important;
+                border-radius: 3px !important;
             }
 
             .sidebar {
                 position: fixed;
                 top: 50%;
                 right: 0;
-                transform: translateY(-50%);
                 width: 130px;
                 background-color: #fff;
                 padding: 20px 10px;
@@ -104,19 +118,19 @@
                 transition: width 0.3s ease;
             }
 
-            .sidebar:hover {
-                width: 200px;
-                box-shadow: -5px 5px 20px rgba(0, 0, 0, 0.3);
-            }
+
 
             .sidebar-title {
                 color: #333;
                 font-family: 'Arial', sans-serif;
-                font-size: 18px;
+                font-size: 20px;
                 font-weight: bold;
-                margin-bottom: 20px;
+                margin: 0 auto;
+                /* centraliza horizontalmente */
                 text-align: center;
-                display: block;
+                width: 100%;
+                padding: 5px 0;
+                /* ajuste fino vertical */
             }
 
             .sidebar img {
@@ -139,7 +153,7 @@
             }
 
             .logo {
-                width: 15px;
+                width: 150px;
                 height: auto;
             }
 
@@ -160,6 +174,8 @@
                 z-index: 9999;
             }
         }
+
+
 
 
 
@@ -209,12 +225,15 @@
 
         .logos a {
             display: block;
-            margin: 8px 0;
+            margin: 1px 0;
         }
 
         .logo {
-            max-width: 100%;
+            max-width: 70%;
+            /* Para aumentar logo  */
+
             height: auto;
+
             transition: transform 0.3s ease;
         }
 
@@ -283,13 +302,12 @@
         /* Barra lateral fixa no lado direito */
         .sidebar {
             position: fixed;
-            top: 30%;
-            right: 0;
-            transform: translateY(-30%);
-            width: 115px;
+            top: 6.80%;
+            right: 1px;
+            transform: translateY(30%) width: 120px;
             background-color: #ffffff;
             padding: 14px;
-            border-radius: 101px 0 100px;
+            border-radius: 10px 0 50px;
             box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.2);
             z-index: 500;
             text-align: center;
@@ -300,13 +318,12 @@
             font-family: 'Arial', sans-serif;
             font-size: 20px;
             font-weight: bold;
-            margin-top: 50px;
-            margin-left: -10px;
-            margin-right: 100px;
-            text-align: right;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
+            margin: 0 auto;
+            /* centraliza horizontalmente */
+            text-align: center;
+            width: 100%;
+            padding: 5px 0;
+            /* ajuste fino vertical */
         }
 
         .logos {
@@ -314,6 +331,8 @@
             flex-direction: column;
             gap: 10px;
             align-items: center;
+            font-family: 'Arial', sans-serif;
+
         }
 
         .logo {
@@ -436,9 +455,9 @@
 
             <a href="https://kspulverizadores.com.br/index.php" target="_blank" title="KS Pulverizadores">
                 <img src="apoiadores/ks.png" alt="KS Pulverizadores" class="logo">
-            
-            
-            
+
+
+
             </a>
 
 
@@ -511,23 +530,29 @@
 
     <body>
         <header class="cabecalho">
-            Projeto Agro Detector 
-            
+            Projeto Agro Detector
 
-                </header>
-                
+
+        </header>
+
     </body>
     <!-- Menu horizontal -->
     <nav>
         <a href="projeto.html" class="box">Projeto</a>
 
-        <a href="comofunciona.html" class="box">Como Funciona</a>
+        <a href="comofunciona.html" class="box">Componetes</a>
 
         <a href="ideia.html" class="box">Ideia</a>
+
         <a href="materiais.html" class="box">Materiais</a>
+
         <a href="experiencia.html" class="box">Experiência</a>
+
         <a href="agradecimentos.html" class="box">Agradecimentos</a>
-        <a href="fotos_projeto_agro_detector.html" class="box">📸 Álbum Fotos</a>
+
+        <a href="fotos_projeto_agro_detector.html" class="box"> Fotos</a>
+        <a href="apresentaçao.html" class="box">PROFESSOR</a>
+
     </nav>
 
     <!-- Balão de contadores -->
@@ -577,318 +602,6 @@ var redIcon = L.icon({
     let locations = [
  ////////////////////////////////////////////////////////////
 
-
-{
-    "lat": -24.406860,
-    "lng": -53.520542,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.406860,-53.520542\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:39:02",
-    "Temperatura: 25.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.406025,
-    "lng": -53.521175,
-    "info": [
-    "LIXO TÓXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.406025,-53.521175\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:41:45",
-    "Temperatura: 25.50 °C",
-    "<img src='frascos/TOX.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.405457,
-    "lng": -53.521599,
-    "info": [
-    "LIXO TÓXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.405457,-53.521599\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:43:09",
-    "Temperatura: 25.50 °C",
-    "<img src='frascos/TOX.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.405155,
-    "lng": -53.521809,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.405155,-53.521809\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:43:48",
-    "Temperatura: 25.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.404064,
-    "lng": -53.524017,
-    "info": [
-    "LIXO TÓXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404064,-53.524017\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:49:19",
-    "Temperatura: 26.00 °C",
-    "<img src='frascos/TOX.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.404013,
-    "lng": -53.524296,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404013,-53.524296\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:49:48",
-    "Temperatura: 26.00 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.403975,
-    "lng": -53.524399,
-    "info": [
-    "LIXO TÓXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403975,-53.524399\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:50:48",
-    "Temperatura: 26.25 °C",
-    "<img src='frascos/TOX.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.403828,
-    "lng": -53.524567,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403828,-53.524567\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:52:14",
-    "Temperatura: 26.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.402576,
-    "lng": -53.526535,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.402576,-53.526535\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:57:13",
-    "Temperatura: 27.00 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.401712,
-    "lng": -53.527641,
-    "info": [
-    "LIXO TÓXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.401712,-53.527641\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 10:59:19",
-    "Temperatura: 27.00 °C",
-    "<img src='frascos/TOX.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.400837,
-    "lng": -53.527931,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400837,-53.527931\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:01:17",
-    "Temperatura: 27.25 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.400370,
-    "lng": -53.527065,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400370,-53.527065\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:03:05",
-    "Temperatura: 27.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.400255,
-    "lng": -53.527111,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400255,-53.527111\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:03:47",
-    "Temperatura: 27.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.400362,
-    "lng": -53.527218,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400362,-53.527218\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:04:06",
-    "Temperatura: 27.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.400686,
-    "lng": -53.527119,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400686,-53.527119\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:16:15",
-    "Temperatura: 26.25 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.400734,
-    "lng": -53.526951,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400734,-53.526951\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:16:40",
-    "Temperatura: 26.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.400751,
-    "lng": -53.526943,
-    "info": [
-    "LIXO TÓXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.400751,-53.526943\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:16:44",
-    "Temperatura: 26.50 °C",
-    "<img src='frascos/TOX.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.401491,
-    "lng": -53.526848,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.401491,-53.526848\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:20:21",
-    "Temperatura: 27.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.403645,
-    "lng": -53.525505,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.403645,-53.525505\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:27:21",
-    "Temperatura: 28.00 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.404324,
-    "lng": -53.523632,
-    "info": [
-    "LIXO TÓXICO RECOLHIDO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404324,-53.523632\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:30:47",
-    "Temperatura: 28.25 °C",
-    "<img src='frascos/TOX.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "redIcon"
-},
-
-{
-    "lat": -24.404692,
-    "lng": -53.522022,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404692,-53.522022\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:33:42",
-    "Temperatura: 27.75 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.405600,
-    "lng": -53.521488,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.405600,-53.521488\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:35:28",
-    "Temperatura: 27.75 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.406761,
-    "lng": -53.520168,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.406761,-53.520168\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:40:02",
-    "Temperatura: 27.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.405560,
-    "lng": -53.518108,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.405560,-53.518108\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:43:03",
-    "Temperatura: 27.50 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.404545,
-    "lng": -53.516438,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.404545,-53.516438\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:46:28",
-    "Temperatura: 28.00 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.402525,
-    "lng": -53.513138,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.402525,-53.513138\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 14/5/2025 11:53:02",
-    "Temperatura: 29.75 °C",
-    "<img src='frascos/DOME.jpg' alt='Lixo Tóxico' width='100%' />"
-    ],
-    "icon": "greenIcon"
-},
 
 {
     "lat": -24.403423,
