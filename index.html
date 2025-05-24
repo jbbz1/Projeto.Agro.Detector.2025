@@ -606,13 +606,13 @@
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        var map = L.map('map', {
-        center: [-24.404, -53.511],
-        zoom: 13,
-        minZoom: 8,
-        maxZoom: 18,
-        zoomControl: true
-    });
+var map = L.map('map', {
+    center: [-24.404, -53.511],
+    zoom: 5,           // Começa vendo uma boa parte do Brasil
+    minZoom: 3,        // Dá pra afastar até ver o Brasil inteiro e arredores
+    maxZoom: 18,       // Dá pra dar bastante zoom sem o mapa sumir
+    zoomControl: true
+});
 
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(map);
 
@@ -987,7 +987,7 @@ var redIcon = L.icon({
             var tooltip = document.getElementById('tooltip');
             var content = '';
             switch(section) {
-               
+                
                 default:
                     content = '';
             }
