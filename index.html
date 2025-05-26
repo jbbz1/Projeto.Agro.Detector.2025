@@ -12,46 +12,77 @@
     <title>Agro Detector</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
+        .relatorio-btn {
+            font-family: Arial, sans-serif;
+            background-color: #007bff;
+            /* azul clássico */
+            color: white;
+            border: none;
+            padding: 5px 5px;
+            font-size: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+            margin: 2px auto;
+            /* você pode ajustar essa parte */
+            display: name;
+            text-align: center;
+        }
+
+        .relatorio-btn:hover {
+            background-color: #0056b3;
+            /* azul mais escuro ao passar o mouse */
+        }
+
         .cabecalho {
-    position: relative;
-    padding-left: 150px; /* espaço para o texto à esquerda */
-    font-size: 24px;
-    font-weight: bold;
-    background-color: #e8f5e9; /* opcional: cor de fundo suave */
-    padding: 20px;
-}
+            position: relative;
+            padding-left: 150px;
+            /* espaço para o texto à esquerda */
+            font-size: 24px;
+            font-weight: bold;
+            background-color: #e8f5e9;
+            /* opcional: cor de fundo suave */
+            padding: 20px;
+        }
 
-.fase {
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 16px;
-    color: #2e7d32; /* tom de verde escuro */
-    font-weight: normal;
-}
-         #visit-counter-container {
-    margin-top: 40px;
-    padding: 1500px;
-    border-top: 2px solid #4CAF50; /* verde sustentável */
-    background-color: #f9f9f9;
-    text-align: center;
-    font-family: Arial, sans-serif;
-    color: #333;
-  }
+        .fase {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            color: #2e7d32;
+            /* tom de verde escuro */
+            font-weight: normal;
+        }
 
-  #visit-counter-container p {
-    margin: 100;
-    font-size: 16px;
-    font-weight: bold;
-  }
+        #visit-counter-container {
+            margin-top: 40px;
+            padding: 1500px;
+            border-top: 2px solid #4CAF50;
+            /* verde sustentável */
+            background-color: #f9f9f9;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
 
-  #visit-counter-container img {
-    margin-top: 8px;
-    filter: grayscale(100%); /* deixa o contador discreto */
-  }
+        #visit-counter-container p {
+            margin: 100;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        #visit-counter-container img {
+            margin-top: 8px;
+            filter: grayscale(100%);
+            /* deixa o contador discreto */
+        }
+
         .leaflet-control-attribution {
             bottom: 0px !important;
             /* distância da base */
@@ -65,7 +96,7 @@
         }
 
 
-        /* Estilo para os popups do Leaflet */
+        /* config das caixas das posiçoes coletadas  */
         .leaflet-popup {
             margin-bottom: 10px;
         }
@@ -559,10 +590,10 @@
     </head>
 
     <body>
-<header class="cabecalho">
-    <div class="fase">Fase 2 (TESTES)</div>
-    Projeto Agro Detector
-</header>
+        <header class="cabecalho">
+            <div class="fase">Fase 2 (TESTES)</div>
+            Projeto Agro Detector
+        </header>
 
     </body>
     <!-- Menu horizontal -->
@@ -583,14 +614,19 @@
 
         <a href="apresentacao.html" class="box">Professor</a>
 
+
+
+
     </nav>
 
     <!-- Balão de contadores -->
+
     <div class="counters-container">
         <div class="counter-box toxic">
             <i class="fas fa-exclamation-triangle"></i>
             <div class="counter-number" id="toxic-count">0</div>
             <div class="counter-label">Frascos Tóxicos Coletados</div>
+
         </div>
         <div class="counter-box domestic">
             <i class="fas fa-trash-alt"></i>
@@ -600,13 +636,14 @@
             </div>
 
         </div>
+
     </div>
 
     <div id="map"></div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-var map = L.map('map', {
+        var map = L.map('map', {
     center: [-24.404, -53.511],
     zoom: 5,           // Começa vendo uma boa parte do Brasil
     minZoom: 3,        // Dá pra afastar até ver o Brasil inteiro e arredores
@@ -633,6 +670,11 @@ var redIcon = L.icon({
 
     let locations = [
  ////////////////////////////////////////////////////////////
+
+
+
+
+
 
 
 {
@@ -964,6 +1006,7 @@ var redIcon = L.icon({
 
 
 
+
 ////////////////////////////////////////////////////////////
         ];
         let toxicoCount = 0;
@@ -997,19 +1040,163 @@ var redIcon = L.icon({
         function closeInfo() {
             document.getElementById('tooltip').classList.remove('show');
         }
+        
+
+
+
+
+
+
+    
+    </script>
+
+
+
+
+    </script>
+        <button class="relatorio-btn" onclick="gerarPDF()">Baixar Relatório PDF</button>
+
+        
+   <script>
+    async function gerarPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        // Contadores
+        let totalToxico = 0;
+        let totalDomestico = 0;
+
+        locations.forEach(loc => {
+            const tipo = loc.info[0].replace(/<[^>]*>/g, '').trim().toLowerCase();
+            if (tipo.includes("tóxico")) totalToxico++;
+            else if (tipo.includes("doméstico")) totalDomestico++;
+        });
+
+        // Cabeçalho verde escuro com fonte branca
+        doc.setFillColor(34, 139, 34); // Verde escuro
+        doc.rect(0, 0, 210, 25, 'F');
+        doc.setFont("arial", "bold");
+        doc.setFontSize(12);
+        doc.setTextColor(255, 255, 255);
+
+        const dataHoje = new Date().toLocaleDateString();
+        doc.text("Projeto Agro Detector", 10, 10);
+        doc.text(`Data: ${dataHoje}`, 200, 10, { align: "right" });
+
+        doc.setFontSize(11);
+        doc.text(`Total de Lixos Tóxicos: ${totalToxico}`, 10, 20);
+        doc.text(`Total de Lixos Domésticos: ${totalDomestico}`, 100, 20);
+
+        // Título principal azul
+        doc.setFont("arial", "normal");
+        doc.setFontSize(14);
+        doc.setTextColor(0, 0, 255);
+        doc.text("Relatório de Coletas - Projeto Agro Detector", 10, 35);
+        doc.setDrawColor(0);
+        doc.line(10, 37, 200, 37);
+
+        // Conteúdo
+        doc.setFontSize(11);
+        doc.setTextColor(0, 0, 0);
+        let y = 45;
+
+        locations.forEach((loc, index) => {
+            if (y > 270) {
+                doc.addPage();
+                doc.setFillColor(34, 139, 34);
+                doc.rect(0, 0, 210, 25, 'F');
+                doc.setFont("arial", "bold");
+                doc.setFontSize(12);
+                doc.setTextColor(255, 255, 255);
+                doc.text("Projeto Agro Detector", 10, 10);
+                doc.text(`Data: ${dataHoje}`, 200, 10, { align: "right" });
+                doc.setFontSize(11);
+                doc.text(`Total de Lixos Tóxicos: ${totalToxico}`, 10, 20);
+                doc.text(`Total de Lixos Domésticos: ${totalDomestico}`, 100, 20);
+                doc.setFont("arial", "normal");
+                doc.setFontSize(14);
+                doc.setTextColor(0, 0, 255);
+                doc.text("Relatório de Coletas - Projeto Agro Detector", 10, 35);
+                doc.setDrawColor(0);
+                doc.line(10, 37, 200, 37);
+                doc.setFontSize(11);
+                doc.setTextColor(0, 0, 0);
+                y = 45;
+            }
+
+            const tipo = loc.info[0].replace(/<[^>]*>/g, '').trim();
+            const dataHora = loc.info[1].replace("DATA/HORA: ", "").trim();
+            const temp = loc.info[2].replace("Temperatura: ", "").trim();
+            const lat = loc.lat.toFixed(6);
+            const lng = loc.lng.toFixed(6);
+            const mapsUrl = `https://maps.google.com/maps/?&z=10&q=${lat},${lng}`;
+
+            doc.setFont("arial", "bold");
+            doc.text("Tipo de Lixo:", 10, y);
+            doc.setFont("arial", "normal");
+            doc.text(tipo, 50, y);
+            y += 7;
+
+            doc.setFont("arial", "bold");
+            doc.text("Data/Hora:", 10, y);
+            doc.setFont("arial", "normal");
+            doc.text(dataHora, 50, y);
+            y += 7;
+
+            doc.setFont("arial", "bold");
+            doc.text("Temperatura:", 10, y);
+            doc.setFont("arial", "normal");
+            doc.text(temp, 50, y);
+            y += 7;
+
+            doc.setFont("arial", "bold");
+            doc.text("Latitude:", 10, y);
+            doc.setFont("arial", "normal");
+            doc.text(lat.toString(), 50, y);
+            y += 7;
+
+            doc.setFont("arial", "bold");
+            doc.text("Longitude:", 10, y);
+            doc.setFont("arial", "normal");
+            doc.text(lng.toString(), 50, y);
+            y += 7;
+
+            doc.setTextColor(0, 0, 255);
+            doc.textWithLink("Localização no Google Maps (clique aqui)", 10, y, { url: mapsUrl });
+            doc.setTextColor(0, 0, 0);
+            y += 12;
+
+            doc.setDrawColor(200);
+            doc.line(10, y, 200, y);
+            y += 10;
+        });
+
+        doc.save("relatorio_agro_detector.pdf");
+    }
+</script>
+
+
+
+
+
     </script>
 
     <body>
         <!-- Conteúdo do corpo da página -->
 
         <footer class="footer">
+
             <p>&copy; Todos os direitos reservados.</p>
             <img src="RGGUIMA/ID.png" alt="ID">
             <div class="footer-text">Desenvolvimento: Prof. Josiel e Alunos</div>
         </footer>
+
     </body>
-<div id="sfccrad958bf4p8cwe4pawccf6ed278zwsn"></div>
-<script type="text/javascript" src="https://counter1.optistats.ovh/private/counter.js?c=crad958bf4p8cwe4pawccf6ed278zwsn&down=async" async></script>
+
+    <div id="sfccrad958bf4p8cwe4pawccf6ed278zwsn"></div>
+    <script type="text/javascript"
+        src="https://counter1.optistats.ovh/private/counter.js?c=crad958bf4p8cwe4pawccf6ed278zwsn&down=async" async>
+    </script>
 
 
 </html>
