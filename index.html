@@ -18,19 +18,20 @@
         .relatorio-btn {
             font-family: Arial, sans-serif;
             background-color: #007bff;
-            /* azul clássico */
             color: white;
             border: none;
-            padding: 5px 5px;
-            font-size: 15px;
-            border-radius: 8px;
+            padding: 5px 1px;
+            font-size: 14px;
+            border-radius: 4px;
             cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
             transition: background-color 0.3s ease;
-            margin: 2px auto;
-            /* você pode ajustar essa parte */
-            display: name;
+            display: inline-block;
             text-align: center;
+            max-width: 140px;
+            margin: 0 auto;
+            /* centraliza se quiser */
+
         }
 
         .relatorio-btn:hover {
@@ -590,6 +591,7 @@
     </head>
 
     <body>
+
         <header class="cabecalho">
             <div class="fase">Fase 2 (TESTES)</div>
             Projeto Agro Detector
@@ -625,13 +627,18 @@
         <div class="counter-box toxic">
             <i class="fas fa-exclamation-triangle"></i>
             <div class="counter-number" id="toxic-count">0</div>
-            <div class="counter-label">Frascos Tóxicos Coletados</div>
-
+            <div class="counter-label">
+                <span>Frascos</span><br>
+                <span>Tóxicos Coletados</span>
+            </div>
         </div>
         <div class="counter-box domestic">
             <i class="fas fa-trash-alt"></i>
             <div class="counter-number" id="domestic-count">0</div>
-            <div class="counter-label">Lixo Doméstico a Ser Coletado
+     <div class="counter-label">
+  <span>Lixo Doméstico a </span><br>
+  <span> Ser Coletado</span>
+</div>
 
             </div>
 
@@ -1054,11 +1061,10 @@ var redIcon = L.icon({
 
 
     </script>
-        <button class="relatorio-btn" onclick="gerarPDF()">Baixar Relatório PDF</button>
 
-        
-   <script>
-    async function gerarPDF() {
+
+    <script>
+        async function gerarPDF() {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
@@ -1081,6 +1087,7 @@ var redIcon = L.icon({
 
         const dataHoje = new Date().toLocaleDateString();
         doc.text("Projeto Agro Detector", 10, 10);
+        
         doc.text(`Data: ${dataHoje}`, 200, 10, { align: "right" });
 
         doc.setFontSize(11);
@@ -1173,10 +1180,11 @@ var redIcon = L.icon({
 
         doc.save("relatorio_agro_detector.pdf");
     }
-</script>
+    </script>
 
 
 
+    <button class="relatorio-btn" onclick="gerarPDF()">Baixar Relatório PDF</button>
 
 
     </script>
