@@ -15,6 +15,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
+        .subtext {
+            font-size: 1rem;
+            color: #66;
+            margin-top: -9px;
+            line-height: 1.2;
+            color: white;
+
+
+        }
+
+
         .relatorio-btn {
             font-family: Arial, sans-serif;
             background-color: #007bff;
@@ -52,13 +63,16 @@
 
         .fase {
             position: absolute;
-            left: 20px;
-            top: 97%;
-            transform: translateY(-50%);
-            font-size: 15px;
+            top: 0;
+            /* topo da tela ou container pai */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1px;
             color: #ff0000;
-            /* tom de verde escuro */
             font-weight: normal;
+            width: auto;
+            height: auto;
+            text-align: center;
         }
 
         #visit-counter-container {
@@ -163,11 +177,10 @@
                 display: flex !important;
                 justify-content: center !important;
                 align-items: center !important;
-                height: 25px !important;
+                height: 20px !important;
                 background-color: #00a9c9 !important;
                 color: black !important;
                 font-weight: bold !important;
-                text-decoration: none !important;
                 border: 2px solid white !important;
                 border-radius: 33px !important;
             }
@@ -238,7 +251,17 @@
                 /* Ajuste horizontal */
                 height: 75px;
                 z-index: 9999;
+
+
+
+                
             }
+
+
+
+
+
+            
         }
 
 
@@ -357,8 +380,8 @@
         }
 
         .footer-text {
-            margin: 4px 0;
-            line-height: 1.2em;
+            margin: -20px 0;
+            line-height: 01.2em;
         }
 
         /* Barra lateral fixa no lado direito */
@@ -423,6 +446,7 @@
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
             background-color: #1e1e1e;
             transition: transform 0.10s ease;
+            
 
         }
 
@@ -431,23 +455,31 @@
         }
 
         .counter-box i {
-            font-size: 2.1em;
+            font-size: 2.0em;
             margin-bottom: 0px;
+            height: -5px;
+            
+            
         }
 
         .counter-number {
-            font-size: 2.5em;
+            width: 160px;
+            height: 25px;
+            font-size: 2.1em;
             font-weight: bold;
             color: #00ff88;
         }
 
         .counter-label {
+            width: 160px;
+            height: 50px;
             font-size: 1.4em;
             margin-top: 1px;
         }
 
         .counter-box.toxic i {
             color: #ff4444;
+            
         }
 
         .counter-box.domestic i {
@@ -457,6 +489,7 @@
         #map {
             height: 60vh;
             width: 100%;
+            
         }
 
         /* === ÍCONES PERSONALIZADOS === */
@@ -466,6 +499,7 @@
             width: 16px;
             height: 16px;
             display: inline-block;
+            
         }
 
         .custom-icon-green {
@@ -481,15 +515,15 @@
         nav {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
+            justify-content: left;
+            gap: 0px;
             background-color: #000000;
-            padding: 5px;
+            padding: 0px;
 
         }
 
         .box {
-            padding: 1px 05px;
+            padding: 1px 4px;
             background-color: #008CBA;
             color: black;
             cursor: pointer;
@@ -498,6 +532,7 @@
             font-weight: bold;
             border: 0.001px solid white;
             text-decoration: none;
+            font-size: 19px;
 
 
         }
@@ -595,12 +630,17 @@
         <header class="cabecalho">
             <div class="fase">Fase 2 (TESTES)</div>
             Projeto Agro Detector
+            <div class="subtext">
+                <span>Coleta e mapeamento de resíduos tóxicos e microplásticos</span><br>
+            </div>
         </header>
 
     </body>
     <!-- Menu horizontal -->
     <nav>
         <a href="projeto.html" class="box">Projeto</a>
+
+        <a href="Noticias.html" class="box">Noticias</a>
 
         <a href="comofunciona.html" class="box">Componetes</a>
 
@@ -616,6 +656,9 @@
 
         <a href="apresentacao.html" class="box">Professor</a>
 
+        <a href="Alunos.html" class="box">Alunos</a>
+
+
 
 
 
@@ -629,22 +672,22 @@
             <div class="counter-number" id="toxic-count">0</div>
             <div class="counter-label">
                 <span>Frascos</span><br>
-                <span>Tóxicos Coletados</span>
+                <span>
+                    tóxicos coletados</span>
             </div>
         </div>
         <div class="counter-box domestic">
             <i class="fas fa-trash-alt"></i>
             <div class="counter-number" id="domestic-count">0</div>
-     <div class="counter-label">
-  <span>Lixo Doméstico a </span><br>
-  <span> Ser Coletado</span>
-</div>
-
+            <div class="counter-label">
+                <span>Lixo doméstico </span><br>
+                <span> a ser coletado</span>
             </div>
 
         </div>
 
     </div>
+
 
     <div id="map"></div>
 
@@ -677,11 +720,6 @@ var redIcon = L.icon({
 
     let locations = [
  ////////////////////////////////////////////////////////////
-
-
-
-
-
 
 
 {
@@ -1011,9 +1049,6 @@ var redIcon = L.icon({
 
 
 
-
-
-
 ////////////////////////////////////////////////////////////
         ];
         let toxicoCount = 0;
@@ -1193,9 +1228,9 @@ var redIcon = L.icon({
         <!-- Conteúdo do corpo da página -->
 
         <footer class="footer">
+            <img src="RGGUIMA/ID.png" alt="ID">
 
             <p>&copy; Todos os direitos reservados.</p>
-            <img src="RGGUIMA/ID.png" alt="ID">
             <div class="footer-text">Desenvolvimento: Prof. Josiel e Alunos</div>
         </footer>
 
