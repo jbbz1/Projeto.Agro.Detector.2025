@@ -289,7 +289,7 @@
       .sidebar-title {
         color: #333;
         font-family: 'Arial', sans-serif;
-        font-size: 18px;
+        font-size: 10px;
         font-weight: bold;
         margin: 0 auto;
         /* centraliza horizontalmente */
@@ -301,7 +301,7 @@
 
       .sidebar img {
         max-width: 80%;
-        margin: 5px 4;
+        margin: 50px 4;
         border-radius: 5px;
         transition: transform 0.2s ease;
         cursor: pointer;
@@ -638,12 +638,12 @@
 
 
 
-      <a href="https://www.pmpr.pr.gov.br/31BPM" target="_blank" title="31º Batalhão de Polícia Militar">
-        <img src="apoiadores/bpm.png" alt="31º Batalhão de Polícia Militar" class="logo">
+      <a href="https://www.pmpr.pr.gov.br/31BPM" target="_blank" title="31º B. de Pol. Mil.">
+        <img src="apoiadores/bpm.png" alt="31º B. de Pol. Mil." class="logo">
       </a>
 
-      <a href="https://www.assischateaubriand.pr.gov.br/index.php?sessao=b054603368svb0&id=3996" target="_blank" title="Secretaria de Serviços Urbanos">
-        <img src="apoiadores/secretariadeserviçosurbanos.png" alt="Secretaria de Serviços Urbanos" class="logo">
+      <a href="https://www.assischateaubriand.pr.gov.br/index.php?sessao=b054603368svb0&id=3996" target="_blank" title="Sec. de Serviços Urb.">
+        <img src="apoiadores/secretariadeserviçosurbanos.png" alt="Sec. de Serviços Urb." class="logo">
 
 
       </a>
@@ -660,7 +660,7 @@
       </a>
 
       <a href="https://www.instagram.com/ambiental.assis/" target="_blank" title="Departamento de Meio Ambiente de Assis Chateaubriand">
-        <img src="apoiadores/meioambiente.png" alt="Departamento de Meio Ambiente de Assis Chateaubriand" class="logo">
+        <img src="apoiadores/meioambiente.png" alt="Dep. Meio Ambiente" class="logo">
 
       </a>
 
@@ -695,12 +695,12 @@
 
       </a>
 
-      <a href="https://www.instagram.com/caseshowassis/" target="_blank" title="Case Show Assis Chateaubriand">
-        <img src="apoiadores/case.png" alt="Case Show Assis Chateaubriand" class="logo">
+      <a href="https://www.instagram.com/caseshowassis/" target="_blank" title="Case Show Assis">
+        <img src="apoiadores/case.png" alt="Case Show" class="logo">
 
       </a>
 
-      <a href="https://www.instagram.com/agr_opecuariabichobom/" target="_blank" title="Bicho Bom Agropecuária">
+      <a href="https://www.instagram.com/agr_opecuariabichobom/" target="_blank" title="Bicho Bom Agro.">
         <img src="apoiadores/bichobom.png" alt="Bicho Bom Agropecuária" class="logo">
 
       </a>
@@ -1412,6 +1412,41 @@ var redIcon = L.icon({
 
   <button class="relatorio-btn" onclick="gerarPDF()">Baixar Relatório PDF</button>
 
+  
+<!-- Modal -->
+<div id="videoModal" onclick="fecharModal(event)" style="display: flex; justify-content: center; align-items: center;
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); z-index: 9999;">
+  
+  <div id="videoContainer" style="position: relative; width: 80%; max-width: 720px;">
+    <!-- Botão de fechar -->
+    <button onclick="fecharModal()" 
+      style="position: absolute; top: -15px; right: -15px; 
+      background: red; color: white; border: none; border-radius: 50%; 
+      width: 35px; height: 35px; font-size: 20px; font-weight: bold; 
+      cursor: pointer; box-shadow: 0 0 5px rgba(0,0,0,0.5);">
+      &times;
+    </button>
+
+    <!-- Vídeo do YouTube -->
+    <iframe id="youtubeVideo" width="100%" height="400"
+  src="https://www.youtube.com/embed/_JvkP3Ftha8?autoplay=1"
+      frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  </div>
+</div> 
+
+<script>
+  function fecharModal(event) {
+    const modal = document.getElementById("videoModal");
+    const video = document.getElementById("youtubeVideo");
+
+    // Se clicou fora do vídeo (no fundo escuro) OU clicou no botão
+    if (!event || event.target === modal || event.target.tagName === "BUTTON") {
+      video.src = ""; // para o vídeo e o som
+      modal.style.display = "none";
+    }
+  }
+</script>
 
   </script>
 
