@@ -1291,72 +1291,62 @@ var redIcon = L.icon({
   </script>
 
 
-  <script>
-    async function gerarPDF() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
+<script>
+async function gerarPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
 
-        // Contadores
-        let totalToxico = 0;
-        let totalDomestico = 0;
+    let toxicos = [];
+    let domesticos = [];
 
-        locations.forEach(loc => {
-            const tipo = loc.info[0].replace(/<[^>]*>/g, '').trim().toLowerCase();
-            if (tipo.includes("tóxico")) totalToxico++;
-            else if (tipo.includes("doméstico")) totalDomestico++;
-        });
+    locations.forEach(loc => {
+        const tipoLimpo = loc.info[0].replace(/<[^>]*>/g, '').trim().toLowerCase();
+        if (tipoLimpo.includes("tóxico")) toxicos.push(loc);
+        else if (tipoLimpo.includes("doméstico")) domesticos.push(loc);
+    });
 
-        // Cabeçalho verde escuro com fonte branca
-        doc.setFillColor(34, 139, 34); // Verde escuro
+    const totalToxico = toxicos.length;
+    const totalDomestico = domesticos.length;
+    const dataHoje = new Date().toLocaleDateString();
+
+    const desenharCabecalho = () => {
+        doc.setFillColor(173, 216, 230); // azul claro
         doc.rect(0, 0, 210, 25, 'F');
+
         doc.setFont("arial", "bold");
         doc.setFontSize(12);
-        doc.setTextColor(255, 255, 255);
-
-        const dataHoje = new Date().toLocaleDateString();
+        doc.setTextColor(0, 0, 0);
         doc.text("Projeto Agro Detector", 10, 10);
-        
         doc.text(`Data: ${dataHoje}`, 200, 10, { align: "right" });
 
         doc.setFontSize(11);
+        doc.setTextColor(255, 0, 0);
         doc.text(`Total de Lixos Tóxicos: ${totalToxico}`, 10, 20);
+        doc.setTextColor(0, 128, 0);
         doc.text(`Total de Lixos Domésticos: ${totalDomestico}`, 100, 20);
 
-        // Título principal azul
         doc.setFont("arial", "normal");
         doc.setFontSize(14);
         doc.setTextColor(0, 0, 255);
         doc.text("Relatório de Coletas - Projeto Agro Detector", 10, 35);
         doc.setDrawColor(0);
         doc.line(10, 37, 200, 37);
+    };
 
-        // Conteúdo
-        doc.setFontSize(11);
-        doc.setTextColor(0, 0, 0);
-        let y = 45;
+    desenharCabecalho();
 
-        locations.forEach((loc, index) => {
-            if (y > 270) {
+    // variável y global para o documento inteiro
+    let y = 45;
+
+    // Agora, passar y para a função e atualizar ela externamente
+    const adicionarLixos = (lista, corTexto, yStart) => {
+        let yLocal = yStart;
+
+        lista.forEach((loc) => {
+            if (yLocal > 270) {
                 doc.addPage();
-                doc.setFillColor(34, 139, 34);
-                doc.rect(0, 0, 210, 25, 'F');
-                doc.setFont("arial", "bold");
-                doc.setFontSize(12);
-                doc.setTextColor(255, 255, 255);
-                doc.text("Projeto Agro Detector", 10, 10);
-                doc.text(`Data: ${dataHoje}`, 200, 10, { align: "right" });
-                doc.setFontSize(11);
-                doc.text(`Total de Lixos Tóxicos: ${totalToxico}`, 10, 20);
-                doc.text(`Total de Lixos Domésticos: ${totalDomestico}`, 100, 20);
-                doc.setFont("arial", "normal");
-                doc.setFontSize(14);
-                doc.setTextColor(0, 0, 255);
-                doc.text("Relatório de Coletas - Projeto Agro Detector", 10, 35);
-                doc.setDrawColor(0);
-                doc.line(10, 37, 200, 37);
-                doc.setFontSize(11);
-                doc.setTextColor(0, 0, 0);
-                y = 45;
+                desenharCabecalho();
+                yLocal = 45;
             }
 
             const tipo = loc.info[0].replace(/<[^>]*>/g, '').trim();
@@ -1367,48 +1357,59 @@ var redIcon = L.icon({
             const mapsUrl = `https://maps.google.com/maps/?&z=10&q=${lat},${lng}`;
 
             doc.setFont("arial", "bold");
-            doc.text("Tipo de Lixo:", 10, y);
+            doc.setTextColor(0, 0, 0);
+            doc.text("Tipo de Lixo:", 10, yLocal);
             doc.setFont("arial", "normal");
-            doc.text(tipo, 50, y);
-            y += 7;
+            doc.setTextColor(...corTexto);
+            doc.text(tipo, 50, yLocal);
+            yLocal += 7;
 
             doc.setFont("arial", "bold");
-            doc.text("Data/Hora:", 10, y);
+            doc.setTextColor(0, 0, 0);
+            doc.text("Data/Hora:", 10, yLocal);
             doc.setFont("arial", "normal");
-            doc.text(dataHora, 50, y);
-            y += 7;
+            doc.text(dataHora, 50, yLocal);
+            yLocal += 7;
 
             doc.setFont("arial", "bold");
-            doc.text("Temperatura:", 10, y);
+            doc.text("Temperatura:", 10, yLocal);
             doc.setFont("arial", "normal");
-            doc.text(temp, 50, y);
-            y += 7;
+            doc.text(temp, 50, yLocal);
+            yLocal += 7;
 
             doc.setFont("arial", "bold");
-            doc.text("Latitude:", 10, y);
+            doc.text("Latitude:", 10, yLocal);
             doc.setFont("arial", "normal");
-            doc.text(lat.toString(), 50, y);
-            y += 7;
+            doc.text(lat.toString(), 50, yLocal);
+            yLocal += 7;
 
             doc.setFont("arial", "bold");
-            doc.text("Longitude:", 10, y);
+            doc.text("Longitude:", 10, yLocal);
             doc.setFont("arial", "normal");
-            doc.text(lng.toString(), 50, y);
-            y += 7;
+            doc.text(lng.toString(), 50, yLocal);
+            yLocal += 7;
 
             doc.setTextColor(0, 0, 255);
-            doc.textWithLink("Localização no Google Maps (clique aqui)", 10, y, { url: mapsUrl });
-            doc.setTextColor(0, 0, 0);
-            y += 12;
+            doc.textWithLink("Localização no Google Maps (clique aqui)", 10, yLocal, { url: mapsUrl });
+            yLocal += 12;
 
             doc.setDrawColor(200);
-            doc.line(10, y, 200, y);
-            y += 10;
+            doc.line(10, yLocal, 200, yLocal);
+            yLocal += 10;
         });
+ 
+        return yLocal; // retorna o y atualizado
+    };
 
-        doc.save("Relatório_Agro_Detector.pdf");
-    }
-  </script>
+    // Passa y e recebe y atualizado para o próximo bloco
+    y = adicionarLixos(domesticos, [0, 128, 0], y);
+    y = adicionarLixos(toxicos, [255, 0, 0], y);
+
+    doc.save("Relatório_Agro_Detector.pdf");
+}
+
+</script>
+
 
   <button class="relatorio-btn" onclick="gerarPDF()">Baixar Relatório PDF</button>
 
