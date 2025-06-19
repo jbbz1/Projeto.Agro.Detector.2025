@@ -1292,121 +1292,168 @@ var redIcon = L.icon({
 
 
 <script>
+
 async function gerarPDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
 
-    let toxicos = [];
-    let domesticos = [];
+  // Separar os lixos tóxicos e domésticos
+  let toxicos = [];
+  let domesticos = [];
 
-    locations.forEach(loc => {
-        const tipoLimpo = loc.info[0].replace(/<[^>]*>/g, '').trim().toLowerCase();
-        if (tipoLimpo.includes("tóxico")) toxicos.push(loc);
-        else if (tipoLimpo.includes("doméstico")) domesticos.push(loc);
-    });
+  locations.forEach(loc => {
+    const tipoLimpo = loc.info[0].replace(/<[^>]*>/g, '').trim().toLowerCase();
+    if (tipoLimpo.includes("tóxico")) toxicos.push(loc);
+    else if (tipoLimpo.includes("doméstico")) domesticos.push(loc);
+  });
 
-    const totalToxico = toxicos.length;
-    const totalDomestico = domesticos.length;
-    const dataHoje = new Date().toLocaleDateString();
+  const dataHoje = new Date().toLocaleDateString();
 
-    const desenharCabecalho = () => {
-        doc.setFillColor(173, 216, 230); // azul claro
-        doc.rect(0, 0, 210, 25, 'F');
+  // Função que desenha cabeçalho na página atual
+  function desenharCabecalho() {
+    doc.setFillColor(173, 216, 230); // azul claro
+    doc.rect(0, 0, 210, 25, 'F');
 
-        doc.setFont("arial", "bold");
-        doc.setFontSize(12);
-        doc.setTextColor(0, 0, 0);
-        doc.text("Projeto Agro Detector", 10, 10);
-        doc.text(`Data: ${dataHoje}`, 200, 10, { align: "right" });
+    doc.setFont("arial", "bold");
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+    doc.text("Projeto Agro Detector", 10, 10);
+    doc.text(`Data: ${dataHoje}`, 200, 10, { align: "right" });
 
-        doc.setFontSize(11);
-        doc.setTextColor(255, 0, 0);
-        doc.text(`Total de Lixos Tóxicos: ${totalToxico}`, 10, 20);
-        doc.setTextColor(0, 128, 0);
-        doc.text(`Total de Lixos Domésticos: ${totalDomestico}`, 100, 20);
+    doc.setFontSize(11);
+    doc.setTextColor(255, 0, 0);
+    doc.text(`Total de Lixos Tóxicos: ${toxicos.length}`, 10, 20);
+    doc.setTextColor(0, 128, 0);
+    doc.text(`Total de Lixos Domésticos: ${domesticos.length}`, 100, 20);
 
-        doc.setFont("arial", "normal");
-        doc.setFontSize(14);
-        doc.setTextColor(0, 0, 255);
-        doc.text("Relatório de Coletas - Projeto Agro Detector", 10, 35);
-        doc.setDrawColor(0);
-        doc.line(10, 37, 200, 37);
-    };
+    doc.setFont("arial", "normal");
+    doc.setFontSize(14);
+    doc.setTextColor(0, 0, 255);
+    doc.text("Relatório de Coletas - Projeto Agro Detector", 10, 35);
+    doc.setDrawColor(0);
+    doc.line(10, 37, 200, 37);
+  }
 
-    desenharCabecalho();
+  // Função para carregar uma imagem PNG e converter para base64
+  async function carregarImagemBase64(url) {
+    try {
+      const resposta = await fetch(url);
+      if (!resposta.ok) throw new Error(`Erro ao buscar imagem: ${url}`);
 
-    // variável y global para o documento inteiro
-    let y = 45;
+      const blob = await resposta.blob();
 
-    // Agora, passar y para a função e atualizar ela externamente
-    const adicionarLixos = (lista, corTexto, yStart) => {
-        let yLocal = yStart;
+      // Verifica se é PNG
+      if (blob.type !== 'image/png') {
+        console.warn(`Imagem não é PNG: ${url}, tipo: ${blob.type}`);
+      }
 
-        lista.forEach((loc) => {
-            if (yLocal > 270) {
-                doc.addPage();
-                desenharCabecalho();
-                yLocal = 45;
-            }
+      return await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    } catch (e) {
+      console.error(e);
+      return null; // Em caso de erro, retorna null
+    }
+  }
 
-            const tipo = loc.info[0].replace(/<[^>]*>/g, '').trim();
-            const dataHora = loc.info[1].replace("DATA/HORA: ", "").trim();
-            const temp = loc.info[2].replace("Temperatura: ", "").trim();
-            const lat = loc.lat.toFixed(6);
-            const lng = loc.lng.toFixed(6);
-            const mapsUrl = `https://maps.google.com/maps/?&z=10&q=${lat},${lng}`;
+  // Função para adicionar os lixos no PDF (assíncrona para tratar imagens)
+  async function adicionarLixos(lista, corTexto, yStart) {
+    let yLocal = yStart;
 
-            doc.setFont("arial", "bold");
-            doc.setTextColor(0, 0, 0);
-            doc.text("Tipo de Lixo:", 10, yLocal);
-            doc.setFont("arial", "normal");
-            doc.setTextColor(...corTexto);
-            doc.text(tipo, 50, yLocal);
-            yLocal += 7;
+    for (const loc of lista) {
+      if (yLocal > 270) {
+        doc.addPage();
+        desenharCabecalho();
+        yLocal = 45;
+      }
 
-            doc.setFont("arial", "bold");
-            doc.setTextColor(0, 0, 0);
-            doc.text("Data/Hora:", 10, yLocal);
-            doc.setFont("arial", "normal");
-            doc.text(dataHora, 50, yLocal);
-            yLocal += 7;
+      // Extrair dados básicos
+      const tipo = loc.info[0].replace(/<[^>]*>/g, '').trim();
+      const dataHora = loc.info[1].replace("DATA/HORA: ", "").trim();
+      const temp = loc.info[2].replace("Temperatura: ", "").trim();
+      const lat = loc.lat.toFixed(6);
+      const lng = loc.lng.toFixed(6);
+      const mapsUrl = `https://maps.google.com/maps/?&z=10&q=${lat},${lng}`;
 
-            doc.setFont("arial", "bold");
-            doc.text("Temperatura:", 10, yLocal);
-            doc.setFont("arial", "normal");
-            doc.text(temp, 50, yLocal);
-            yLocal += 7;
+      doc.setFont("arial", "bold");
+      doc.setTextColor(0, 0, 0);
+      doc.text("Tipo de Lixo:", 10, yLocal);
+      doc.setFont("arial", "normal");
+      doc.setTextColor(...corTexto);
+      doc.text(tipo, 50, yLocal);
+      yLocal += 7;
 
-            doc.setFont("arial", "bold");
-            doc.text("Latitude:", 10, yLocal);
-            doc.setFont("arial", "normal");
-            doc.text(lat.toString(), 50, yLocal);
-            yLocal += 7;
+      doc.setFont("arial", "bold");
+      doc.setTextColor(0, 0, 0);
+      doc.text("Data/Hora:", 10, yLocal);
+      doc.setFont("arial", "normal");
+      doc.text(dataHora, 50, yLocal);
+      yLocal += 7;
 
-            doc.setFont("arial", "bold");
-            doc.text("Longitude:", 10, yLocal);
-            doc.setFont("arial", "normal");
-            doc.text(lng.toString(), 50, yLocal);
-            yLocal += 7;
+      doc.setFont("arial", "bold");
+      doc.text("Temperatura:", 10, yLocal);
+      doc.setFont("arial", "normal");
+      doc.text(temp, 50, yLocal);
+      yLocal += 7;
 
-            doc.setTextColor(0, 0, 255);
-            doc.textWithLink("Localização no Google Maps (clique aqui)", 10, yLocal, { url: mapsUrl });
-            yLocal += 12;
+      doc.setFont("arial", "bold");
+      doc.text("Latitude:", 10, yLocal);
+      doc.setFont("arial", "normal");
+      doc.text(lat.toString(), 50, yLocal);
+      yLocal += 7;
 
-            doc.setDrawColor(200);
-            doc.line(10, yLocal, 200, yLocal);
-            yLocal += 10;
-        });
- 
-        return yLocal; // retorna o y atualizado
-    };
+      doc.setFont("arial", "bold");
+      doc.text("Longitude:", 10, yLocal);
+      doc.setFont("arial", "normal");
+      doc.text(lng.toString(), 50, yLocal);
+      yLocal += 7;
 
-    // Passa y e recebe y atualizado para o próximo bloco
-    y = adicionarLixos(domesticos, [0, 128, 0], y);
-    y = adicionarLixos(toxicos, [255, 0, 0], y);
+      doc.setTextColor(0, 0, 255);
+      doc.textWithLink("Localização no Google Maps (clique aqui)", 10, yLocal, { url: mapsUrl });
+      yLocal += 10;
 
-    doc.save("Relatório_Agro_Detector.pdf");
+      // Procurar tag <img> no info e extrair o src da imagem
+      let imgTag = loc.info.find(i => i.includes("<img"));
+      if (imgTag) {
+        const srcMatch = imgTag.match(/src=['"]([^'"]+)['"]/);
+        if (srcMatch && srcMatch[1]) {
+          const urlImagem = srcMatch[1];
+          const imgBase64 = await carregarImagemBase64(urlImagem);
+
+          if (imgBase64) {
+            // Insere a imagem no pdf
+            // Ajusta posição X, Y, largura e altura (pode ajustar conforme seu layout)
+            doc.addImage(imgBase64, 'PNG', 130, yLocal - 50, 60, 45);
+            yLocal += 50;
+          } else {
+            console.warn(`Não foi possível carregar a imagem: ${urlImagem}`);
+          }
+        }
+      }
+
+      doc.setDrawColor(200);
+      doc.line(10, yLocal, 200, yLocal);
+      yLocal += 10;
+    }
+
+    return yLocal;
+  }
+
+  // Desenha o cabeçalho na primeira página
+  desenharCabecalho();
+
+  // Executa a adição de lixos (domesticos primeiro, depois toxicos)
+  let y = 45;
+  y = await adicionarLixos(domesticos, [0, 128, 0], y);
+  y = await adicionarLixos(toxicos, [255, 0, 0], y);
+
+  // Salva o arquivo PDF
+  doc.save("Relatório_Agro_Detector.pdf");
 }
+
 
 </script>
 
