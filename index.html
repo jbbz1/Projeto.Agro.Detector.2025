@@ -469,46 +469,54 @@
     }
 
     /* Barra lateral fixa no lado direito */
-    .sidebar {
-      position: fixed;
-      top: 1%;
-      right: 1px;
-      transform: translateY(30%) width: 120px;
-      background-color: #ffffff;
-      padding: 14px;
-      border-radius: 10px 0 50px;
-      box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.2);
-      z-index: 500;
-      text-align: center;
-    }
+   .sidebar {
+  position: fixed;
+  top: -10%;
+  right: 1px;
+  transform: translateY(30%);
+  width: 220px; /* largura aumentada pra caber duas colunas de 100px */
+  background-color: #ffffff;
+  padding: 14px;
+  border-radius: 10px 0 50px;
+  box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.2);
+  z-index: 500;
+  text-align: center;
+  overflow-y: auto; /* rolagem se tiver muitos logos */
+  max-height: 80vh;
+}
 
-    .sidebar-title {
-      color: #333;
-      font-family: 'Arial', sans-serif;
-      font-size: 15px;
-      font-weight: bold;
-      margin: 0 auto;
-      /* centraliza horizontalmente */
-      text-align: center;
-      width: 100%;
-      padding: 1px 0;
-      /* ajuste fino vertical */
+.sidebar-title {
+  color: #333;
+  font-family: 'Arial', sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  padding: 1px 0;
+}
 
-    }
+.logos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* DUAS COLUNAS */
+  gap: 10px;
+  justify-items: center;
+  align-items: center;
+  font-family: 'Arial', sans-serif;
+}
 
-    .logos {
-      display: flex;
-      flex-direction: column;
-      gap: 0px;
-      align-items: center;
-      font-family: 'Arial', sans-serif;
-    }
+.logo {
+  width: 100px; /* tamanho EXATO solicitado */
+  height: auto;
+  border-radius: 5px;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
 
-    .logo {
-      width: 75px; //tamanho da imagem logo
-      height: auto;
-      gap: 0px;
-    }
+.logo:hover {
+  transform: scale(1.05);
+}
+
 
     /* === CONTADORES === */
     .counters-container {
