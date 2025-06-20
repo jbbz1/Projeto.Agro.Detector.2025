@@ -20,31 +20,31 @@
 #overlay-carregando {
   display: none; /* agora sim funciona! */
   position: fixed;
-  z-index: 99999;
-  top: 0;
-  left: 0;
+  z-index: 99999; 
+  top: 0; 
+  left: 0; 
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(2px);
+  background-color: rgba(0, 0, 0, 0.6); 
+  backdrop-filter: blur(5px);
   justify-content: center;
   align-items: center;
 }
 
 .container-spinner {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
   align-items: center;
 }
 
-.spinner {
-  border: 6px solid #f3f3f3;
-  border-top: 6px solid #00a86b;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  animation: girar 1s linear infinite;
-  margin-bottom: 15px;
+.spinner {  
+  border: 10px solid #f3f3f3;          /* borda geral mais grossa */
+  border-top: 15px solid #00a86b;      /* borda superior mais grossa e cor corrigida (#00a86b) */
+  border-radius: 50%;  
+  width: 80px;
+  height: 80px;
+  animation: girar 0.12s linear infinite; /* velocidade bem rápida */
+  margin-bottom: 20px;
 }
 
 .texto {
@@ -52,7 +52,7 @@
   font-size: 1.2em;
   font-weight: bold;
   text-align: center;
-}
+} 
 
 @keyframes girar {
   0% { transform: rotate(0deg); }
@@ -60,7 +60,7 @@
 }
     .subtext {
       font-size: 1rem;
-      color: #66;
+      color: #66; 
       margin-top: -9px;
       line-height: 1.2;
       color: white;
@@ -1329,21 +1329,7 @@ var redIcon = L.icon({
         function closeInfo() {
             document.getElementById('tooltip').classList.remove('show');
         }
-        
-
-
-
-
-
-
-    
   </script>
-
-
-
-
-  </script>
-
 
 <script>
 async function gerarPDF() {
