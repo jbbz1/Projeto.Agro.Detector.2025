@@ -15,6 +15,50 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <style>
+
+
+    #overlay-carregando {
+  display: none;
+  position: fixed;
+  z-index: 99999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.spinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #00a86b;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: girar 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+.texto {
+  color: white;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+}
+
+@keyframes girar {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
     .subtext {
       font-size: 1rem;
       color: #66;
@@ -271,51 +315,60 @@
         border: 2px solid white !important;
         border-radius: 33px !important;
       }
-.sidebar {
-  position: fixed;
-  top: 12% !important;
-  right: 0!important;
-  width: 150px!important; /* ❗️ Reduzida aqui fundo branco */
-  background-color: #fff;
-  padding: 8px 05px; /* ❗️ Menos padding horizontal e vertical */
-  border-radius: 30px 0 0 30px;
-  box-shadow: -3px 3px 15px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
-  text-align: left;
-  transition: width 0.3s ease;
-}
 
-.sidebar-title {
-  color: #333;
-  font-family: 'Arial', sans-serif;
-  font-size: 10px;
-  font-weight: bold;
-  text-align: center;
-  width: 100%;
-  padding: 4px 0;
-}
+      .sidebar {
+        position: fixed;
+        top: 12% !important;
+        right: 0;
+        width: 130px;
+        background-color: #fff;
+        padding: 20px 10px;
+        border-radius: 30px 0 0 30px;
+        box-shadow: -3px 3px 15px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+        text-align: center;
+        transition: width 0.3s ease;
+      }
 
-.logos {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  align-items: flex-start; /* encosta os logos na lateral esquerda */
-}
+      .sidebar-title {
+        color: #333;
+        font-family: 'Arial', sans-serif;
+        font-size: 10px;
+        font-weight: bold;
+        margin: 0 auto;
+        /* centraliza horizontalmente */
+        text-align: center;
+        width: 100%;
+        padding: 5px 0;
+        /* ajuste fino vertical */
+      }
 
-.logo {
-  width: 95px !important; /*  tamanho da logo */
-  height: auto;
-  margin: 0;
-  padding: 0;
-  border-radius: 5px;
-  transition: transform 0.2s ease;
-  cursor: pointer;
-}
+      .sidebar img {
+        max-width: 80%;
+        margin: 50px 4;
+        border-radius: 5px;
+        transition: transform 0.2s ease;
+        cursor: pointer;
+      }
 
-.logo:hover {
-  transform: scale(1.05);
-}
+      .sidebar img:hover {
+        transform: scale(1.05);
+      }
 
+      .logos {
+        display: flex;
+        flex-direction: column;
+        gap: 0 !important;
+        px;
+        align-items: center;
+      }
+
+      .logo {
+        height: auto;
+        width: 65px !important; //tamanho da imagem logo
+        height: auto;
+        gap: 0px;
+      }
 
       #rodape img {
         width: 10% !important;
@@ -1294,12 +1347,13 @@ var redIcon = L.icon({
 
 
 <script>
-
 async function gerarPDF() {
-  document.getElementById("mensagem-processando").style.display = "block";
+  const overlay = document.getElementById("overlay-carregando");
+  overlay.style.display = "flex"; // Mostra o overlay com animação
 
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
+  try {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
 
   // Separar os lixos tóxicos e domésticos
   let toxicos = [];
@@ -1447,26 +1501,7 @@ async function gerarPDF() {
   }
 
   // Desenha o cabeçalho na primeira página
-  desenharCabecalho();
-
-  // Executa a adição de lixos (domesticos primeiro, depois toxicos)
-  let y = 45;
-  y = await adicionarLixos(domesticos, [0, 128, 0], y);
-  y = await adicionarLixos(toxicos, [255, 0, 0], y);
-
-  // Salva o arquivo PDF
-  doc.save("Relatório_Agro_Detector.pdf");
-  document.getElementById("mensagem-processando").style.display = "none";
-async function gerarPDF() {
-  document.getElementById("mensagem-processando").style.display = "block";
-
-  try {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-
-    // ... todo seu código anterior ...
-
-    desenharCabecalho();
+   desenharCabecalho();
     let y = 45;
     y = await adicionarLixos(domesticos, [0, 128, 0], y);
     y = await adicionarLixos(toxicos, [255, 0, 0], y);
@@ -1477,23 +1512,23 @@ async function gerarPDF() {
     console.error("Erro ao gerar PDF:", erro);
     alert("Ocorreu um erro ao gerar o relatório.");
   } finally {
-    document.getElementById("mensagem-processando").style.display = "none";
+    overlay.style.display = "none"; // Esconde depois de salvar ou erro
   }
 }
-}
-
 
 </script>
 
 
+  <button class="relatorio-btn" onclick="gerarPDF()">Baixar Relatório PDF</button>
+<!-- Overlay com spinner e texto -->
+<div id="overlay-carregando">
+  <div class="container-spinner">
+    <div class="spinner"></div>
+    <div class="texto">Gerando relatório, por favor aguarde...</div>
+  </div>
+</div>
 
-<!-- Botão -->
-<button class="relatorio-btn" onclick="gerarPDF()">Baixar Relatório PDF</button>
 
-<!-- Mensagem de carregamento -->
-<p id="mensagem-processando" style="display: none; color: #00a86b; font-weight: bold; margin-top: 10px;">
-  ⏳ Gerando relatório, por favor aguarde...
-</p>
 
   
 <!-- Modal -->
