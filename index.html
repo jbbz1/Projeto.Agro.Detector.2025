@@ -1296,6 +1296,8 @@ var redIcon = L.icon({
 <script>
 
 async function gerarPDF() {
+  document.getElementById("mensagem-processando").style.display = "block";
+
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
@@ -1454,13 +1456,44 @@ async function gerarPDF() {
 
   // Salva o arquivo PDF
   doc.save("Relatório_Agro_Detector.pdf");
+  document.getElementById("mensagem-processando").style.display = "none";
+async function gerarPDF() {
+  document.getElementById("mensagem-processando").style.display = "block";
+
+  try {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // ... todo seu código anterior ...
+
+    desenharCabecalho();
+    let y = 45;
+    y = await adicionarLixos(domesticos, [0, 128, 0], y);
+    y = await adicionarLixos(toxicos, [255, 0, 0], y);
+
+    doc.save("Relatório_Agro_Detector.pdf");
+
+  } catch (erro) {
+    console.error("Erro ao gerar PDF:", erro);
+    alert("Ocorreu um erro ao gerar o relatório.");
+  } finally {
+    document.getElementById("mensagem-processando").style.display = "none";
+  }
+}
 }
 
 
 </script>
 
 
-  <button class="relatorio-btn" onclick="gerarPDF()">Baixar Relatório PDF</button>
+
+<!-- Botão -->
+<button class="relatorio-btn" onclick="gerarPDF()">Baixar Relatório PDF</button>
+
+<!-- Mensagem de carregamento -->
+<p id="mensagem-processando" style="display: none; color: #00a86b; font-weight: bold; margin-top: 10px;">
+  ⏳ Gerando relatório, por favor aguarde...
+</p>
 
   
 <!-- Modal -->
