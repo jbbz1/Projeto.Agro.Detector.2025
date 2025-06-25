@@ -2140,7 +2140,40 @@ async function gerarPDF() {
   }
 }
 </script>
+  <!-- Modal -->
+  <div id="videoModal" onclick="fecharModal(event)" style="display: flex; justify-content: center; align-items: center;
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); z-index: 9999;">
 
+    <div id="videoContainer" style="position: relative; width: 80%; max-width: 720px;">
+      <!-- Botão de fechar -->
+      <button onclick="fecharModal()"
+      style="position: absolute; top: -15px; right: -15px; 
+      background: red; color: white; border: none; border-radius: 50%; 
+      width: 35px; height: 35px; font-size: 20px; font-weight: bold; 
+      cursor: pointer; box-shadow: 0 0 5px rgba(0,0,0,0.5);">
+      &times;
+    </button>
+
+      <!-- Vídeo do YouTube -->
+      <iframe id="youtubeVideo" width="100%" height="400"
+        src="https://www.youtube.com/embed/_JvkP3Ftha8?autoplay=1&mute=1" frameborder="0"
+        allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <script>
+    function fecharModal(event) {
+    const modal = document.getElementById("videoModal");
+    const video = document.getElementById("youtubeVideo");
+
+    // Se clicou fora do vídeo (no fundo escuro) OU clicou no botão
+    if (!event || event.target === modal || event.target.tagName === "BUTTON") {
+      video.src = ""; // para o vídeo e o som
+      modal.style.display = "none";
+    }
+  }
+  </script>
   </script>
 
   <body>
