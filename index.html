@@ -2095,8 +2095,8 @@ doc.save("Relatorio_Agro_Detector.pdf");
 
             if (imgBase64) {
               marcarEtapa(6, "🖨️ Inserindo no PDF...");
-              const alturaImagem = 15; // pode ajustar para 30 ou até 28 se quiser ainda mais compacto
-              doc.addImage(imgBase64, 'PNG', 130, yLocal - alturaImagem, 60, alturaImagem);
+              const alturaImagem = 35; // pode ajustar para 30 ou até 28 se quiser ainda mais compacto
+              doc.addImage(imgBase64, 'PNG', 130, yLocal - alturaImagem, 20, alturaImagem);
               yLocal += alturaImagem;
             } else {
               console.warn(`Não foi possível carregar a imagem: ${urlImagem}`);
