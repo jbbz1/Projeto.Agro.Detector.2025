@@ -1743,30 +1743,49 @@ var redIcon = L.icon({
   }
 
   // Função para carregar uma imagem PNG e converter para base64
-  async function carregarImagemBase64(url) {
-    try {
-      const resposta = await fetch(url);
-      if (!resposta.ok) throw new Error(`Erro ao buscar imagem: ${url}`);
+ 
+async function carregarImagemBase64(url, maxLargura = 600, maxAltura = 400) {
+  try {
+    const resposta = await fetch(url);
+    if (!resposta.ok) throw new Error(`Erro ao buscar imagem: ${url}`);
+    const blob = await resposta.blob();
 
-      const blob = await resposta.blob();
+    return await new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = 'Anonymous';
+      img.onload = () => {
+        let largura = img.width;
+        let altura = img.height;
 
-      // Verifica se é PNG
-      if (blob.type !== 'image/png') {
-        console.warn(`Imagem não é PNG: ${url}, tipo: ${blob.type}`);
-      }
+        const escala = Math.min(maxLargura / largura, maxAltura / altura, 1);
+        largura *= escala;
+        altura *= escala;
 
-      return await new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
-        reader.onerror = reject;
-        reader.readAsDataURL(blob);
-      });
-    } catch (e) {
-      console.error(e);
-      return null; // Em caso de erro, retorna null
-    }
+        const canvas = document.createElement('canvas');
+        canvas.width = largura;
+        canvas.height = altura;
+
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, largura, altura);
+
+        // Exporta como JPEG com 70% de qualidade (bem mais leve que PNG)
+        const base64 = canvas.toDataURL('image/jpeg', 0.7);
+        resolve(base64);
+      };
+      img.onerror = reject;
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        img.src = reader.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  } catch (e) {
+    console.error(e);
+    return null;
   }
-
+}
   // Função para adicionar os lixos no PDF (assíncrona para tratar imagens)
   async function adicionarLixos(lista, corTexto, yStart) {
     let yLocal = yStart;
@@ -1833,7 +1852,7 @@ var redIcon = L.icon({
           if (imgBase64) {
             // Insere a imagem no pdf
             // Ajusta posição X, Y, largura e altura (pode ajustar conforme seu layout)
-            doc.addImage(imgBase64, 'PNG', 130, yLocal - 50, 40, 30);
+            doc.addImage(imgBase64, 'PNG', 130, yLocal - 50, 60, 45);
             yLocal += 50;
           } else {
             console.warn(`Não foi possível carregar a imagem: ${urlImagem}`);
