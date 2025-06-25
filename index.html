@@ -1894,50 +1894,252 @@ doc.save("Relatorio_Agro_Detector.pdf");
 
   <button class="relatorio-btn" onclick="gerarPDF()">Baixar Relatório PDF</button>
   <!-- Overlay com spinner e texto -->
-  <div id="overlay-carregando">
-    <div class="container-spinner">
-      <div class="spinner"></div>
-      <div class="texto">Gerando relatório, por favor aguarde...</div>
-    </div>
+<div id="overlay-carregando" style="display:none; 
+    position:fixed; top:0; left:0; width:100%; height:100%; 
+    background:rgba(0,0,0,0.7); color:white; font-family: monospace; 
+    z-index:9999; justify-content:center; align-items:center; flex-direction: column;">
+  
+  <div class="spinner" style="margin-bottom:20px;">
+    <!-- Aqui você pode colocar uma animação de loading se quiser -->
+    🔄 Gerando relatório...
   </div>
 
-
-
-
-  <!-- Modal -->
-  <div id="videoModal" onclick="fecharModal(event)" style="display: flex; justify-content: center; align-items: center;
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background-color: rgba(0, 0, 0, 0.8); z-index: 9999;">
-
-    <div id="videoContainer" style="position: relative; width: 80%; max-width: 720px;">
-      <!-- Botão de fechar -->
-      <button onclick="fecharModal()"
-      style="position: absolute; top: -15px; right: -15px; 
-      background: red; color: white; border: none; border-radius: 50%; 
-      width: 35px; height: 35px; font-size: 20px; font-weight: bold; 
-      cursor: pointer; box-shadow: 0 0 5px rgba(0,0,0,0.5);">
-      &times;
-    </button>
-
-      <!-- Vídeo do YouTube -->
-      <iframe id="youtubeVideo" width="100%" height="400"
-        src="https://www.youtube.com/embed/_JvkP3Ftha8?autoplay=1&mute=1" frameborder="0"
-        allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    </div>
+  <div id="checklist-status" style="text-align:left; max-width: 400px;">
+    <div id="etapa1">🔍 Coletando dados...</div>
+    <div id="etapa2">🧹 Limpando informações...</div>
+    <div id="etapa3">📡 Buscando imagens...</div>
+    <div id="etapa4">🧠 Convertendo imagens em base64...</div>
+    <div id="etapa5">🎨 Redimensionando imagens...</div>
+    <div id="etapa6">🖨️ Inserindo no PDF...</div>
+    <div id="etapa7">📄 Finalizando relatório...</div>
   </div>
+</div>
 
-  <script>
-    function fecharModal(event) {
-    const modal = document.getElementById("videoModal");
-    const video = document.getElementById("youtubeVideo");
-
-    // Se clicou fora do vídeo (no fundo escuro) OU clicou no botão
-    if (!event || event.target === modal || event.target.tagName === "BUTTON") {
-      video.src = ""; // para o vídeo e o som
-      modal.style.display = "none";
+<script>
+async function gerarPDF() {
+  const overlay = document.getElementById("overlay-carregando");
+  
+  // Função para atualizar as etapas do checklist
+  function marcarEtapa(numero, texto) {
+    const el = document.getElementById("etapa" + numero);
+    if (el) {
+      el.textContent = texto + " ✔️";
     }
   }
-  </script>
+
+  // Exibe o overlay e inicia as etapas
+  overlay.style.display = "flex";
+
+  try {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    marcarEtapa(1, "🔍 Coletando dados...");
+    // Separar os lixos tóxicos e domésticos
+    let toxicos = [];
+    let domesticos = [];
+
+    locations.forEach(loc => {
+      const tipoLimpo = loc.info[0].replace(/<[^>]*>/g, '').trim().toLowerCase();
+      if (tipoLimpo.includes("tóxico")) toxicos.push(loc);
+      else if (tipoLimpo.includes("doméstico")) domesticos.push(loc);
+    });
+    marcarEtapa(1, "🔍 Coletando dados... ✔️");
+
+    marcarEtapa(2, "🧹 Limpando informações...");
+    // A limpeza já foi feita acima, então só marcar concluído
+    marcarEtapa(2, "🧹 Limpando informações... ✔️");
+
+    const dataHoje = new Date().toLocaleDateString();
+
+    // Função que desenha cabeçalho na página atual
+    function desenharCabecalho() {
+      doc.setFillColor(173, 216, 230); // azul claro
+      doc.rect(0, 0, 210, 25, 'F');
+
+      doc.setFont("arial", "bold");
+      doc.setFontSize(12);
+      doc.setTextColor(0, 0, 0);
+      doc.text("Projeto Agro Detector", 10, 10);
+      doc.text(`Data: ${dataHoje}`, 200, 10, { align: "right" });
+
+      doc.setFontSize(11);
+      doc.setTextColor(255, 0, 0);
+      doc.text(`Total de Lixos Tóxicos: ${toxicos.length}`, 10, 20);
+      doc.setTextColor(0, 128, 0);
+      doc.text(`Total de Lixos Domésticos: ${domesticos.length}`, 100, 20);
+
+      doc.setFont("arial", "normal");
+      doc.setFontSize(14);
+      doc.setTextColor(0, 0, 255);
+      doc.text("Relatório de Coletas - Projeto Agro Detector", 10, 35);
+      doc.setDrawColor(0);
+      doc.line(10, 37, 200, 37);
+    }
+
+    // Função para carregar imagem e converter para base64 reduzida
+    async function carregarImagemBase64(url, maxLargura = 600, maxAltura = 400) {
+      marcarEtapa(3, "📡 Buscando imagens...");
+      try {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+
+        return await new Promise((resolve, reject) => {
+          img.onload = () => {
+            marcarEtapa(4, "🧠 Convertendo imagens em base64...");
+
+            // Redimensiona proporcionalmente
+            let largura = img.width;
+            let altura = img.height;
+            const escala = Math.min(maxLargura / largura, maxAltura / altura, 1);
+            largura *= escala;
+            altura *= escala;
+
+            // Cria canvas redimensionado
+            const canvas = document.createElement('canvas');
+            canvas.width = largura;
+            canvas.height = altura;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, largura, altura);
+
+            marcarEtapa(5, "🎨 Redimensionando imagens...");
+
+            // Exporta em JPEG com compressão
+            const base64 = canvas.toDataURL('image/jpeg', 0.7);
+            resolve(base64);
+          };
+
+          img.onerror = (e) => {
+            console.error("Erro ao carregar imagem:", e);
+            reject(e);
+          };
+
+          img.src = url;
+        });
+
+      } catch (e) {
+        console.error("Erro ao redimensionar imagem:", e);
+        return null;
+      }
+    }
+
+    // Função para adicionar lixos no PDF (assíncrona para tratar imagens)
+    async function adicionarLixos(lista, corTexto, yStart) {
+      let yLocal = yStart;
+
+      for (const loc of lista) {
+        if (yLocal > 270) {
+          doc.addPage();
+          desenharCabecalho();
+          yLocal = 45;
+        }
+
+        // Extrair dados básicos
+        const tipo = loc.info[0].replace(/<[^>]*>/g, '').trim();
+        const dataHora = loc.info[1].replace("DATA/HORA: ", "").trim();
+        const temp = loc.info[2].replace("Temperatura: ", "").trim();
+        const lat = loc.lat.toFixed(6);
+        const lng = loc.lng.toFixed(6);
+        const mapsUrl = `https://maps.google.com/maps/?&z=10&q=${lat},${lng}`;
+
+        doc.setFont("arial", "bold");
+        doc.setTextColor(0, 0, 0);
+        doc.text("Tipo de Lixo:", 10, yLocal);
+        doc.setFont("arial", "normal");
+        doc.setTextColor(...corTexto);
+        doc.text(tipo, 50, yLocal);
+        yLocal += 7;
+
+        doc.setFont("arial", "bold");
+        doc.setTextColor(0, 0, 0);
+        doc.text("Data/Hora:", 10, yLocal);
+        doc.setFont("arial", "normal");
+        doc.text(dataHora, 50, yLocal);
+        yLocal += 7;
+
+        doc.setFont("arial", "bold");
+        doc.text("Temperatura:", 10, yLocal);
+        doc.setFont("arial", "normal");
+        doc.text(temp, 50, yLocal);
+        yLocal += 7;
+
+        doc.setFont("arial", "bold");
+        doc.text("Latitude:", 10, yLocal);
+        doc.setFont("arial", "normal");
+        doc.text(lat.toString(), 50, yLocal);
+        yLocal += 7;
+
+        doc.setFont("arial", "bold");
+        doc.text("Longitude:", 10, yLocal);
+        doc.setFont("arial", "normal");
+        doc.text(lng.toString(), 50, yLocal);
+        yLocal += 7;
+
+        doc.setTextColor(0, 0, 255);
+        doc.textWithLink("Localização no Google Maps (clique aqui)", 10, yLocal, { url: mapsUrl });
+        yLocal += 10;
+
+        // Procurar tag <img> no info e extrair src da imagem
+        let imgTag = loc.info.find(i => i.includes("<img"));
+        if (imgTag) {
+          const srcMatch = imgTag.match(/src=['"]([^'"]+)['"]/);
+          if (srcMatch && srcMatch[1]) {
+            const urlImagem = srcMatch[1];
+
+            // Marca etapa imagem
+            marcarEtapa(3, "📡 Buscando imagens...");
+            
+            const imgBase64 = await carregarImagemBase64(urlImagem);
+
+            if (imgBase64) {
+              marcarEtapa(6, "🖨️ Inserindo no PDF...");
+              doc.addImage(imgBase64, 'PNG', 130, yLocal - 50, 60, 45);
+              yLocal += 50;
+            } else {
+              console.warn(`Não foi possível carregar a imagem: ${urlImagem}`);
+            }
+          }
+        }
+
+        doc.setDrawColor(200);
+        doc.line(10, yLocal, 200, yLocal);
+        yLocal += 10;
+      }
+
+      return yLocal;
+    }
+
+    // Desenha o cabeçalho na primeira página
+    desenharCabecalho();
+
+    let y = 45;
+    y = await adicionarLixos(domesticos, [0, 128, 0], y);
+    y = await adicionarLixos(toxicos, [255, 0, 0], y);
+
+    marcarEtapa(7, "📄 Finalizando relatório...");
+
+    const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+    if (isMobile) {
+      const blobUrl = doc.output('bloburl');
+      window.open(blobUrl, '_blank');
+    } else {
+      doc.save("Relatorio_Agro_Detector.pdf");
+    }
+
+  } catch (erro) {
+    console.error("Erro ao gerar PDF:", erro);
+    alert("Ocorreu um erro ao gerar o relatório.");
+  } finally {
+    // Esconde o overlay e limpa checklist
+    overlay.style.display = "none";
+
+    for(let i=1; i<=7; i++) {
+      const el = document.getElementById("etapa"+i);
+      if(el) el.textContent = el.textContent.replace(" ✔️", "");
+    }
+  }
+}
+</script>
 
   </script>
 
