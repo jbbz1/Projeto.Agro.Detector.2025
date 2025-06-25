@@ -1783,7 +1783,6 @@ var redIcon = L.icon({
       const dataHora = loc.info[1].replace("DATA/HORA: ", "").trim();
       const temp = loc.info[2].replace("Temperatura: ", "").trim();
       const lat = loc.lat.toFixed(6);
-      const lng = loc.lng.toFixed(6);
       const mapsUrl = `https://maps.google.com/maps/?&z=10&q=${lat},${lng}`;
 
       doc.setFont("arial", "bold");
@@ -1834,7 +1833,7 @@ var redIcon = L.icon({
           if (imgBase64) {
             // Insere a imagem no pdf
             // Ajusta posição X, Y, largura e altura (pode ajustar conforme seu layout)
-            doc.addImage(imgBase64, 'PNG', 130, yLocal - 50, 60, 45);
+            doc.addImage(imgBase64, 'PNG', 130, yLocal - 50, 40, 30);
             yLocal += 50;
           } else {
             console.warn(`Não foi possível carregar a imagem: ${urlImagem}`);
