@@ -1751,35 +1751,38 @@ async function carregarImagemBase64(url, maxLargura = 600, maxAltura = 400) {
 
     return await new Promise((resolve, reject) => {
       img.onload = () => {
-        marcarEtapa(4, "🧠 Convertendo imagens em base64...");
-
+        // Redimensiona proporcionalmente
         let largura = img.width;
         let altura = img.height;
         const escala = Math.min(maxLargura / largura, maxAltura / altura, 1);
         largura *= escala;
         altura *= escala;
 
+        // Cria o canvas redimensionado
         const canvas = document.createElement('canvas');
         canvas.width = largura;
         canvas.height = altura;
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, largura, altura);
 
-        marcarEtapa(5, "🎨 Redimensionando imagens...");
-
+        // Exporta em JPEG com compressão
         const base64 = canvas.toDataURL('image/jpeg', 0.7);
-        resolve({ base64, largura, altura });
+        resolve(base64);
       };
 
-      img.onerror = (e) => reject(e);
+      img.onerror = (e) => {
+        console.error("Erro ao carregar imagem:", e);
+        reject(e);
+      };
+
       img.src = url;
     });
+
   } catch (e) {
     console.error("Erro ao redimensionar imagem:", e);
     return null;
   }
 }
-
 
   // Função para adicionar os lixos no PDF (assíncrona para tratar imagens)
   async function adicionarLixos(lista, corTexto, yStart) {
@@ -2090,17 +2093,8 @@ async function gerarPDF() {
 
             if (imgBase64) {
               marcarEtapa(6, "🖨️ Inserindo no PDF...");
-const imgInfo = await carregarImagemBase64(urlImagem);
-
-if (imgInfo && imgInfo.base64) {
-  marcarEtapa(6, "🖨️ Inserindo no PDF...");
-  const imgX = 150;
-  const imgY = yLocal;
-  const largura = imgInfo.largura * 0.264583; // px → mm
-  const altura = imgInfo.altura * 0.264583;   // px → mm
-  doc.addImage(imgInfo.base64, 'JPEG', imgX, imgY, largura, altura);
-  yLocal += altura + 5;
-}              yLocal += 5;
+              doc.addImage(imgBase64, 'PNG', 150, yLocal - 40, 40, 40);
+              yLocal += 5;
             } else {
               console.warn(`Não foi possível carregar a imagem: ${urlImagem}`);
             }
