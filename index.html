@@ -2,871 +2,873 @@
 <html lang="pt-BR">
 
 <head>
-  <script type="text/javascript"
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-  <link type="text/css" rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" />
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agro Detector</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-  <style>
-    #overlay-carregando {
-      display: none;
-      /* agora sim funciona! */
-      position: fixed;
-      z-index: 99999;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(5px);
-      justify-content: center;
-      align-items: center;
-    }
-
-    .container-spinner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .spinner {
-      border: 10px solid #f3f3f3;
-      /* borda geral mais grossa */
-      border-top: 15px solid #00a86b;
-      /* borda superior mais grossa e cor corrigida (#00a86b) */
-      border-radius: 50%;
-      width: 80px;
-      height: 80px;
-      animation: girar 0.12s linear infinite;
-      /* velocidade bem rápida */
-      margin-bottom: 20px;
-    }
-
-    .texto {
-      color: white;
-      font-size: 1.2em;
-      font-weight: bold;
-      text-align: center;
-    }
-
-    @keyframes girar {
-      0% {
-        transform: rotate(0deg);
-      }
-
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
-    .subtext {
-      font-size: 1rem;
-      color: #66;
-      margin-top: -9px;
-      line-height: 1.2;
-      color: white;
-
-
-    }
-
-
-    .relatorio-btn {
-      font-family: Arial, sans-serif;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      padding: 5px 1px;
-      font-size: 14px;
-      border-radius: 4px;
-      cursor: pointer;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-      transition: background-color 0.3s ease;
-      display: inline-block;
-      text-align: center;
-      max-width: 140px;
-      margin: 0 auto;
-      /* centraliza se quiser */
-
-    }
-
-    .relatorio-btn:hover {
-      background-color: #0056b3;
-      /* azul mais escuro ao passar o mouse */
-    }
-
-    .cabecalho {
-      position: relative;
-      padding-left: 150px;
-      /* espaço para o texto à esquerda */
-      font-size: 24px;
-      font-weight: bold;
-      /* opcional: cor de fundo suave */
-      padding: 20px;
-    }
-
-    .fase1 {
-      position: absolute;
-      top: 0;
-      /* topo da tela ou container pai */
-      left: 8%;
-      transform: translateX(-50%);
-      font-size: 12px;
-      color: #ff0000;
-      font-weight: bold;
-      width: auto;
-      height: auto;
-      text-align: left;
-      text-decoration: line-through;
-    }
-
-
-    .fase2 {
-      position: absolute;
-      top: 0;
-      /* topo da tela ou container pai */
-      left: 8%;
-      transform: translateX(-50%);
-      font-size: 12px;
-      color: #ff0000;
-      font-weight: bold;
-      width: auto;
-      height: 10px;
-      text-align: left;
-      text-decoration: line-through;
-      top: 13px;
-      /* Distância do topo */
-    }
-
-    .fase3 {
-      position: absolute;
-      top: 0;
-      /* topo da tela ou container pai */
-      left: 8%;
-      transform: translateX(-50%);
-      font-size: 12px;
-      color: #0000CD;
-      font-weight: bold;
-      width: auto;
-      height: 10px;
-      text-align: left;
-      top: 27px;
-      /* Distância do topo */
-
-    }
-
-    .fase4 {
-      position: absolute;
-      top: 0;
-      /* topo da tela ou container pai */
-      left: 8%;
-      transform: translateX(-50%);
-      font-size: 12px;
-      color: #ff0000;
-      font-weight: normal;
-      width: auto;
-      height: 10px;
-      text-align: left;
-      top: 13px;
-      /* Distância do topo */
-    }
-
-    #visit-counter-container {
-      margin-top: 4px;
-      padding: 1500px;
-      border-top: 2px solid #4CAF50;
-      /* verde sustentável */
-      background-color: #f9f9f9;
-      text-align: center;
-      font-family: Arial, sans-serif;
-      color: #333;
-    }
-
-    #visit-counter-container p {
-      margin: 100;
-      font-size: 16px;
-      font-weight: bold;
-    }
-
-    #visit-counter-container img {
-      margin-top: 8px;
-      filter: grayscale(100%);
-      /* deixa o contador discreto */
-    }
-
-    .leaflet-control-attribution {
-      bottom: 0px !important;
-      /* distância da base */
-      right: 720px !important;
-      /* distância da direita */
-      background-color: rgba(0, 0, 0, 0.0);
-      /* mais legível */
-      font-size: 0.0000001px;
-      padding: 1px 1px;
-      border-radius: 1px;
-    }
-
-
-    /* config das caixas das posiçoes coletadas  */
-    .leaflet-popup {
-      margin-bottom: 10px;
-    }
-
-    .leaflet-popup-content-wrapper {
-      width: 30.5em;
-      background-color: rgba(30, 30, 30, 0.6);
-      border-radius: 50px;
-      box-shadow: 0 0 100px rgba(0, 255, 136, 0.3);
-      padding: 45px;
-    }
-
-    .leaflet-popup-content {
-      font-size: 1.4em;
-      font-weight: bold;
-      color: #00ff88;
-      text-align: center;
-      margin: 10;
-    }
-
-    .leaflet-popup-tip {
-      background: #1e1e1e;
-      width: 30px;
-      height: 20px;
-    }
-
-
-
-    @media (max-width: 576px) {
-
-
-      .cabecalho {
-        text-align: center;
-        padding: 0px;
-        color: #00ff88;
-        font-family: 'Arial', sans-serif;
-        font-size: 1.8em !important;
-      }
-
-      .counter-box {
-
-        border-radius: 30px;
-        min-width: 100px;
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-        background-color: #1e1e1e;
-        transition: transform 0.10s ease;
-
-
-      }
-
-      .counter-box i {
-        font-size: 2.0em;
-        margin-bottom: 0px;
-        height: -5px;
-      }
-
-
-      .counter-number {
-        width: 160px !important;
-        height: 25px !important;
-        font-size: 2.1em !important;
-        font-weight: bold !important;
-        color: #00ff88 !important;
-      }
-
-      .counters-container {
-        flex-direction: flex !important;
-        align-items: center !important;
-        justify-content: flex-start !important;
-        gap: 15px !important;
-        padding: 4px !important;
-      }
-
-      .counter-label {
-        font-size: 11.00px !important;
-        padding: 10px !important;
-      }
-
-      .counter-frascos,
-      .counter-lixo {
-        font-size: 10.80px !important;
-      }
-
-      nav {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr) !important;
-        /* 2 colunas */
-        grid-template-rows: repeat(2, auto) !important;
-        /* 4 linhas */
-        gap: 0px !important;
-        width: 457px !important;
-        margin-right: 10px !important;
-        /* Afasta da sidebar branca */
-        justify-content: start !important;
-
-      }
-
-      nav a {
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        height: 20px !important;
-        background-color: #00a9c9 !important;
-        color: black !important;
-        font-weight: bold !important;
-        border: 2px solid white !important;
-        border-radius: 33px !important;
-      }
-
-      .sidebar {
-        position: fixed;
-        top: 12% !important;
-        right: 0;
-        width: 130px;
-        background-color: #fff;
-        padding: 20px 10px;
-        border-radius: 30px 0 0 30px;
-        box-shadow: -3px 3px 15px rgba(0, 0, 0, 0.15);
-        z-index: 1000;
-        text-align: center;
-        transition: width 0.3s ease;
-      }
-
-      .sidebar-title {
-        color: #333;
-        font-family: 'Arial', sans-serif;
-        font-size: 10px;
-        font-weight: bold;
-        margin: 0 auto;
-        /* centraliza horizontalmente */
-        text-align: center;
-        width: 100%;
-        padding: 5px 0;
-        /* ajuste fino vertical */
-      }
-
-      .sidebar img {
-        max-width: 80%;
-        margin: 50px 4;
-        border-radius: 5px;
-        transition: transform 0.2s ease;
-        cursor: pointer;
-      }
-
-      .sidebar img:hover {
-        transform: scale(1.05);
-      }
-
-      .logos {
-        display: flex;
-        flex-direction: column;
-        gap: 0 !important;
-        px;
-        align-items: center;
-      }
-
-      .logo {
-        height: auto;
-        width: 65px !important; //tamanho da imagem logo
-        height: auto;
-        gap: 0px;
-      }
-
-      #rodape img {
-        width: 10% !important;
-        height: auto !important;
-        display: block;
-        margin: 20px auto;
-      }
-
-      footer img {
-        position: absolute;
-        bottom: 10px;
-        /* Ajuste vertical */
-        left: 10px;
-        /* Ajuste horizontal */
-        height: 75px;
-        z-index: 9999;
-
-
-
-
-      }
-
-
-
-
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-    /* Estilos gerais do site */
-    .box {
-      display: inline-block;
-      background-color: #1e1e1e;
-      color: #00ff88;
-      padding: 0px 20px;
-      margin: 1px;
-      border-radius: 15px;
-      cursor: pointer;
-      font-family: 'Arial', sans-serif;
-      font-size: 1.8em;
-      font-weight: bold;
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 40px 0 50px rgba(0, 255, 136, 0.2);
-    }
-
-    .box:hover {
-      transform: scale(1.05);
-      box-shadow: 0px 0 15px rgba(0, 255, 136, 0.5);
-    }
-
-    .cabecalho {
-      text-align: center;
-      padding: 0px;
-      color: #00ff88;
-      font-family: 'Arial', sans-serif;
-      font-size: 3em;
-    }
-
-    .logos a {
-      display: block;
-      margin: 10px 0;
-    }
-
-    .logo {
-      max-width: 75%;
-      /* Para aumentar logo  */
-
-      height: auto;
-
-      transition: transform 0.3s ease;
-    }
-
-    .logo:hover {
-      transform: scale(1.1);
-    }
-
-      {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Arial', sans-serif;
-      font-weight: bold;
-      background-color: #000;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    #map {
-      flex-grow: 1;
-      /* Para ocupar o espaço disponível */
-    }
-
-    /* config roda pé */
-    footer {
-      color: #00ff88;
-      padding: 0px 0px;
-      font-family: 'Arial', sans-serif;
-      font-size: 0.95em;
-      text-align: center;
-      position: relative;
-      /* sombra suave */
-      margin-top: auto;
-    }
-
-    footer img {
-      position: absolute;
-      bottom: 10px;
-      /* Ajuste vertical */
-      left: 10px;
-      /* Ajuste horizontal */
-      height: 100px;
-      z-index: 9999;
-    }
-
-    .container {
-      min-height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-    }
-
-    .footer-text {
-      margin: -20px 0;
-      line-height: 01.2em;
-    }
-
-    /* Barra lateral fixa no lado direito */
-    .sidebar {
-      position: fixed;
-      top: -10%;
-      right: 1px;
-      transform: translateY(30%);
-      width: 220px;
-      /* largura aumentada pra caber duas colunas de 100px */
-      background-color: #ffffff;
-      padding: 14px;
-      border-radius: 10px 0 50px;
-      box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.2);
-      z-index: 500;
-      text-align: center;
-      overflow-y: auto;
-      /* rolagem se tiver muitos logos */
-      max-height: 80vh;
-    }
-
-    .sidebar-title {
-      color: #333;
-      font-family: 'Arial', sans-serif;
-      font-size: 15px;
-      font-weight: bold;
-      margin: 0 auto;
-      text-align: center;
-      width: 100%;
-      padding: 1px 0;
-    }
-
-    .logos {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      /* DUAS COLUNAS */
-      gap: 10px;
-      justify-items: center;
-      align-items: center;
-      font-family: 'Arial', sans-serif;
-    }
-
-    .logo {
-      width: 100px;
-      /* tamanho EXATO solicitado */
-      height: auto;
-      border-radius: 5px;
-      transition: transform 0.2s ease;
-      cursor: pointer;
-    }
-
-    .logo:hover {
-      transform: scale(1.05);
-    }
-
-
-    /* === CONTADORES === */
-    .counters-container {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      color: white;
-      padding: 0px;
-      font-family: 'Arial', sans-serif;
-      font-weight: bold;
-      animation: fadeIn 1.2s ease-in;
-    }
-
-    .counter-box {
-      text-align: center;
-      padding: 1px;
-      border-radius: 30px;
-      min-width: 100px;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-      background-color: #1e1e1e;
-      transition: transform 0.10s ease;
-
-
-    }
-
-    .counter-box:hover {
-      transform: scale(1.05);
-    }
-
-    .counter-box i {
-      font-size: 2.0em;
-      margin-bottom: 0px;
-      height: -5px;
-
-
-    }
-
-    .counter-number {
-      width: 160px;
-      height: 25px;
-      font-size: 2.1em;
-      font-weight: bold;
-      color: #00ff88;
-    }
-
-    .counter-label {
-      width: 160px;
-      height: 50px;
-      font-size: 1.4em;
-      margin-top: 1px;
-    }
-
-    .counter-box.toxic i {
-      color: #ff4444;
-
-    }
-
-    .counter-box.domestic i {
-      color: #4CAF50;
-    }
-
-    #map {
-      height: 60vh;
-      width: 100%;
-
-    }
-
-    /* === ÍCONES PERSONALIZADOS === */
-    .custom-icon-green,
-    .custom-icon-red {
-      border-radius: 50%;
-      width: 16px;
-      height: 16px;
-      display: inline-block;
-
-    }
-
-    .custom-icon-green {
-      background-color: #00FF00;
-    }
-
-    .custom-icon-red {
-      background-color: #FF0000;
-    }
-
-    /* Estilo do menu */
-
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: left;
-      gap: 0px;
-      background-color: #000000;
-      padding: 0px;
-
-    }
-
-    .box {
-      padding: 1px 4px;
-      background-color: #008CBA;
-      color: black;
-      cursor: pointer;
-      border-radius: 54px;
-      text-align: center;
-      font-weight: bold;
-      border: 0.001px solid white;
-      text-decoration: none;
-      font-size: 19px;
-
-
-    }
-
-    .box:hover {
-      background: linear-gradient(45deg, #008CBA, #00FFD1);
-    }
-  </style>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <link type="text/css" rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agro Detector</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        #overlay-carregando {
+            display: none;
+            /* agora sim funciona! */
+            position: fixed;
+            z-index: 99999;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container-spinner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .spinner {
+            border: 10px solid #f3f3f3;
+            /* borda geral mais grossa */
+            border-top: 15px solid #00a86b;
+            /* borda superior mais grossa e cor corrigida (#00a86b) */
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            animation: girar 0.12s linear infinite;
+            /* velocidade bem rápida */
+            margin-bottom: 20px;
+        }
+
+        .texto {
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        @keyframes girar {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .subtext {
+            font-size: 1rem;
+            color: #66;
+            margin-top: -9px;
+            line-height: 1.2;
+            color: white;
+
+
+        }
+
+
+        .relatorio-btn {
+            font-family: Arial, sans-serif;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 1px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+            transition: background-color 0.3s ease;
+            display: inline-block;
+            text-align: center;
+            max-width: 140px;
+            margin: 0 auto;
+            /* centraliza se quiser */
+
+        }
+
+        .relatorio-btn:hover {
+            background-color: #0056b3;
+            /* azul mais escuro ao passar o mouse */
+        }
+
+        .cabecalho {
+            position: relative;
+            padding-left: 150px;
+            /* espaço para o texto à esquerda */
+            font-size: 24px;
+            font-weight: bold;
+            /* opcional: cor de fundo suave */
+            padding: 20px;
+        }
+
+        .fase1 {
+            position: absolute;
+            top: 0;
+            /* topo da tela ou container pai */
+            left: 8%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: #ff0000;
+            font-weight: bold;
+            width: auto;
+            height: auto;
+            text-align: left;
+            text-decoration: line-through;
+        }
+
+
+        .fase2 {
+            position: absolute;
+            top: 0;
+            /* topo da tela ou container pai */
+            left: 8%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: #ff0000;
+            font-weight: bold;
+            width: auto;
+            height: 10px;
+            text-align: left;
+            text-decoration: line-through;
+            top: 13px;
+            /* Distância do topo */
+        }
+
+        .fase3 {
+            position: absolute;
+            top: 0;
+            /* topo da tela ou container pai */
+            left: 8%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: #0000CD;
+            font-weight: bold;
+            width: auto;
+            height: 10px;
+            text-align: left;
+            top: 27px;
+            /* Distância do topo */
+
+        }
+
+        .fase4 {
+            position: absolute;
+            top: 0;
+            /* topo da tela ou container pai */
+            left: 8%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: #ff0000;
+            font-weight: normal;
+            width: auto;
+            height: 10px;
+            text-align: left;
+            top: 13px;
+            /* Distância do topo */
+        }
+
+        #visit-counter-container {
+            margin-top: 4px;
+            padding: 1500px;
+            border-top: 2px solid #4CAF50;
+            /* verde sustentável */
+            background-color: #f9f9f9;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        #visit-counter-container p {
+            margin: 100;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        #visit-counter-container img {
+            margin-top: 8px;
+            filter: grayscale(100%);
+            /* deixa o contador discreto */
+        }
+
+        .leaflet-control-attribution {
+            bottom: 0px !important;
+            /* distância da base */
+            right: 720px !important;
+            /* distância da direita */
+            background-color: rgba(0, 0, 0, 0.0);
+            /* mais legível */
+            font-size: 0.0000001px;
+            padding: 1px 1px;
+            border-radius: 1px;
+        }
+
+
+        /* config das caixas das posiçoes coletadas  */
+        .leaflet-popup {
+            margin-bottom: 10px;
+        }
+
+        .leaflet-popup-content-wrapper {
+            width: 30.5em;
+            background-color: rgba(30, 30, 30, 0.6);
+            border-radius: 50px;
+            box-shadow: 0 0 100px rgba(0, 255, 136, 0.3);
+            padding: 45px;
+        }
+
+        .leaflet-popup-content {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #00ff88;
+            text-align: center;
+            margin: 10;
+        }
+
+        .leaflet-popup-tip {
+            background: #1e1e1e;
+            width: 30px;
+            height: 20px;
+        }
+
+
+
+        @media (max-width: 576px) {
+
+
+            .cabecalho {
+                text-align: center;
+                padding: 0px;
+                color: #00ff88;
+                font-family: 'Arial', sans-serif;
+                font-size: 1.8em !important;
+            }
+
+            .counter-box {
+
+                border-radius: 30px;
+                min-width: 100px;
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+                background-color: #1e1e1e;
+                transition: transform 0.10s ease;
+
+
+            }
+
+            .counter-box i {
+                font-size: 2.0em;
+                margin-bottom: 0px;
+                height: -5px;
+            }
+
+
+            .counter-number {
+                width: 160px !important;
+                height: 25px !important;
+                font-size: 2.1em !important;
+                font-weight: bold !important;
+                color: #00ff88 !important;
+            }
+
+            .counters-container {
+                flex-direction: flex !important;
+                align-items: center !important;
+                justify-content: flex-start !important;
+                gap: 15px !important;
+                padding: 4px !important;
+            }
+
+            .counter-label {
+                font-size: 11.00px !important;
+                padding: 10px !important;
+            }
+
+            .counter-frascos,
+            .counter-lixo {
+                font-size: 10.80px !important;
+            }
+
+            nav {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr) !important;
+                /* 2 colunas */
+                grid-template-rows: repeat(2, auto) !important;
+                /* 4 linhas */
+                gap: 0px !important;
+                width: 457px !important;
+                margin-right: 10px !important;
+                /* Afasta da sidebar branca */
+                justify-content: start !important;
+
+            }
+
+            nav a {
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                height: 20px !important;
+                background-color: #00a9c9 !important;
+                color: black !important;
+                font-weight: bold !important;
+                border: 2px solid white !important;
+                border-radius: 33px !important;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 12% !important;
+                right: 0;
+                width: 130px;
+                background-color: #fff;
+                padding: 20px 10px;
+                border-radius: 30px 0 0 30px;
+                box-shadow: -3px 3px 15px rgba(0, 0, 0, 0.15);
+                z-index: 1000;
+                text-align: center;
+                transition: width 0.3s ease;
+            }
+
+            .sidebar-title {
+                color: #333;
+                font-family: 'Arial', sans-serif;
+                font-size: 10px;
+                font-weight: bold;
+                margin: 0 auto;
+                /* centraliza horizontalmente */
+                text-align: center;
+                width: 100%;
+                padding: 5px 0;
+                /* ajuste fino vertical */
+            }
+
+            .sidebar img {
+                max-width: 80%;
+                margin: 50px 4;
+                border-radius: 5px;
+                transition: transform 0.2s ease;
+                cursor: pointer;
+            }
+
+            .sidebar img:hover {
+                transform: scale(1.05);
+            }
+
+            .logos {
+                display: flex;
+                flex-direction: column;
+                gap: 0 !important;
+                px;
+                align-items: center;
+            }
+
+            .logo {
+                height: auto;
+                width: 65px !important; //tamanho da imagem logo
+                height: auto;
+                gap: 0px;
+            }
+
+            #rodape img {
+                width: 10% !important;
+                height: auto !important;
+                display: block;
+                margin: 20px auto;
+            }
+
+            footer img {
+                position: absolute;
+                bottom: 10px;
+                /* Ajuste vertical */
+                left: 10px;
+                /* Ajuste horizontal */
+                height: 75px;
+                z-index: 9999;
+
+
+
+
+            }
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        /* Estilos gerais do site */
+        .box {
+            display: inline-block;
+            background-color: #1e1e1e;
+            color: #00ff88;
+            padding: 0px 20px;
+            margin: 1px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-family: 'Arial', sans-serif;
+            font-size: 1.8em;
+            font-weight: bold;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 40px 0 50px rgba(0, 255, 136, 0.2);
+        }
+
+        .box:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 0 15px rgba(0, 255, 136, 0.5);
+        }
+
+        .cabecalho {
+            text-align: center;
+            padding: 0px;
+            color: #00ff88;
+            font-family: 'Arial', sans-serif;
+            font-size: 3em;
+        }
+
+        .logos a {
+            display: block;
+            margin: 10px 0;
+        }
+
+        .logo {
+            max-width: 75%;
+            /* Para aumentar logo  */
+
+            height: auto;
+
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+        }
+
+            {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            background-color: #000;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #map {
+            flex-grow: 1;
+            /* Para ocupar o espaço disponível */
+        }
+
+        /* config roda pé */
+        footer {
+            color: #00ff88;
+            padding: 0px 0px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.95em;
+            text-align: center;
+            position: relative;
+            /* sombra suave */
+            margin-top: auto;
+        }
+
+        footer img {
+            position: absolute;
+            bottom: 10px;
+            /* Ajuste vertical */
+            left: 10px;
+            /* Ajuste horizontal */
+            height: 100px;
+            z-index: 9999;
+        }
+
+        .container {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .footer-text {
+            margin: -20px 0;
+            line-height: 01.2em;
+        }
+
+        /* Barra lateral fixa no lado direito */
+        .sidebar {
+            position: fixed;
+            top: -10%;
+            right: 1px;
+            transform: translateY(30%);
+            width: 220px;
+            /* largura aumentada pra caber duas colunas de 100px */
+            background-color: #ffffff;
+            padding: 14px;
+            border-radius: 10px 0 50px;
+            box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.2);
+            z-index: 500;
+            text-align: center;
+            overflow-y: auto;
+            /* rolagem se tiver muitos logos */
+            max-height: 80vh;
+        }
+
+        .sidebar-title {
+            color: #333;
+            font-family: 'Arial', sans-serif;
+            font-size: 15px;
+            font-weight: bold;
+            margin: 0 auto;
+            text-align: center;
+            width: 100%;
+            padding: 1px 0;
+        }
+
+        .logos {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            /* DUAS COLUNAS */
+            gap: 10px;
+            justify-items: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .logo {
+            width: 100px;
+            /* tamanho EXATO solicitado */
+            height: auto;
+            border-radius: 5px;
+            transition: transform 0.2s ease;
+            cursor: pointer;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+
+        /* === CONTADORES === */
+        .counters-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            color: white;
+            padding: 0px;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            animation: fadeIn 1.2s ease-in;
+        }
+
+        .counter-box {
+            text-align: center;
+            padding: 1px;
+            border-radius: 30px;
+            min-width: 100px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            background-color: #1e1e1e;
+            transition: transform 0.10s ease;
+
+
+        }
+
+        .counter-box:hover {
+            transform: scale(1.05);
+        }
+
+        .counter-box i {
+            font-size: 2.0em;
+            margin-bottom: 0px;
+            height: -5px;
+
+
+        }
+
+        .counter-number {
+            width: 160px;
+            height: 25px;
+            font-size: 2.1em;
+            font-weight: bold;
+            color: #00ff88;
+        }
+
+        .counter-label {
+            width: 160px;
+            height: 50px;
+            font-size: 1.4em;
+            margin-top: 1px;
+        }
+
+        .counter-box.toxic i {
+            color: #ff4444;
+
+        }
+
+        .counter-box.domestic i {
+            color: #4CAF50;
+        }
+
+        #map {
+            height: 60vh;
+            width: 100%;
+
+        }
+
+        /* === ÍCONES PERSONALIZADOS === */
+        .custom-icon-green,
+        .custom-icon-red {
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+
+        }
+
+        .custom-icon-green {
+            background-color: #00FF00;
+        }
+
+        .custom-icon-red {
+            background-color: #FF0000;
+        }
+
+        /* Estilo do menu */
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: left;
+            gap: 0px;
+            background-color: #000000;
+            padding: 0px;
+
+        }
+
+        .box {
+            padding: 1px 4px;
+            background-color: #008CBA;
+            color: black;
+            cursor: pointer;
+            border-radius: 54px;
+            text-align: center;
+            font-weight: bold;
+            border: 0.001px solid white;
+            text-decoration: none;
+            font-size: 19px;
+
+
+        }
+
+        .box:hover {
+            background: linear-gradient(45deg, #008CBA, #00FFD1);
+        }
+    </style>
 
 <body>
 
-  <!-- Barra lateral fixa à direita para logomarcas -->
-  <div class="sidebar">
+    <!-- Barra lateral fixa à direita para logomarcas -->
+    <div class="sidebar">
 
-    <h3 class="sidebar-title">Apoiadores</h3>
-    <div class="logos">
-
-
+        <h3 class="sidebar-title">Apoiadores</h3>
+        <div class="logos">
 
 
-      <a href="https://www.pmpr.pr.gov.br/Pagina/Patrulha-Rural-Comunitaria target=" _blank"title="31º B. de Pol. Mil.">
-        <img src="apoiadores/bpmrural.png" alt="31º B. de Pol. Mil. Rural" class="logo">
-      </a>
 
 
-      <a href="https://www.pmpr.pr.gov.br/31BPM" target="_blank" title="31º B. de Pol. Mil.">
-        <img src="apoiadores/bpm.png" alt="31º B. de Pol. Mil." class="logo">
-      </a>
+            <a href="https://www.pmpr.pr.gov.br/Pagina/Patrulha-Rural-Comunitaria target="
+                _blank"title="31º B. de Pol. Mil.">
+                <img src="apoiadores/bpmrural.png" alt="31º B. de Pol. Mil. Rural" class="logo">
+            </a>
 
 
-     <a href="https://www.instagram.com/agro.fortuna/" target="_blank" title="Agro Fortuna">
-        <img src="apoiadores/agrofortuna.png" alt="Agro Fortuna" class="logo">
-      </a>
+            <a href="https://www.pmpr.pr.gov.br/31BPM" target="_blank" title="31º B. de Pol. Mil.">
+                <img src="apoiadores/bpm.png" alt="31º B. de Pol. Mil." class="logo">
+            </a>
 
 
-      <a href="https://www.assischateaubriand.pr.gov.br/index.php?sessao=b054603368svb0&id=3996" target="_blank"
-        title="Sec. de Serviços Urb.">
-        <img src="apoiadores/secretariadeserviçosurbanos.png" alt="Sec. de Serviços Urb." class="logo">
-     </a>
-
-      <a href="https://kspulverizadores.com.br/index.php" target="_blank" title="KS Pulverizadores">
-        <img src="apoiadores/ks.png" alt="KS Pulverizadores" class="logo">
-      </a>
-
-      <a href="https://www.instagram.com/atacadopedroedavi/" target="_blank" title="Atacado Pedro e Davi">
-        <img src="apoiadores/atacado.png" alt="Atacado Pedro e Davi" class="logo">
-      </a>
-
-      <a href="https://www.instagram.com/ambiental.assis/" target="_blank"
-        title="Departamento de Meio Ambiente de Assis Chateaubriand">
-        <img src="apoiadores/meioambiente.png" alt="Dep. Meio Ambiente" class="logo">
-      </a>
-
-      <a href="https://www.instagram.com/junior_colchoes?igsh=aTAwYWE4NGRyeno=" target="_blank" title="Junior Colchões">
-        <img src="apoiadores/jrc.png" alt="Junior Colchões" class="logo">
-      </a>
-
-      <a href="https://www.instagram.com/ccmguima?igsh=YjRtOTlybGUyaDFn" target="_blank" title="CCM Guima">
-        <img src="apoiadores/Guima.png" alt="CCM Guima" class="logo">
-      </a>
-
-      <a href="https://www.instagram.com/sindicatoruraldeassischat?igsh=MXN0aHhpeTNqN2Jsbg==" target="_blank"
-        title="Senar Assis">
-        <img src="apoiadores/Senar_Assis.png" alt="Senar Assis" class="logo">
-      </a>
-
-      <a href="https://www.camarassis.pr.gov.br/" target="_blank" title="Câmara Assis">
-        <img src="apoiadores/camara.png" alt="Câmara Assis" class="logo">
-      </a>
-
-      <a href="https://www.instagram.com/motopauto1687/" target="_blank" title="Moto Pauto">
-        <img src="apoiadores/motopauto.png" alt="Moto Pauto" class="logo">
-      </a>
-
-     <a href="https://www.instagram.com/crissaviamentos/" target="_blank" title="Criss Aviamentos">
-        <img src="apoiadores/crisaviamentos.png" alt="Criss" class="logo">
-      </a>
-
-      <a href="https://www.centrocon.net/" target="_blank" title="Centrocon">
-        <img src="apoiadores/centro.png" alt="Centrocon" class="logo">
-      </a>
-
-      <a href="https://www.instagram.com/caseshowassis/" target="_blank" title="Case Show Assis">
-        <img src="apoiadores/case.png" alt="Case Show" class="logo">
-      </a>
-
-      <a href="https://www.instagram.com/agr_opecuariabichobom/" target="_blank" title="Bicho Bom Agro.">
-        <img src="apoiadores/bichobom.png" alt="Bicho Bom Agropecuária" class="logo">
-      </a>
+            <a href="https://www.instagram.com/agro.fortuna/" target="_blank" title="Agro Fortuna">
+                <img src="apoiadores/agrofortuna.png" alt="Agro Fortuna" class="logo">
+            </a>
 
 
-      <a href="https://www.instagram.com/assisfertil/" target="_blank" title="Assis Fertil">
-        <img src="apoiadores/assisfertil.png" alt="AssisFertil" class="logo">
-      </a>
+            <a href="https://www.assischateaubriand.pr.gov.br/index.php?sessao=b054603368svb0&id=3996" target="_blank"
+                title="Sec. de Serviços Urb.">
+                <img src="apoiadores/secretariadeserviçosurbanos.png" alt="Sec. de Serviços Urb." class="logo">
+            </a>
 
-      <a href="https://www.assischateaubriand.pr.gov.br/" target="_blank" title="Pref. M. Assis Chateaubriand">
-        <img src="apoiadores/pref.png" alt="Pref. M. Assis Chateaubriand" class="logo">
-      </a>
+            <a href="https://kspulverizadores.com.br/index.php" target="_blank" title="KS Pulverizadores">
+                <img src="apoiadores/ks.png" alt="KS Pulverizadores" class="logo">
+            </a>
 
-      <a href="https://iriedi.com.br/" target="_blank" title="IRIEDI">
-        <img src="apoiadores/iriedi.png" alt="IRIEDI" class="logo">
-      </a>
+            <a href="https://www.instagram.com/atacadopedroedavi/" target="_blank" title="Atacado Pedro e Davi">
+                <img src="apoiadores/atacado.png" alt="Atacado Pedro e Davi" class="logo">
+            </a>
+
+            <a href="https://www.instagram.com/ambiental.assis/" target="_blank"
+                title="Departamento de Meio Ambiente de Assis Chateaubriand">
+                <img src="apoiadores/meioambiente.png" alt="Dep. Meio Ambiente" class="logo">
+            </a>
+
+            <a href="https://www.instagram.com/junior_colchoes?igsh=aTAwYWE4NGRyeno=" target="_blank"
+                title="Junior Colchões">
+                <img src="apoiadores/jrc.png" alt="Junior Colchões" class="logo">
+            </a>
+
+            <a href="https://www.instagram.com/ccmguima?igsh=YjRtOTlybGUyaDFn" target="_blank" title="CCM Guima">
+                <img src="apoiadores/Guima.png" alt="CCM Guima" class="logo">
+            </a>
+
+            <a href="https://www.instagram.com/sindicatoruraldeassischat?igsh=MXN0aHhpeTNqN2Jsbg==" target="_blank"
+                title="Senar Assis">
+                <img src="apoiadores/Senar_Assis.png" alt="Senar Assis" class="logo">
+            </a>
+
+            <a href="https://www.camarassis.pr.gov.br/" target="_blank" title="Câmara Assis">
+                <img src="apoiadores/camara.png" alt="Câmara Assis" class="logo">
+            </a>
+
+            <a href="https://www.instagram.com/motopauto1687/" target="_blank" title="Moto Pauto">
+                <img src="apoiadores/motopauto.png" alt="Moto Pauto" class="logo">
+            </a>
+
+            <a href="https://www.instagram.com/crissaviamentos/" target="_blank" title="Criss Aviamentos">
+                <img src="apoiadores/crisaviamentos.png" alt="Criss" class="logo">
+            </a>
+
+            <a href="https://www.centrocon.net/" target="_blank" title="Centrocon">
+                <img src="apoiadores/centro.png" alt="Centrocon" class="logo">
+            </a>
+
+            <a href="https://www.instagram.com/caseshowassis/" target="_blank" title="Case Show Assis">
+                <img src="apoiadores/case.png" alt="Case Show" class="logo">
+            </a>
+
+            <a href="https://www.instagram.com/agr_opecuariabichobom/" target="_blank" title="Bicho Bom Agro.">
+                <img src="apoiadores/bichobom.png" alt="Bicho Bom Agropecuária" class="logo">
+            </a>
 
 
+            <a href="https://www.instagram.com/assisfertil/" target="_blank" title="Assis Fertil">
+                <img src="apoiadores/assisfertil.png" alt="AssisFertil" class="logo">
+            </a>
+
+            <a href="https://www.assischateaubriand.pr.gov.br/" target="_blank" title="Pref. M. Assis Chateaubriand">
+                <img src="apoiadores/pref.png" alt="Pref. M. Assis Chateaubriand" class="logo">
+            </a>
+
+            <a href="https://iriedi.com.br/" target="_blank" title="IRIEDI">
+                <img src="apoiadores/iriedi.png" alt="IRIEDI" class="logo">
+            </a>
+
+
+
+        </div>
 
     </div>
 
-  </div>
+    <head>
 
-  <head>
+    </head>
 
-  </head>
+    <body>
 
-  <body>
+        <header class="cabecalho">
+            <div class="fase1">Fase 1 ( PROGRAMAÇÃO )</div>
+            <div class="fase2">Fase 2 ( TESTES )</div>
+            <div class="fase3">Fase 3 ( EXECUÇÃO)</div>
 
-    <header class="cabecalho">
-      <div class="fase1">Fase 1 ( PROGRAMAÇÃO )</div>
-      <div class="fase2">Fase 2 ( TESTES )</div>
-      <div class="fase3">Fase 3 ( EXECUÇÃO)</div>
+            Projeto Agro Detector
+            <div class="subtext">
+                <span>Coleta e Mapeamento de Resíduos Tóxicos e Microplásticos</span><br>
+            </div>
+        </header>
 
-      Projeto Agro Detector
-      <div class="subtext">
-        <span>Coleta e Mapeamento de Resíduos Tóxicos e Microplásticos</span><br>
-      </div>
-    </header>
+    </body>
+    <!-- Menu horizontal -->
+    <nav>
+        <a href="projeto.html" class="box">Projeto</a>
 
-  </body>
-  <!-- Menu horizontal -->
-  <nav>
-    <a href="projeto.html" class="box">Projeto</a>
+        <a href="frascosencontrados.html" class="box">Frascos</a>
 
-    <a href="frascosencontrados.html" class="box">Frascos</a>
+        <a href="noticias.html" class="box">Noticias</a>
 
-    <a href="noticias.html" class="box">Noticias</a>
+        <a href="comofunciona.html" class="box">Componentes</a>
 
-    <a href="comofunciona.html" class="box">Componentes</a>
+        <a href="ideia.html" class="box">Ideia</a>
 
-    <a href="ideia.html" class="box">Ideia</a>
+        <a href="materiais.html" class="box">Materiais</a>
 
-    <a href="materiais.html" class="box">Materiais</a>
+        <a href="experiencia.html" class="box">Experiência</a>
 
-    <a href="experiencia.html" class="box">Experiência</a>
+        <a href="agradecimentos.html" class="box">Agradecimentos</a>
 
-    <a href="agradecimentos.html" class="box">Agradecimentos</a>
+        <a href="fotos_projeto_agro_detector.html" class="box"> Fotos</a>
 
-    <a href="fotos_projeto_agro_detector.html" class="box"> Fotos</a>
+        <a href="apresentacao.html" class="box">Professor</a>
 
-    <a href="apresentacao.html" class="box">Professor</a>
-
-    <a href="apresentacaoalunos.html" class="box">Alunos</a>
+        <a href="apresentacaoalunos.html" class="box">Alunos</a>
 
 
 
 
 
-  </nav>
+    </nav>
 
-  <!-- Balão de contadores -->
+    <!-- Balão de contadores -->
 
-  <div class="counters-container">
-    <div class="counter-box toxic">
-      <i class="fas fa-exclamation-triangle"></i>
-      <div class="counter-number" id="toxic-count">0</div>
-      <div class="counter-label">
-        <span>Frascos</span><br>
-        <span>
+    <div class="counters-container">
+        <div class="counter-box toxic">
+            <i class="fas fa-exclamation-triangle"></i>
+            <div class="counter-number" id="toxic-count">0</div>
+            <div class="counter-label">
+                <span>Frascos</span><br>
+                <span>
                     tóxicos coletados</span>
-      </div>
-    </div>
-    <div class="counter-box domestic">
-      <i class="fas fa-trash-alt"></i>
-      <div class="counter-number" id="domestic-count">0</div>
-      <div class="counter-label">
-        <span>Lixo doméstico </span><br>
-        <span> a ser coletado</span>
-      </div>
+            </div>
+        </div>
+        <div class="counter-box domestic">
+            <i class="fas fa-trash-alt"></i>
+            <div class="counter-number" id="domestic-count">0</div>
+            <div class="counter-label">
+                <span>Lixo doméstico </span><br>
+                <span> a ser coletado</span>
+            </div>
+
+        </div>
 
     </div>
 
-  </div>
 
+    <div id="map"></div>
 
-  <div id="map"></div>
-
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-    var map = L.map('map', { 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map', { 
     center: [-24.405990, -53.513975],
     zoom: 13,           // Começa vendo uma boa parte do Brasil
     minZoom: 2,        // Dá pra afastar até ver o Brasil inteiro e arredores
@@ -1694,10 +1696,10 @@ var redIcon = L.icon({
         function closeInfo() {
             document.getElementById('tooltip').classList.remove('show');
         }
-  </script>
+    </script>
 
-  <script>
-    async function gerarPDF() {
+    <script>
+        async function gerarPDF() {
   const overlay = document.getElementById("overlay-carregando");
   overlay.style.display = "flex"; // Mostra o overlay com animação
 
@@ -1852,7 +1854,7 @@ async function carregarImagemBase64(url, maxLargura = 600, maxAltura = 400) {
             // Insere a imagem no pdf
             // Ajusta posição X, Y, largura e altura (pode ajustar conforme seu layout)
             doc.addImage(imgBase64, 'PNG', 130, yLocal - 50, 60, 45);
-            yLocal += 20;
+            yLocal += 10;
           } else {
             console.warn(`Não foi possível carregar a imagem: ${urlImagem}`);
           }
@@ -1861,7 +1863,7 @@ async function carregarImagemBase64(url, maxLargura = 600, maxAltura = 400) {
 
       doc.setDrawColor(200);
       doc.line(10, yLocal, 200, yLocal);
-      yLocal += 5;
+      yLocal += 2;
     }
 
     return yLocal;
@@ -1889,34 +1891,34 @@ doc.save("Relatorio_Agro_Detector.pdf");
   }
 }
 
-  </script>
+    </script>
 
 
-  <button class="relatorio-btn" onclick="gerarPDF()">Baixar Relatório PDF</button>
-  <!-- Overlay com spinner e texto -->
-<div id="overlay-carregando" style="display:none; 
+    <button class="relatorio-btn" onclick="gerarPDF()">Baixar Relatório PDF</button>
+    <!-- Overlay com spinner e texto -->
+    <div id="overlay-carregando" style="display:none; 
     position:fixed; top:0; left:0; width:100%; height:100%; 
     background:rgba(0,0,0,0.7); color:white; font-family: monospace; 
     z-index:9999; justify-content:center; align-items:center; flex-direction: column;">
-  
-  <div class="spinner" style="margin-bottom:20px;">
-    <!-- Aqui você pode colocar uma animação de loading se quiser -->
-   
-  </div>  
-<div class="texto">Gerando relatório, por favor aguarde...</div>
-  <div id="checklist-status" style="text-align:left; max-width: 400px;">
-    <div id="etapa1">🔍 Coletando dados...</div>
-    <div id="etapa2">🧹 Limpando informações...</div>
-    <div id="etapa3">📡 Buscando imagens...</div>
-    <div id="etapa4">🧠 Convertendo imagens em base64...</div>
-    <div id="etapa5">🎨 Redimensionando imagens...</div>
-    <div id="etapa6">🖨️ Inserindo no PDF...</div>
-    <div id="etapa7">📄 Finalizando relatório...</div>
-  </div>
-</div>
 
-<script>
-async function gerarPDF() {
+        <div class="spinner" style="margin-bottom:20px;">
+            <!-- Aqui você pode colocar uma animação de loading se quiser -->
+
+        </div>
+        <div class="texto">Gerando relatório, por favor aguarde...</div>
+        <div id="checklist-status" style="text-align:left; max-width: 400px;">
+            <div id="etapa1">🔍 Coletando dados...</div>
+            <div id="etapa2">🧹 Limpando informações...</div>
+            <div id="etapa3">📡 Buscando imagens...</div>
+            <div id="etapa4">🧠 Convertendo imagens em base64...</div>
+            <div id="etapa5">🎨 Redimensionando imagens...</div>
+            <div id="etapa6">🖨️ Inserindo no PDF...</div>
+            <div id="etapa7">📄 Finalizando relatório...</div>
+        </div>
+    </div>
+
+    <script>
+        async function gerarPDF() {
   const overlay = document.getElementById("overlay-carregando");
   
   // Função para atualizar as etapas do checklist
@@ -2093,17 +2095,17 @@ async function gerarPDF() {
 
             if (imgBase64) {
               marcarEtapa(6, "🖨️ Inserindo no PDF...");
-              doc.addImage(imgBase64, 'PNG', 130, yLocal - 50, 60, 45);
-              yLocal += 50;
+              const alturaImagem = 35; // pode ajustar para 30 ou até 28 se quiser ainda mais compacto
+              doc.addImage(imgBase64, 'PNG', 130, yLocal - alturaImagem, 60, alturaImagem);
+              yLocal += alturaImagem;
             } else {
               console.warn(`Não foi possível carregar a imagem: ${urlImagem}`);
             }
           }
         }
-
-        doc.setDrawColor(200);
-        doc.line(10, yLocal, 200, yLocal);
-        yLocal += 10;
+doc.setDrawColor(220); // mais suave
+doc.line(10, yLocal + 2, 200, yLocal + 2);
+yLocal += 6; // reduzido
       }
 
       return yLocal;
@@ -2139,30 +2141,30 @@ async function gerarPDF() {
     }
   }
 }
-</script>
-  <!-- Modal -->
-  <div id="videoModal" onclick="fecharModal(event)" style="display: flex; justify-content: center; align-items: center;
+    </script>
+    <!-- Modal -->
+    <div id="videoModal" onclick="fecharModal(event)" style="display: flex; justify-content: center; align-items: center;
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
   background-color: rgba(0, 0, 0, 0.8); z-index: 9999;">
 
-    <div id="videoContainer" style="position: relative; width: 80%; max-width: 720px;">
-      <!-- Botão de fechar -->
-      <button onclick="fecharModal()"
+        <div id="videoContainer" style="position: relative; width: 80%; max-width: 720px;">
+            <!-- Botão de fechar -->
+            <button onclick="fecharModal()"
       style="position: absolute; top: -15px; right: -15px; 
       background: red; color: white; border: none; border-radius: 50%; 
       width: 35px; height: 35px; font-size: 20px; font-weight: bold; 
       cursor: pointer; box-shadow: 0 0 5px rgba(0,0,0,0.5);">
       &times;
-    </button> 
-      <!-- Vídeo do YouTube -->
-      <iframe id="youtubeVideo" width="100%" height="400"
-        src="https://www.youtube.com/embed/_JvkP3Ftha8?autoplay=1&mute=1" frameborder="0"
-        allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </button>
+            <!-- Vídeo do YouTube -->
+            <iframe id="youtubeVideo" width="100%" height="400"
+                src="https://www.youtube.com/embed/_JvkP3Ftha8?autoplay=1&mute=1" frameborder="0"
+                allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
     </div>
-  </div>
 
-  <script>
-    function fecharModal(event) {
+    <script>
+        function fecharModal(event) {
     const modal = document.getElementById("videoModal");
     const video = document.getElementById("youtubeVideo");
 
@@ -2172,25 +2174,25 @@ async function gerarPDF() {
       modal.style.display = "none";
     }
   }
-  </script>
-  </script>
+    </script>
+    </script>
 
-  <body>
-    <!-- Conteúdo do corpo da página -->
+    <body>
+        <!-- Conteúdo do corpo da página -->
 
-    <footer class="footer">
-      <img src="RGGUIMA/ID.png" alt="ID">
+        <footer class="footer">
+            <img src="RGGUIMA/ID.png" alt="ID">
 
-      <p>&copy; Todos os direitos reservados.</p>
-      <div class="footer-text">Desenvolvimento: Prof. Josiel e Alunos</div>
-    </footer>
+            <p>&copy; Todos os direitos reservados.</p>
+            <div class="footer-text">Desenvolvimento: Prof. Josiel e Alunos</div>
+        </footer>
 
-  </body>
+    </body>
 
-  <div id="sfccrad958bf4p8cwe4pawccf6ed278zwsn"></div>
-  <script type="text/javascript"
-    src="https://counter1.optistats.ovh/private/counter.js?c=crad958bf4p8cwe4pawccf6ed278zwsn&down=async" async>
-  </script>
+    <div id="sfccrad958bf4p8cwe4pawccf6ed278zwsn"></div>
+    <script type="text/javascript"
+        src="https://counter1.optistats.ovh/private/counter.js?c=crad958bf4p8cwe4pawccf6ed278zwsn&down=async" async>
+    </script>
 
 
 </html>
