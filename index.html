@@ -1852,7 +1852,7 @@ async function carregarImagemBase64(url, maxLargura = 600, maxAltura = 400) {
             // Insere a imagem no pdf
             // Ajusta posição X, Y, largura e altura (pode ajustar conforme seu layout)
             doc.addImage(imgBase64, 'PNG', 130, yLocal - 50, 60, 45);
-            yLocal += 50;
+            yLocal += 20;
           } else {
             console.warn(`Não foi possível carregar a imagem: ${urlImagem}`);
           }
@@ -1861,7 +1861,7 @@ async function carregarImagemBase64(url, maxLargura = 600, maxAltura = 400) {
 
       doc.setDrawColor(200);
       doc.line(10, yLocal, 200, yLocal);
-      yLocal += 10;
+      yLocal += 5;
     }
 
     return yLocal;
@@ -2153,8 +2153,7 @@ async function gerarPDF() {
       width: 35px; height: 35px; font-size: 20px; font-weight: bold; 
       cursor: pointer; box-shadow: 0 0 5px rgba(0,0,0,0.5);">
       &times;
-    </button>
-
+    </button> 
       <!-- Vídeo do YouTube -->
       <iframe id="youtubeVideo" width="100%" height="400"
         src="https://www.youtube.com/embed/_JvkP3Ftha8?autoplay=1&mute=1" frameborder="0"
