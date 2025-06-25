@@ -862,10 +862,10 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    var map = L.map('map', {
-    center: [-24.404, -53.511],
-    zoom: 5,           // Começa vendo uma boa parte do Brasil
-    minZoom: 3,        // Dá pra afastar até ver o Brasil inteiro e arredores
+    var map = L.map('map', { 
+    center: [-24.405990, -53.513975],
+    zoom: 13,           // Começa vendo uma boa parte do Brasil
+    minZoom: 2,        // Dá pra afastar até ver o Brasil inteiro e arredores
     maxZoom: 18,       // Dá pra dar bastante zoom sem o mapa sumir
     zoomControl: true
 });
@@ -875,14 +875,14 @@
    // Substituindo as divIcons pelos ícones PNG
 var greenIcon = L.icon({
     iconUrl: 'icones/lixo dome.png', // Substitua pelo caminho do seu ícone PNG verde
-    iconSize: [32, 32], // Tamanho do ícone
+    iconSize: [28, 28], // Tamanho do ícone
     iconAnchor: [16, 32], // Posição do ponto de ancoragem do ícone
     popupAnchor: [0, -32] // Posição do pop-up
 });
 
 var redIcon = L.icon({
     iconUrl: 'icones/lixo tox.png', // Substitua pelo caminho do seu ícone PNG vermelho
-    iconSize: [32, 32], // Tamanho do ícone
+    iconSize: [28, 28], // Tamanho do ícone
     iconAnchor: [16, 32], // Posição do ponto de ancoragem do ícone
     popupAnchor: [0, -32] // Posição do pop-up
 });
