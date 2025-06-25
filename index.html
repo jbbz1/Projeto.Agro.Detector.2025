@@ -1746,46 +1746,44 @@ var redIcon = L.icon({
  
 async function carregarImagemBase64(url, maxLargura = 600, maxAltura = 400) {
   try {
-    const resposta = await fetch(url);
-    if (!resposta.ok) throw new Error(`Erro ao buscar imagem: ${url}`);
-    const blob = await resposta.blob();
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
 
     return await new Promise((resolve, reject) => {
-      const img = new Image();
-      img.crossOrigin = 'Anonymous';
       img.onload = () => {
+        // Redimensiona proporcionalmente
         let largura = img.width;
         let altura = img.height;
-
         const escala = Math.min(maxLargura / largura, maxAltura / altura, 1);
         largura *= escala;
         altura *= escala;
 
+        // Cria o canvas redimensionado
         const canvas = document.createElement('canvas');
         canvas.width = largura;
         canvas.height = altura;
-
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, largura, altura);
 
-        // Exporta como JPEG com 70% de qualidade (bem mais leve que PNG)
+        // Exporta em JPEG com compressão
         const base64 = canvas.toDataURL('image/jpeg', 0.7);
         resolve(base64);
       };
-      img.onerror = reject;
 
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        img.src = reader.result;
+      img.onerror = (e) => {
+        console.error("Erro ao carregar imagem:", e);
+        reject(e);
       };
-      reader.onerror = reject;
-      reader.readAsDataURL(blob);
+
+      img.src = url;
     });
+
   } catch (e) {
-    console.error(e);
+    console.error("Erro ao redimensionar imagem:", e);
     return null;
   }
 }
+
   // Função para adicionar os lixos no PDF (assíncrona para tratar imagens)
   async function adicionarLixos(lista, corTexto, yStart) {
     let yLocal = yStart;
@@ -1802,6 +1800,7 @@ async function carregarImagemBase64(url, maxLargura = 600, maxAltura = 400) {
       const dataHora = loc.info[1].replace("DATA/HORA: ", "").trim();
       const temp = loc.info[2].replace("Temperatura: ", "").trim();
       const lat = loc.lat.toFixed(6);
+      const lng = loc.lng.toFixed(6);
       const mapsUrl = `https://maps.google.com/maps/?&z=10&q=${lat},${lng}`;
 
       doc.setFont("arial", "bold");
