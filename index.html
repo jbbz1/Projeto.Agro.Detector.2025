@@ -2093,7 +2093,7 @@ async function gerarPDF() {
 
             if (imgBase64) {
               marcarEtapa(6, "🖨️ Inserindo no PDF...");
-              doc.addImage(imgBase64, 'PNG', 130, yLocal - 60, 40, 40);
+              doc.addImage(imgBase64, 'PNG', 150, yLocal - 40, 40, 40);
               yLocal += 5;
             } else {
               console.warn(`Não foi possível carregar a imagem: ${urlImagem}`);
