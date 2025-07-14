@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+aaaaaaaaa<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -153,11 +153,9 @@
       left: 8%;
       transform: translateX(-50%);
       font-size: 12px;
-      color: #ff0000;
+      color: #0000CD;
       font-weight: bold;
       width: auto;
-      text-decoration: line-through;
-
       height: 10px;
       text-align: left;
       top: 27px;
@@ -172,12 +170,12 @@
       left: 8%;
       transform: translateX(-50%);
       font-size: 12px;
-      color: #0000CD;
+      color: #ff0000;
       font-weight: normal;
       width: auto;
       height: 10px;
       text-align: left;
-      top: 40px;
+      top: 13px;
       /* Distância do topo */
     }
 
@@ -331,9 +329,9 @@
         position: fixed;
         top: 12% !important;
         right: 0;
-        width: 130px;
+        width: 115px;
         background-color: #fff;
-        padding: 20px 10px;
+        padding: 15px 8px;
         border-radius: 30px 0 0 30px;
         box-shadow: -3px 3px 15px rgba(0, 0, 0, 0.15);
         z-index: 1000;
@@ -350,13 +348,13 @@
         /* centraliza horizontalmente */
         text-align: center;
         width: 100%;
-        padding: 5px 0;
+        padding: 3px 0;
         /* ajuste fino vertical */
       }
 
       .sidebar img {
         max-width: 80%;
-        margin: 50px 4;
+        margin: 50px 3;
         border-radius: 5px;
         transition: transform 0.2s ease;
         cursor: pointer;
@@ -376,7 +374,7 @@
 
       .logo {
         height: auto;
-        width: 65px !important; //tamanho da imagem logo
+        width: 50px !important; //tamanho da imagem logo
         height: auto;
         gap: 0px;
       }
@@ -800,11 +798,9 @@
   <body>
 
     <header class="cabecalho">
-      <div class="fase1">Fase 1 (PROGRAMAÇÃO)</div>
-      <div class="fase2">Fase 2 (TESTES)</div>
-      <div class="fase3">Fase 3 (EXECUÇÃO)</div>
-      <div class="fase4">Fase 4 (Resultados)</div>
-
+      <div class="fase1">Fase 1 ( PROGRAMAÇÃO )</div>
+      <div class="fase2">Fase 2 ( TESTES )</div>
+      <div class="fase3">Fase 3 ( EXECUÇÃO)</div>
 
       Projeto Agro Detector
       <div class="subtext">
@@ -867,50 +863,20 @@
 
   </div>
 
+ 
+  <div id="map"></div>
 
-  <div id="map"></div>  <!-- Leaflet CSS + JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    
-    // Camadas base
-  var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors'
-  });
-  var esriSat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-    attribution: '© Esri, Earthstar Geographics'
-  });
-  var esriLabels = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
-    attribution: '© Esri, Earthstar Geographics'
-  });
-  // Sua camada topológica só adicionada aqui
-  var topoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenTopoMap (CC-BY-SA)'
-  });
-  // Camada híbrida (Satélite + Nomes)
-  var hibrido = L.layerGroup([esriSat, esriLabels]);
-  // Inicializa o mapa COM a camada híbrida ativa
-  var map = L.map('map', { 
+    var map = L.map('map', { 
     center: [-24.405990, -53.513975],
-    zoom: 13,
-    minZoom: 2,
-    maxZoom: 18,
-    zoomControl: true,
-    layers: [hibrido] // <- ESSA LINHA ativa o híbrido ao iniciar
-  });
-  // Botão de troca de camadas no canto superior esquerdo
-  var baseMaps = {
-    "Mapa de Ruas": osm,
-    "Satélite": esriSat,
-    "Híbrido": hibrido,
-    "Topográfico": topoMap
-  };
-  L.control.layers(baseMaps, null, { position: 'topleft' }).addTo(map);
+    zoom: 13,           // Começa vendo uma boa parte do Brasil
+    minZoom: 2,        // Dá pra afastar até ver o Brasil inteiro e arredores
+    maxZoom: 18,       // Dá pra dar bastante zoom sem o mapa sumir
+    zoomControl: true
+});
 
-
-
-
-
-
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(map);
 
    // Substituindo as divIcons pelos ícones PNG
 var greenIcon = L.icon({
@@ -2780,6 +2746,7 @@ doc.save("Relatorio_Agro_Detector.pdf");
   }
 }
   </script>
+ 
   </div>
 
   <script>
@@ -2794,7 +2761,7 @@ doc.save("Relatorio_Agro_Detector.pdf");
     }
   }
   </script>
-  </script> 
+  </script>
 
   <body>
     <!-- Conteúdo do corpo da página -->
@@ -2809,7 +2776,8 @@ doc.save("Relatorio_Agro_Detector.pdf");
   </body>
 
   <div id="PROF"></div>
-  <script type="text/javascript" src="PROF" async>
+  <script type="text/javascript"
+    src="PROF" async>
   </script>
 
 
