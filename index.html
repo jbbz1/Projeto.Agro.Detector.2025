@@ -868,35 +868,26 @@
   </div>
 
 
-  <div id="map" style="height: 500px;"></div>
-
-  <!-- Leaflet CSS + JS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <div id="map"></div>  <!-- Leaflet CSS + JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
   <script>
+    
     // Camadas base
   var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
   });
-
   var esriSat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
     attribution: '© Esri, Earthstar Geographics'
   });
-
   var esriLabels = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
     attribution: '© Esri, Earthstar Geographics'
   });
-
   // Sua camada topológica só adicionada aqui
   var topoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenTopoMap (CC-BY-SA)'
   });
-
- 
   // Camada híbrida (Satélite + Nomes)
   var hibrido = L.layerGroup([esriSat, esriLabels]);
-
   // Inicializa o mapa COM a camada híbrida ativa
   var map = L.map('map', { 
     center: [-24.405990, -53.513975],
@@ -906,19 +897,13 @@
     zoomControl: true,
     layers: [hibrido] // <- ESSA LINHA ativa o híbrido ao iniciar
   });
-
   // Botão de troca de camadas no canto superior esquerdo
   var baseMaps = {
     "Mapa de Ruas": osm,
     "Satélite": esriSat,
     "Híbrido": hibrido,
     "Topográfico": topoMap
-
-    
   };
-
-
-  
   L.control.layers(baseMaps, null, { position: 'topleft' }).addTo(map);
 
 
@@ -2809,7 +2794,7 @@ doc.save("Relatorio_Agro_Detector.pdf");
     }
   }
   </script>
-  </script>
+  </script> 
 
   <body>
     <!-- Conteúdo do corpo da página -->
