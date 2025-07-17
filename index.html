@@ -17,6 +17,43 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <style>
+
+
+
+ #filtroLateral {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(255, 255, 255, 0.95);
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      padding: 15px;
+      z-index: 1000;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      font-family: Arial, sans-serif;
+    }
+
+    #filtroLateral label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 14px;
+      cursor: pointer!important;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     #overlay-carregando {
       display: none;
       /* agora sim funciona! */
@@ -408,6 +445,8 @@
 
 
     }
+
+
 
 
 
@@ -867,7 +906,28 @@
 
   </div>
 
+<!-- Filtros laterais -->
+<div id="filtros" style="
+  position: absolute;
+  left: 1px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.9);
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+  z-index: 999;">
+  <label>
+    <input type="checkbox" id="mostrarDomestico" checked />
+     Doméstico
+  </label><br>
+  <label>
+    <input type="checkbox" id="mostrarToxico" checked />
+     Tóxico
+  </label>
+</div>
 
+  
   <div id="map"></div>  <!-- Leaflet CSS + JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
@@ -930,29 +990,6 @@ var redIcon = L.icon({
     let locations = [
  ////////////////////////////////////////////////////////////
 
-{
-    "lat": -24.380686,
-    "lng": -53.578488,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.380686,-53.578488\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 17/6/2025 9:43:44",
-    "Temperatura: 26.75 °C",
-    "<img src='frascos/IMG_20250617_094423.png' alt='Lixo Tóxico' width='125%' />"
-    ],
-    "icon": "greenIcon"
-},
-
-{
-    "lat": -24.380789,
-    "lng": -53.578364,
-    "info": [
-    "LIXO DOMÉSTICO A SER COLETADO <a href=\"https://maps.google.com/maps/?&z=10&q=-24.380789,-53.578364\" target=\"_blank\">Ver Localização</a>",
-    "DATA/HORA: 17/6/2025 9:44:24",
-    "Temperatura: 26.75 °C",
-    "<img src='frascos/IMG_4056.png' alt='Lixo Tóxico' width='125%' />"
-    ],
-    "icon": "greenIcon"
-},
 
 {
     "lat": -24.380760,
@@ -2303,37 +2340,62 @@ var redIcon = L.icon({
 
 ////////////////////////////////////////////////////////////
         ];
-        let toxicoCount = 0;
-        let domesticoCount = 0;
+       const marcadoresDomesticos = [];
+  const marcadoresToxicos = [];
 
-        locations.forEach(function(location) {
-    var markerIcon = location.icon === "redIcon" ? redIcon : greenIcon;
-    var popupContent = location.info.join("<br>");
-    L.marker([location.lat, location.lng], { icon: markerIcon })
-        .addTo(map)
-        .bindPopup(`<strong>Informações:</strong><br>${popupContent}`);
-    if (location.icon === "redIcon") {
-        toxicoCount++;
-    } else if (location.icon === "greenIcon") {
-        domesticoCount++;
+  let toxicoCount = 0;
+  let domesticoCount = 0;
+
+  locations.forEach(loc => {
+    const icon = loc.icon === "greenIcon" ? greenIcon : redIcon;
+    const popupContent = loc.info.join("<br>");
+
+    const marker = L.marker([loc.lat, loc.lng], { icon }).bindPopup(popupContent);
+
+    if (loc.icon === "greenIcon") {
+      marcadoresDomesticos.push(marker);
+      domesticoCount++;
+    } else {
+      marcadoresToxicos.push(marker);
+      toxicoCount++;
     }
-});
-        document.getElementById('toxic-count').textContent = toxicoCount;
-        document.getElementById('domestic-count').textContent = domesticoCount;
-        function showInfo(section) {
-            var tooltip = document.getElementById('tooltip');
-            var content = '';
-            switch(section) {
-                
-                default:
-                    content = '';
-            }
-            document.getElementById('tooltip-content').innerHTML = content;
-            tooltip.classList.add('show');
-        }
-        function closeInfo() {
-            document.getElementById('tooltip').classList.remove('show');
-        }
+
+    marker.addTo(map);
+  });
+
+  // Atualiza contadores visuais, se existirem
+  if (document.getElementById('toxic-count'))
+    document.getElementById('toxic-count').textContent = toxicoCount;
+
+  if (document.getElementById('domestic-count'))
+    document.getElementById('domestic-count').textContent = domesticoCount;
+
+  // Função para atualizar visibilidade dos marcadores
+  function atualizarVisibilidade() {
+    const mostrarDom = document.getElementById("mostrarDomestico").checked;
+    const mostrarTox = document.getElementById("mostrarToxico").checked;
+
+    marcadoresDomesticos.forEach(marker => {
+      if (mostrarDom) {
+        map.addLayer(marker);
+      } else {
+        map.removeLayer(marker);
+      }
+    });
+
+    marcadoresToxicos.forEach(marker => {
+      if (mostrarTox) {
+        map.addLayer(marker);
+      } else {
+        map.removeLayer(marker);
+      }
+    });
+  }
+
+  // Eventos dos checkboxes
+  document.getElementById("mostrarDomestico").addEventListener("change", atualizarVisibilidade);
+  document.getElementById("mostrarToxico").addEventListener("change", atualizarVisibilidade);
+</script>
   </script>
 
   <script>
@@ -2782,17 +2844,7 @@ doc.save("Relatorio_Agro_Detector.pdf");
   </script>
   </div>
 
-  <script>
-    function fecharModal(event) {
-    const modal = document.getElementById("videoModal");
-    const video = document.getElementById("youtubeVideo");
 
-    // Se clicou fora do vídeo (no fundo escuro) OU clicou no botão
-    if (!event || event.target === modal || event.target.tagName === "BUTTON") {
-      video.src = ""; // para o vídeo e o som
-      modal.style.display = "none";
-    }
-  }
   </script>
   </script> 
 
