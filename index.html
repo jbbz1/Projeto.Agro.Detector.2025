@@ -17,43 +17,50 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <style>
+    .relatorio-btn {
+      position: absolute;
+      top: 500px;
+      right: px;
+      z-index: 9999;
+      border: 2px solid #333;
+      font-weight: bold;
+      border-radius: 10px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+      background-color: #007bff;
+      color: white;
+      font-size: 12px;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+      text-align: center;
+      max-width: 140px;
+      margin: 0 auto;
+      /* centraliza se quiser */
 
-.relatorio-btn {
-  position: fixed;
-  top: 590px;
-  right: px;
-  z-index: 9999;
-  background-color: #ffffffdd;
-  border: 2px solid #333;
-  color: #000;
-  font-weight: bold;
-  padding: 10px 15px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 6px rgba(0,0,0,0.3);
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
+    }
 
-.relatorio-btn:hover {
-  background-color: #e8f0fe;
-  color: #1a73e8;
-  transform: scale(1.05);
-}
-html, body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden; /* impede rolagem horizontal */
+    .relatorio-btn:hover {
+      background-color: #e8f0fe;
+      color: #1a73e8;
+      transform: scale(1.05);
+    }
 
-}
+    html,
+    body {
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow-x: hidden !important;
+      /* impede rolagem horizontal */
 
-body {
-  min-height: 10vh;
-  display: flex;
-  flex-direction: column;
-  
-}
+    }
 
+    body {
+      min-height: 10vh;
+      display: flex;
+      flex-direction: column;
 
+    }
 
     #filtros {
       position: absolute;
@@ -66,18 +73,6 @@ body {
       box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
       z-index: 999;
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
     #overlay-carregando {
       display: none;
@@ -120,7 +115,8 @@ body {
       text-align: center;
     }
 
-    @keyframes girar {0% {
+    @keyframes girar {
+      0% {
         transform: rotate(0deg);
       }
 
@@ -130,27 +126,6 @@ body {
     }
 
 
-.relatorio-btn {
-  position: fixed;
-  top: 700px;
-  right: px;
-  z-index: 9999;
-  background-color: #ffffffdd;
-  border: 2px solid #333;
-  color: #000;
-  font-weight: bold;
-  padding: 10px 15px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 6px rgba(0,0,0,0.3);
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-
-.relatorio-btn:hover {
-  background-color: #e8f0fe;
-  color: #1a73e8;
-  transform: scale(1.05);
-}
 
 
     .subtext {
@@ -164,24 +139,7 @@ body {
     }
 
 
-    .relatorio-btn {
-      font-family: Arial, sans-serif;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      padding: 5px 1px;
-      font-size: 14px;
-      border-radius: 4px;
-      cursor: pointer;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-      transition: background-color 0.3s ease;
-      display: inline-block;
-      text-align: center;
-      max-width: 140px;
-      margin: 0 auto;
-      /* centraliza se quiser */
-
-    }
+    .relatorio-btn {}
 
     .relatorio-btn:hover {
       background-color: #0056b3;
@@ -198,7 +156,7 @@ body {
       padding: 20px;
     }
 
-    
+
     .fase4 {
       position: absolute;
       top: 0;
@@ -272,9 +230,6 @@ body {
 
     @media (max-width: 576px) {
       #filtros {
-
-   
-
         position: absolute;
         left: 10px;
         top: 70%;
@@ -456,24 +411,12 @@ body {
     }
 
     .fase4 {
-              display: none !important;
-
+      display: none !important;
     }
 
-* {
-  outline: 1px solid red;
-}
-
+    * {
+      outline: 1px solid red;
     }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -721,7 +664,6 @@ body {
     }
 
     /* Estilo do menu */
-
     nav {
       display: flex;
       flex-wrap: wrap;
@@ -743,8 +685,6 @@ body {
       border: 0.001px solid white;
       text-decoration: none;
       font-size: 19px;
-
-
     }
 
     .box:hover {
@@ -753,101 +693,70 @@ body {
   </style>
 
 <body>
-
   <!-- Barra lateral fixa à direita para logomarcas -->
   <div class="sidebar">
-
     <h3 class="sidebar-title">Apoiadores</h3>
     <div class="logos">
-
-
-
-
       <a href="https://www.pmpr.pr.gov.br/Pagina/Patrulha-Rural-Comunitaria target=" _blank"title="31º B. de Pol. Mil.">
         <img src="apoiadores/bpmrural.png" alt="31º B. de Pol. Mil. Rural" class="logo">
       </a>
-
-
       <a href="https://www.pmpr.pr.gov.br/31BPM" target="_blank" title="31º B. de Pol. Mil.">
         <img src="apoiadores/bpm.png" alt="31º B. de Pol. Mil." class="logo">
       </a>
-
-
       <a href="https://www.instagram.com/agro.fortuna/" target="_blank" title="Agro Fortuna">
         <img src="apoiadores/agrofortuna.png" alt="Agro Fortuna" class="logo">
       </a>
-
-
       <a href="https://www.assischateaubriand.pr.gov.br/index.php?sessao=b054603368svb0&id=3996" target="_blank"
         title="Sec. de Serviços Urb.">
         <img src="apoiadores/secretariadeserviçosurbanos.png" alt="Sec. de Serviços Urb." class="logo">
       </a>
-
       <a href="https://kspulverizadores.com.br/index.php" target="_blank" title="KS Pulverizadores">
         <img src="apoiadores/ks.png" alt="KS Pulverizadores" class="logo">
       </a>
-
       <a href="https://www.instagram.com/atacadopedroedavi/" target="_blank" title="Atacado Pedro e Davi">
         <img src="apoiadores/atacado.png" alt="Atacado Pedro e Davi" class="logo">
       </a>
-
       <a href="https://www.instagram.com/ambiental.assis/" target="_blank"
         title="Departamento de Meio Ambiente de Assis Chateaubriand">
         <img src="apoiadores/meioambiente.png" alt="Dep. Meio Ambiente" class="logo">
       </a>
-
       <a href="https://www.instagram.com/junior_colchoes?igsh=aTAwYWE4NGRyeno=" target="_blank" title="Junior Colchões">
         <img src="apoiadores/jrc.png" alt="Junior Colchões" class="logo">
       </a>
-
       <a href="https://www.instagram.com/ccmguima?igsh=YjRtOTlybGUyaDFn" target="_blank" title="CCM Guima">
         <img src="apoiadores/Guima.png" alt="CCM Guima" class="logo">
       </a>
-
       <a href="https://www.instagram.com/sindicatoruraldeassischat?igsh=MXN0aHhpeTNqN2Jsbg==" target="_blank"
         title="Senar Assis">
         <img src="apoiadores/Senar_Assis.png" alt="Senar Assis" class="logo">
       </a>
-
       <a href="https://www.camarassis.pr.gov.br/" target="_blank" title="Câmara Assis">
         <img src="apoiadores/camara.png" alt="Câmara Assis" class="logo">
       </a>
-
       <a href="https://www.instagram.com/motopauto1687/" target="_blank" title="Moto Pauto">
         <img src="apoiadores/motopauto.png" alt="Moto Pauto" class="logo">
       </a>
-
       <a href="https://www.instagram.com/crissaviamentos/" target="_blank" title="Criss Aviamentos">
         <img src="apoiadores/crisaviamentos.png" alt="Criss" class="logo">
       </a>
-
       <a href="https://www.centrocon.net/" target="_blank" title="Centrocon">
         <img src="apoiadores/centro.png" alt="Centrocon" class="logo">
       </a>
-
       <a href="https://www.instagram.com/caseshowassis/" target="_blank" title="Case Show Assis">
         <img src="apoiadores/case.png" alt="Case Show" class="logo">
       </a>
-
       <a href="https://www.instagram.com/agr_opecuariabichobom/" target="_blank" title="Bicho Bom Agro.">
         <img src="apoiadores/bichobom.png" alt="Bicho Bom Agropecuária" class="logo">
       </a>
-
-
       <a href="https://www.instagram.com/assisfertil/" target="_blank" title="Assis Fertil">
         <img src="apoiadores/assisfertil.png" alt="AssisFertil" class="logo">
       </a>
-
       <a href="https://www.assischateaubriand.pr.gov.br/" target="_blank" title="Pref. M. Assis Chateaubriand">
         <img src="apoiadores/pref.png" alt="Pref. M. Assis Chateaubriand" class="logo">
       </a>
-
       <a href="https://iriedi.com.br/" target="_blank" title="IRIEDI">
         <img src="apoiadores/iriedi.png" alt="IRIEDI" class="logo">
       </a>
-
-
-
     </div>
 
   </div>
@@ -892,15 +801,9 @@ body {
     <a href="apresentacao.html" class="box">Professor</a>
 
     <a href="apresentacaoalunos.html" class="box">Alunos</a>
-
-
-
-
-
   </nav>
 
   <!-- Balão de contadores -->
-
   <div class="counters-container">
     <div class="counter-box toxic">
       <i class="fas fa-exclamation-triangle"></i>
@@ -917,7 +820,7 @@ body {
       <div class="counter-label">
         <span>Lixo doméstico </span><br>
         <span> a ser coletado</span>
-        
+
       </div>
 
     </div>
@@ -926,26 +829,26 @@ body {
 
   <!-- Filtros laterais -->
   <div id="filtros">
-    
+
     <label>
-      
+
     <input type="checkbox" id="mostrarDomestico" checked />
     Doméstico
   </label><br>
     <label>
-      
+
     <input type="checkbox" id="mostrarToxico" checked />
     Tóxico
     
   </label>
-  
+
   </div>
-<button class="relatorio-btn" onclick="gerarPDF()">📄  Relatório PDF</button>
+  <button class="relatorio-btn" onclick="gerarPDF()">📄  Relatório PDF</button>
 
   <div id="map"></div> <!-- Leaflet CSS + JS -->
-  
+
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  
+
   <script>
     // Camadas base
   var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -963,6 +866,7 @@ body {
   });
   // Camada híbrida (Satélite + Nomes)
   var hibrido = L.layerGroup([esriSat, esriLabels]);
+
   // Inicializa o mapa COM a camada híbrida ativa
   var map = L.map('map', { 
     center: [-24.405990, -53.513975],
@@ -971,26 +875,15 @@ body {
     maxZoom: 18,
     zoomControl: false,
     layers: [hibrido] // <- ESSA LINHA ativa o híbrido ao iniciar
-
   });
-  
   // Botão de troca de camadas no canto superior esquerdo
   var baseMaps = {
-    "Mapa de Ruas": osm,
+    " Ruas": osm,
     "Satélite": esriSat,
     "Híbrido": hibrido,
     "Topográfico": topoMap
-    
-
   };
   L.control.layers(baseMaps, null, { position: 'topleft' }).addTo(map);
-
-
-
-
-
-
-
    // Substituindo as divIcons pelos ícones PNG
 var greenIcon = L.icon({
     iconUrl: 'icones/lixo dome.png', // Substitua pelo caminho do seu ícone PNG verde
@@ -998,18 +891,14 @@ var greenIcon = L.icon({
     iconAnchor: [16, 32], // Posição do ponto de ancoragem do ícone
     popupAnchor: [0, -32] // Posição do pop-up
 });
-
 var redIcon = L.icon({
     iconUrl: 'icones/lixo tox.png', // Substitua pelo caminho do seu ícone PNG vermelho
     iconSize: [28, 28], // Tamanho do ícone
     iconAnchor: [16, 32], // Posição do ponto de ancoragem do ícone
     popupAnchor: [0, -32] // Posição do pop-up
 });
-
     let locations = [
  ////////////////////////////////////////////////////////////
-
-
 {
     "lat": -24.380686,
     "lng": -53.578488,
