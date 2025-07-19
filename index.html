@@ -17,6 +17,44 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <style>
+
+.relatorio-btn {
+  position: fixed;
+  top: 590px;
+  right: px;
+  z-index: 9999;
+  background-color: #ffffffdd;
+  border: 2px solid #333;
+  color: #000;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0,0,0,0.3);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.relatorio-btn:hover {
+  background-color: #e8f0fe;
+  color: #1a73e8;
+  transform: scale(1.05);
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* impede rolagem horizontal */
+
+}
+
+body {
+  min-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+
+
     #filtros {
       position: absolute;
       left: 10px;
@@ -82,8 +120,7 @@
       text-align: center;
     }
 
-    @keyframes girar {
-      0% {
+    @keyframes girar {0% {
         transform: rotate(0deg);
       }
 
@@ -91,6 +128,30 @@
         transform: rotate(360deg);
       }
     }
+
+
+.relatorio-btn {
+  position: fixed;
+  top: 700px;
+  right: px;
+  z-index: 9999;
+  background-color: #ffffffdd;
+  border: 2px solid #333;
+  color: #000;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0,0,0,0.3);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.relatorio-btn:hover {
+  background-color: #e8f0fe;
+  color: #1a73e8;
+  transform: scale(1.05);
+}
+
 
     .subtext {
       font-size: 1rem;
@@ -137,58 +198,7 @@
       padding: 20px;
     }
 
-    .fase1 {
-      position: absolute;
-      top: 0;
-      /* topo da tela ou container pai */
-      left: 8%;
-      transform: translateX(-50%);
-      font-size: 12px;
-      color: #ff0000;
-      font-weight: bold;
-      width: auto;
-      height: auto;
-      text-align: left;
-      text-decoration: line-through;
-    }
-
-
-    .fase2 {
-      position: absolute;
-      top: 0;
-      /* topo da tela ou container pai */
-      left: 8%;
-      transform: translateX(-50%);
-      font-size: 12px;
-      color: #ff0000;
-      font-weight: bold;
-      width: auto;
-      height: 10px;
-      text-align: left;
-      text-decoration: line-through;
-      top: 13px;
-      /* Distância do topo */
-    }
-
-    .fase3 {
-      position: absolute;
-      top: 0;
-      /* topo da tela ou container pai */
-      left: 8%;
-      transform: translateX(-50%);
-      font-size: 12px;
-      color: #ff0000;
-      font-weight: bold;
-      width: auto;
-      text-decoration: line-through;
-
-      height: 10px;
-      text-align: left;
-      top: 27px;
-      /* Distância do topo */
-
-    }
-
+    
     .fase4 {
       position: absolute;
       top: 0;
@@ -205,16 +215,6 @@
       /* Distância do topo */
     }
 
-    #visit-counter-container {
-      margin-top: 4px;
-      padding: 1500px;
-      border-top: 2px solid #4CAF50;
-      /* verde sustentável */
-      background-color: #f9f9f9;
-      text-align: center;
-      font-family: Arial, sans-serif;
-      color: #333;
-    }
 
     #visit-counter-container p {
       margin: 100;
@@ -452,20 +452,6 @@
 
 
 
-    .fase1 {
-             display: none !important;
-
-    }
-
-
-    .fase2 {
-             display: none !important;
-
-    }
-
-    .fase3 {
-             display: none !important;
-
 
     }
 
@@ -474,7 +460,9 @@
 
     }
 
-
+* {
+  outline: 1px solid red;
+}
 
     }
 
@@ -871,9 +859,6 @@
   <body>
 
     <header class="cabecalho">
-      <div class="fase1">Fase 1 (PROGRAMAÇÃO)</div>
-      <div class="fase2">Fase 2 (TESTES)</div>
-      <div class="fase3">Fase 3 (EXECUÇÃO)</div>
       <div class="fase4">Fase 4 (Resultados)</div>
 
 
@@ -932,6 +917,7 @@
       <div class="counter-label">
         <span>Lixo doméstico </span><br>
         <span> a ser coletado</span>
+        
       </div>
 
     </div>
@@ -940,19 +926,26 @@
 
   <!-- Filtros laterais -->
   <div id="filtros">
+    
     <label>
+      
     <input type="checkbox" id="mostrarDomestico" checked />
     Doméstico
   </label><br>
     <label>
+      
     <input type="checkbox" id="mostrarToxico" checked />
     Tóxico
+    
   </label>
+  
   </div>
-
+<button class="relatorio-btn" onclick="gerarPDF()">📄  Relatório PDF</button>
 
   <div id="map"></div> <!-- Leaflet CSS + JS -->
+  
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
   <script>
     // Camadas base
   var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -976,15 +969,19 @@
     zoom: 13,
     minZoom: 2,
     maxZoom: 18,
-    zoomControl: true,
+    zoomControl: false,
     layers: [hibrido] // <- ESSA LINHA ativa o híbrido ao iniciar
+
   });
+  
   // Botão de troca de camadas no canto superior esquerdo
   var baseMaps = {
     "Mapa de Ruas": osm,
     "Satélite": esriSat,
     "Híbrido": hibrido,
     "Topográfico": topoMap
+    
+
   };
   L.control.layers(baseMaps, null, { position: 'topleft' }).addTo(map);
 
@@ -2639,7 +2636,8 @@ doc.save("Relatorio_Agro_Detector.pdf");
   </script>
 
 
-  <button class="relatorio-btn" onclick="gerarPDF()">Baixar Relatório PDF</button>
+
+
   <!-- Overlay com spinner e texto -->
   <div id="overlay-carregando" style="display:none; 
     position:fixed; top:0; left:0; width:100%; height:100%; 
