@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -18,30 +17,17 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <style>
-
-
-
- #filtroLateral {
+    #filtros {
       position: absolute;
-      left: 20px;
+      left: 10px;
       top: 50%;
       transform: translateY(-50%);
-      background-color: rgba(255, 255, 255, 0.95);
-      border: 1px solid #ccc;
-      border-radius: 12px;
-      padding: 15px;
-      z-index: 1000;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      font-family: Arial, sans-serif;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+      z-index: 999;
     }
-
-    #filtroLateral label {
-      display: block;
-      margin-bottom: 10px;
-      font-size: 14px;
-      cursor: pointer!important;
-    }
-
 
 
 
@@ -285,6 +271,27 @@
 
 
     @media (max-width: 576px) {
+      #filtros {
+
+   
+
+        position: absolute;
+        left: 10px;
+        top: 70%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.9);
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        z-index: 999;
+      }
+
+      #filtros label {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap;
+      }
 
 
       .cabecalho {
@@ -364,11 +371,12 @@
         border: 2px solid white !important;
         border-radius: 33px !important;
       }
-.sidebar {
-    display: none !important;
-  }
 
-  /*           .sidebar {
+      .sidebar {
+        display: none !important;
+      }
+
+      /*           .sidebar {
         position: fixed;
         top: 12% !important;
         right: 0;
@@ -444,6 +452,27 @@
 
 
 
+    .fase1 {
+             display: none !important;
+
+    }
+
+
+    .fase2 {
+             display: none !important;
+
+    }
+
+    .fase3 {
+             display: none !important;
+
+
+    }
+
+    .fase4 {
+              display: none !important;
+
+    }
 
 
 
@@ -909,32 +938,22 @@
 
   </div>
 
-<!-- Filtros laterais -->
-<div id="filtros" style="
-  position: absolute;
-  left: 1px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255,255,255,0.9);
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: 0 0 8px rgba(0,0,0,0.2);
-  z-index: 999;">
-  <label>
+  <!-- Filtros laterais -->
+  <div id="filtros">
+    <label>
     <input type="checkbox" id="mostrarDomestico" checked />
-     Doméstico
+    Doméstico
   </label><br>
-  <label>
+    <label>
     <input type="checkbox" id="mostrarToxico" checked />
-     Tóxico
+    Tóxico
   </label>
-</div>
+  </div>
 
-  
-  <div id="map"></div>  <!-- Leaflet CSS + JS -->
+
+  <div id="map"></div> <!-- Leaflet CSS + JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    
     // Camadas base
   var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
@@ -2421,7 +2440,7 @@ var redIcon = L.icon({
   // Eventos dos checkboxes
   document.getElementById("mostrarDomestico").addEventListener("change", atualizarVisibilidade);
   document.getElementById("mostrarToxico").addEventListener("change", atualizarVisibilidade);
-</script>
+  </script>
   </script>
 
   <script>
@@ -2872,7 +2891,7 @@ doc.save("Relatorio_Agro_Detector.pdf");
 
 
   </script>
-  </script> 
+  </script>
 
   <body>
     <!-- Conteúdo do corpo da página -->
