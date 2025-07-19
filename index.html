@@ -18,24 +18,20 @@
 
   <style>
     #filtros {
-      position: absolute;
-      left: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.9);
-      padding: 10px;
-      border-radius: 10px;
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-      z-index: 999;
+  position: fixed; /* Fica preso na tela */
+  top: 26%;
+  left: 70px;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  display: flex;
+  flex-direction: row; /* Lado a lado */
+  gap: 15px;
+  font-size: 1em;
     }
-
-
-
-
-
-
-
-
 
 
 
@@ -272,18 +268,19 @@
 
     @media (max-width: 576px) {
       #filtros {
-
-   
-
-        position: absolute;
-        left: 10px;
-        top: 70%;
+  position: fixed; /* <-- Aqui é a chave! */
+        left: 110px;
+        top: 30%;
         transform: translateY(-50%);
         background: rgba(255, 255, 255, 0.9);
         padding: 10px;
         border-radius: 10px;
         box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
         z-index: 999;
+        display: flex;
+        flex-direction: row;
+        /* <-- isso aqui que bota lado a lado */
+        gap: 15px;
       }
 
       #filtros label {
@@ -452,27 +449,27 @@
 
 
 
-    .fase1 {
-             display: none !important;
+      .fase1 {
+        display: none !important;
 
-    }
-
-
-    .fase2 {
-             display: none !important;
-
-    }
-
-    .fase3 {
-             display: none !important;
+      }
 
 
-    }
+      .fase2 {
+        display: none !important;
 
-    .fase4 {
-              display: none !important;
+      }
 
-    }
+      .fase3 {
+        display: none !important;
+
+
+      }
+
+      .fase4 {
+        display: none !important;
+
+      }
 
 
 
@@ -941,12 +938,12 @@
   <!-- Filtros laterais -->
   <div id="filtros">
     <label>
-    <input type="checkbox" id="mostrarDomestico" checked />
-    Doméstico
-  </label><br>
-    <label>
     <input type="checkbox" id="mostrarToxico" checked />
     Tóxico
+  </label><br>
+    <label>
+    <input type="checkbox" id="mostrarDomestico" checked />
+    Doméstico
   </label>
   </div>
 
