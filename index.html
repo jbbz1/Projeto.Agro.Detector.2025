@@ -17,6 +17,22 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     .relatorio-btn {
       position: absolute;
       top: 400px;
@@ -239,7 +255,7 @@
         z-index: 999;
       }
 
- 
+
 
 
       .cabecalho {
@@ -250,49 +266,107 @@
         font-size: 1.8em !important;
       }
 
+
+
+
+      .counters-container {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 999;
+        display: flex;
+        gap: 20px;
+      }
+
       .counter-box {
-
-        border-radius: 30px;
-        min-width: 100px;
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-        background-color: #1e1e1e;
-        transition: transform 0.10s ease;
-
-
+        background-color: #1a1a1a;
+        color: white;
+        padding: 12px 16px;
+        border-radius: 16px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+        text-align: center;
+        width: 140px;
+        font-family: sans-serif;
       }
 
       .counter-box i {
-        font-size: 2.0em;
-        margin-bottom: 0px;
-        height: -5px;
+        font-size: 28px;
+        margin-bottom: 6px;
+        display: block;
       }
-
 
       .counter-number {
-        width: 160px !important;
-        height: 25px !important;
-        font-size: 2.1em !important;
-        font-weight: bold !important;
-        color: #00ff88 !important;
+        font-size: 26px;
+        font-weight: bold;
+        color: #00ff88;
+        margin-bottom: 4px;
       }
 
-      .counters-container {
-        flex-direction: flex !important;
-        align-items: center !important;
-        justify-content: flex-start !important;
-        gap: 15px !important;
-        padding: 4px !important;
+      .toxic i {
+        color: #ff4444;
+      }
+
+      .domestic i {
+        color: #44ff44;
       }
 
       .counter-label {
-        font-size: 11.00px !important;
-        padding: 10px !important;
+        font-size: 14px;
+        line-height: 1.2;
       }
 
-      .counter-frascos,
-      .counter-lixo {
-        font-size: 10.80px !important;
+
+
+      .counters-container {
+        position: absolute !important;
+        top: 15% !important;
+        left: 50% !important;
+        transform: translateX(-50%);
+        z-index: 999;
+        display: flex !important;
+        gap: 10px;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 6px 8px;
+        background: transparent;
+        /* sem fundo para manter estilo das caixas */
       }
+
+      .counter-box {
+        width: 120px;
+        padding: 8px 10px;
+        flex-shrink: 0;
+      }
+
+      .counter-box i {
+        font-size: 22px;
+      }
+
+      .counter-number {
+        font-size: 20px;
+      }
+
+      .counter-label {
+        font-size: 12px;
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       nav {
         display: grid;
@@ -571,71 +645,62 @@
       transform: scale(1.05);
     }
 
-
-    /* === CONTADORES === */
     .counters-container {
+      position: absolute;
+     top: 15%!important;
+    left: 42%!important;
+      z-index: 999;
       display: flex;
-      justify-content: center;
       gap: 20px;
-      color: white;
-      padding: 0px;
-      font-family: 'Arial', sans-serif;
-      font-weight: bold;
-      animation: fadeIn 1.2s ease-in;
     }
 
     .counter-box {
+      background-color: #1a1a1a;
+      color: white;
+      padding: 12px 16px;
+      border-radius: 16px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
       text-align: center;
-      padding: 10px;
-      border-radius: 30px;
-      min-width: 100px;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-      background-color: #1e1e1e;
-      transition: transform 0.10s ease;
-
-
-    }
-
-    .counter-box:hover {
-      transform: scale(1.05);
+      width: 160px;
+      font-family: sans-serif;
     }
 
     .counter-box i {
-      font-size: 2.0em;
-      margin-bottom: 0px;
-      height: -5px;
-
-
+      font-size: 28px;
+      margin-bottom: 6px;
+      display: block;
     }
 
     .counter-number {
-      width: 160px;
-      height: 40px;
-      font-size: 2.1em;
+      font-size: 26px;
       font-weight: bold;
       color: #00ff88;
+      margin-bottom: 4px;
+    }
+
+    .toxic i {
+      color: #ff4444;
+    }
+
+    .domestic i {
+      color: #44ff44;
     }
 
     .counter-label {
-      width: 160px;
-      height: 58px;
-      font-size: 1em;
-      margin-top: 1px;
+      font-size: 14px;
+      line-height: 1.2;
     }
 
-    .counter-box.toxic i {
-      color: #ff4444;
 
-    }
-
-    .counter-box.domestic i {
-      color: #4CAF50;
+    .counter-label {
+      text-align: center;
+      font-size: 14px;
     }
 
     #map {
       height: 50vh;
       width: 100%;
-      
+
     }
 
     /* === ÍCONES PERSONALIZADOS === */
@@ -796,27 +861,27 @@
     <a href="apresentacaoalunos.html" class="box">Alunos</a>
   </nav>
 
-  <!-- Balão de contadores -->
+  <!-- Balões de contadores sobre o mapa -->
   <div class="counters-container">
     <div class="counter-box toxic">
       <i class="fas fa-exclamation-triangle"></i>
-      <div class="counter-number" id="toxic-count">0</div>
+      <div class="counter-number" id="toxic-count">47</div>
       <div class="counter-label">
         <span>Frascos</span><br>
-        <span>
-                    tóxicos coletados</span>
+        <span>tóxicos coletados</span>
       </div>
     </div>
     <div class="counter-box domestic">
       <i class="fas fa-trash-alt"></i>
-      <div class="counter-number" id="domestic-count">0</div>
+      <div class="counter-number" id="domestic-count">67</div>
       <div class="counter-label">
-        <span>Lixo Doméstico </span><br>
-        <span> a Coletar</span>
-
+        <span>Lixo Doméstico</span><br>
+        <span>a Coletar</span>
       </div>
-
     </div>
+  </div>
+
+  </div>
 
   </div>
 
@@ -2767,11 +2832,13 @@ doc.save("Relatorio_Agro_Detector.pdf");
   }
 }
   </script>
-  <body>
-  <!-- Conteúdo do corpo da página -->
 
-  <footer class="footer">
-    <img src="RGGUIMA/PAD.png" alt="ID">
-  </footer>
-</body>
+  <body>
+    <!-- Conteúdo do corpo da página -->
+
+    <footer class="footer">
+      <img src="RGGUIMA/PAD.png" alt="ID">
+    </footer>
+  </body>
+
 </html>
