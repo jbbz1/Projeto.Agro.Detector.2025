@@ -45,8 +45,8 @@
 
     .relatorio-btn {
       position: absolute;
-      top: 400px;
-      right: px;
+      top: 140px;
+      right: 115px;
       z-index: 9999;
       border: 2px solid #333;
       font-weight: bold;
@@ -267,6 +267,35 @@
 
 
 
+
+    .relatorio-btn {
+      position: absolute;
+      top: 140px;
+      right: 115px;
+      z-index: 9999;
+      border: 2px solid #333;
+      font-weight: bold;
+      border-radius: 10px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+      background-color: #007bff;
+      color: white;
+      font-size: 12px;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+      text-align: center;
+      max-width: 140px;
+      margin: 0 auto;
+      /* centraliza se quiser */
+
+    }
+
+    .relatorio-btn:hover {
+      background-color: #e8f0fe;
+      color: #1a73e8;
+      transform: scale(1.05);
+    }
 
 
 
@@ -861,6 +890,8 @@
         <span>Frascos</span><br>
         <span>tóxicos coletados</span>
       </div>
+        <button class="relatorio-btn" onclick="gerarPDF()">📄  Relatório PDF</button>
+
     </div>
     <div class="counter-box domestic">
       <i class="fas fa-trash-alt"></i>
@@ -892,8 +923,7 @@
   </label>
 
   </div>
-  <button class="relatorio-btn" onclick="gerarPDF()">📄  Relatório PDF</button>
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   <div id="map"></div> <!-- Leaflet CSS + JS -->
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
