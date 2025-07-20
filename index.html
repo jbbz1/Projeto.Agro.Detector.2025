@@ -17,17 +17,19 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <style>
-.leaflet-control-layers {
-  vertical-align: middle;
-  top: 100px;        /* distância do topo */
-  left: -10px;       /* distância da esquerda */
-}
+    .leaflet-control-layers {
+      vertical-align: middle;
+      top: -10px;
+      /* distância do topo */
+      left: -10px;
+      /* distância da esquerda */
+    }
 
 
 
-.leaflet-control-layers-expanded {
-  font-size: 5px;
-}
+    .leaflet-control-layers-expanded {
+      font-size: 5px;
+    }
 
 
 
@@ -151,7 +153,7 @@
 
 
 
-      /* Coleta e Mapeamento de Resíduos Tóxicos e Microplásticos
+    /* Coleta e Mapeamento de Resíduos Tóxicos e Microplásticos
  */
     .subtext {
       font-size: 1rem;
@@ -248,6 +250,29 @@
 
 
     @media (max-width: 576px) {
+
+      .leaflet-control-layers {
+        vertical-align: middle;
+        top: 170px!important;
+        /* distância do topo */
+        left: -10px!important;
+        /* distância da esquerda */
+      }
+
+
+
+      .leaflet-control-layers-expanded {
+        font-size: 5px;
+      }
+
+
+
+
+
+
+
+
+
       #filtros {
         position: absolute;
         left: 0px;
@@ -257,6 +282,7 @@
         box-shadow: 0 0 10px rgba(10, 104, 414, 255.2);
         z-index: 999;
       }
+
       .cabecalho {
         text-align: center;
         padding: 0px;
@@ -264,6 +290,7 @@
         font-family: 'Arial', sans-serif;
         font-size: 1.8em !important;
       }
+
       .counters-container {
         position: absolute;
         top: 20px;
@@ -611,8 +638,8 @@
 
     .counters-container {
       position: absolute;
-     top: 15%!important;
-    left: 42%!important;
+      top: 15% !important;
+      left: 42% !important;
       z-index: 999;
       display: flex;
       gap: 20px;
