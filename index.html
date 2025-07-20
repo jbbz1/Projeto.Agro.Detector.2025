@@ -241,22 +241,81 @@
 
     @media (max-width: 576px) {
 
+
+    .counters-container {
+      position: absolute;
+      top: 15% !important;
+      left: 20% !important;
+      z-index: 999;
+      display: flex;
+      gap: 20px;
+    }
+
+    .counter-box {
+      background-color: #1a1a1a;
+      color: white;
+      padding: 12px 16px;
+      border-radius: 16px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+      text-align: center;
+      width: 160px;
+      font-family: sans-serif;
+    }
+
+    .counter-box i {
+      font-size: 28px;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .counter-number {
+      font-size: 26px;
+      font-weight: bold;
+      color: #00ff88;
+      margin-bottom: 4px;
+    }
+
+    .toxic i {
+      color: #ff4444;
+    }
+
+    .domestic i {
+      color: #44ff44;
+    }
+
+    .counter-label {
+      font-size: 14px;
+      line-height: 1.2;
+    }
+
+
+    .counter-label {
+      text-align: center;
+      font-size: 14px;
+    }
+
+
+
+
+
+
       .leaflet-control-layers {
         vertical-align: middle;
-        top: 170px!important;
+        top: 170px !important;
         /* distância do topo */
-        left: -10px!important;
+        left: -10px !important;
         /* distância da esquerda */
       }
+
       .leaflet-control-layers-expanded {
         font-size: 5px;
       }
 
-    .relatorio-btn:hover {
-      background-color: #e8f0fe;
-      color: #1a73e8;
-      transform: scale(1.05);
-    }
+      .relatorio-btn:hover {
+        background-color: #e8f0fe;
+        color: #1a73e8;
+        transform: scale(1.05);
+      }
 
       #filtros {
         position: absolute;
@@ -276,7 +335,7 @@
         font-size: 1.8em !important;
       }
 
-    
+
 
 
       nav {
@@ -371,6 +430,7 @@
     .fase4 {
       display: none !important;
     }
+
     /* {
       outline: 1px solid red;
     }*/
@@ -534,8 +594,8 @@
 
     .counters-container {
       position: absolute;
-      top: 15% !important;
-      left: 25% !important;
+      top: 15% ;
+      left: 40%;
       z-index: 999;
       display: flex;
       gap: 20px;
@@ -757,8 +817,8 @@
         <span>Frascos</span><br>
         <span>tóxicos coletados</span>
       </div>
-      
-        <button class="relatorio-btn" onclick="gerarPDF()">📄  Relatório PDF</button>
+
+      <button class="relatorio-btn" onclick="gerarPDF()">📄  Relatório PDF</button>
 
     </div>
     <div class="counter-box domestic">
