@@ -37,8 +37,6 @@
   <h2 style="text-align:center">Registro de Lixo</h2>
   <button onclick="capture('domestico')">📦 Registrar Lixo Doméstico</button>
   <button onclick="capture('toxicos')">☣️ Registrar Lixo Tóxico</button>
-  <button onclick="baixarJSON()">💾 Salvar JSON</button>
-  <button onclick="salvarImagem()">📸 Salvar Imagem no Celular</button>
 
   <video id="video" autoplay playsinline></video>
   <canvas id="canvas" style="display:none;"></canvas>
@@ -49,8 +47,6 @@
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
     const output = document.getElementById('jsonOutput');
-    let ultimoJsonGerado = null;
-    let ultimaImagemCapturada = null;
 
     async function initCamera() {
       try {
@@ -80,13 +76,21 @@
       canvas.height = video.videoHeight;
       const ctx = canvas.getContext('2d');
       ctx.drawImage(video, 0, 0);
-      const imageDataUrl = canvas.toDataURL('image/png');
-      ultimaImagemCapturada = imageDataUrl;
-      return imageDataUrl;
+      return canvas.toDataURL('image/png');
     }
 
     async function getTemperature() {
       return (Math.random() * (30 - 18) + 18).toFixed(2);
+    }
+
+    function baixarArquivo(conteudo, nomeArquivo, tipoMime) {
+      const blob = new Blob([conteudo], { type: tipoMime });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = nomeArquivo;
+      a.click();
+      URL.revokeObjectURL(url);
     }
 
     async function capture(tipo) {
@@ -96,9 +100,12 @@
         const lng = position.coords.longitude;
         const datetime = getCurrentDateTime();
         const temperatura = await getTemperature();
-        const imageData = takeSnapshot();
-        const filename = `IMG_${new Date().toISOString().replace(/[-:.]/g, '').slice(0,15)}.png`;
+        const imageDataUrl = takeSnapshot();
 
+        // Gera o nome da imagem no formato IMG_YYYYMMDD_HHMMSS.png
+        const nomeImagem = `IMG_${new Date().toISOString().replace(/[-:.]/g, '').slice(0,15)}.png`;
+
+        // JSON com a referência da imagem pelo nome gerado
         const json = {
           lat: lat,
           lng: lng,
@@ -108,42 +115,28 @@
               : `LIXO DOMÉSTICO A SER COLETADO <a href="https://maps.google.com/maps/?&z=10&q=${lat},${lng}" target="_blank">Ver Localização</a>`,
             `DATA/HORA: ${datetime}`,
             `Temperatura: ${temperatura} °C`,
-            `<img src='${imageData}' alt='${tipo === 'toxicos' ? 'Lixo Tóxico' : 'Lixo Doméstico'}' width='100%' />`
+            `<img src='frascos/${nomeImagem}' alt='${tipo === 'toxicos' ? 'Lixo Tóxico' : 'Lixo Doméstico'}' width='125%' />`
           ],
           icon: tipo === 'toxicos' ? 'redIcon' : 'greenIcon'
         };
 
-        ultimoJsonGerado = json;
+        // Exibe o JSON na tela (pra conferir)
         output.textContent = JSON.stringify(json, null, 2);
+
+        // Converte base64 para blob para download da imagem
+        const res = await fetch(imageDataUrl);
+        const blobImagem = await res.blob();
+
+        // Baixa a imagem com o nome gerado
+        baixarArquivo(blobImagem, nomeImagem, 'image/png');
+
+        // Baixa o JSON com o mesmo nome base
+        const nomeJson = nomeImagem.replace('.png', '.json');
+        baixarArquivo(JSON.stringify(json, null, 2), nomeJson, 'application/json');
 
       } catch (error) {
         alert("Erro: " + error.message);
       }
-    }
-
-    function baixarJSON() {
-      if (!ultimoJsonGerado) {
-        alert("Nenhum dado capturado ainda.");
-        return;
-      }
-      const blob = new Blob([JSON.stringify(ultimoJsonGerado, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'registro_lixo.json';
-      a.click();
-      URL.revokeObjectURL(url);
-    }
-
-    function salvarImagem() {
-      if (!ultimaImagemCapturada) {
-        alert("Nenhuma imagem capturada.");
-        return;
-      }
-      const a = document.createElement('a');
-      a.href = ultimaImagemCapturada;
-      a.download = `foto_registro_${new Date().toISOString().replace(/[-:.]/g, '').slice(0,15)}.png`;
-      a.click();
     }
 
     initCamera();
