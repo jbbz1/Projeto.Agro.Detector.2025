@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Agro Detector</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 10px; margin: 0; background: #f5f5f5; }
+    button { 
+      display: block;
+      width: 90%;
+      margin: 10px auto;
+      padding: 12px;
+      font-size: 16px;
+      background-color: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 8px;
+    }
+    video, canvas {
+      display: block;
+      margin: 10px auto;
+      max-width: 100%;
+      border-radius: 10px;
+    }
+    pre {
+      white-space: pre-wrap;
+      background: #ffffff;
+      padding: 10px;
+      border-radius: 10px;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center">Registro de Lixo</h2>
+  <button onclick="capture('domestico')">📦 Registrar Lixo Doméstico</button>
+  <button onclick="capture('toxicos')">☣️ Registrar Lixo Tóxico</button>
+  <button onclick="baixarJSON()">💾 Salvar JSON</button>
+
+  <video id="video" autoplay playsinline></video>
+  <canvas id="canvas" style="display:none;"></canvas>
+
+  <pre id="jsonOutput"></pre>
+
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const output = document.getElementById('jsonOutput');
+    let ultimoJsonGerado = null;
+
+    async function initCamera() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+        video.srcObject = stream;
+      } catch (err) {
+        alert("Erro ao acessar a câmera: " + err.message);
+      }
+    }
+
+    async function getLocation() {
+      return new Promise((resolve, reject) => {
+        if (!navigator.geolocation) {
+          reject(new Error("Geolocalização não suportada."));
+        }
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+      });
+    }
+
+    function getCurrentDateTime() {
+      const now = new Date();
+      return now.toLocaleString('pt-BR');
+    }
+
+    function takeSnapshot() {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0);
+      return canvas.toDataURL('image/png');
+    }
+
+    async function getTemperature() {
+      return (Math.random() * (30 - 18) + 18).toFixed(2);
+    }
+
+    async function capture(tipo) {
+      try {
+        const position = await getLocation();
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        const datetime = getCurrentDateTime();
+        const temperatura = await getTemperature();
+        const imageData = takeSnapshot();
+        const filename = `IMG_${new Date().toISOString().replace(/[-:.]/g, '').slice(0,15)}.png`;
+
+        const json = {
+          lat: lat,
+          lng: lng,
+          info: [
+            tipo === 'toxicos'
+              ? `LIXO TÓXICO RECOLHIDO <a href="https://maps.google.com/maps/?&z=10&q=${lat},${lng}" target="_blank">Ver Localização</a>`
+              : `LIXO DOMÉSTICO A SER COLETADO <a href="https://maps.google.com/maps/?&z=10&q=${lat},${lng}" target="_blank">Ver Localização</a>`,
+            `DATA/HORA: ${datetime}`,
+            `Temperatura: ${temperatura} °C`,
+            `<img src='frascos/${filename}' alt='${tipo === 'toxicos' ? 'Lixo Tóxico' : 'Lixo Doméstico'}' width='125%' />`
+          ],
+          icon: tipo === 'toxicos' ? 'redIcon' : 'greenIcon'
+        };
+
+        ultimoJsonGerado = json;
+        output.textContent = JSON.stringify(json, null, 2);
+
+      } catch (error) {
+        alert("Erro: " + error.message);
+      }
+    }
+
+    function baixarJSON() {
+      if (!ultimoJsonGerado) {
+        alert("Nenhum dado capturado ainda.");
+        return;
+      }
+      const blob = new Blob([JSON.stringify(ultimoJsonGerado, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'registro_lixo.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    initCamera();
+  </script>
+</body>
+</html>
