@@ -9,7 +9,7 @@
     /* Coleta e Mapeamento de Resíduos Tóxicos e Microplásticos*/
     .agro-header {
       text-align: center;
-      font-size: 24px;
+      font-size: 10px;
       font-weight: bold;
     }
 
@@ -27,8 +27,10 @@
     }
 
     .tipo-lixo {
-      
-      width: 120px;
+      width: 90px;
+      /* ou 80px, 120px, você escolhe */
+      height: auto;
+      /* mantém a proporção original da imagem */
       cursor: pointer;
       margin: auto;
       transition: transform 0.2s;
@@ -95,7 +97,7 @@
       display: inline-block;
       background-color: white;
       color: var(--verde-principal);
-      padding: 1px 21px; 
+      padding: 1px 21px;
       border-radius: 8px;
       font-size: 2rem;
       font-weight: bold;
@@ -115,9 +117,9 @@
 
 
 <body>
-<a href="index.html" class="voltar-btn" title="Voltar para a página principal">
-  &#8592; Página principal
-</a>
+  <a href="index.html" class="voltar-btn" title="Voltar para a página principal">
+    &#8592; Página principal
+  </a>
   <header class="agro-header">
     <h1 class="agro-titulo">Projeto Agro Detector</h1>
     <h2 class="agro-subtitulo">Coleta e Mapeamento de Resíduos Tóxicos e Microplásticos</h2>
