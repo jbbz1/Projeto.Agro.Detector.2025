@@ -1,200 +1,299 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <title>Agro Detector</title>
-
   <style>
-  .titulo-header {
-  font-size: 1.3em;
-  font-weight: 600;
-  margin-bottom: 0px;
-}
-.voltar-btn {
-  display: inline-block;
-  background-color: white;
-  color: var(--verde-principal);
-  padding: 1px 21px;
-  border-radius: 8px;
-  font-size: 2rem;
-  font-weight: bold;
-  text-decoration: none;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-}
+    /* Coleta e Mapeamento de Resíduos Tóxicos e Microplásticos*/
+    .agro-header {
+      text-align: center;
+      font-size: 15px;
+      font-weight: bold;
+    }
 
-.voltar-btn:hover {
-  background-color: var(--verde-suave);
-  color: white;
-}
+    .agro-titulo {
+      color: #00ff88;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
 
-header {
-  background-color: var(--verde-principal);
-  color: white;
-  padding: 30px 20px 40px 20px;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
+    .agro-subtitulo {
+      font-size: 0.5rem;
+      margin-top: -9px;
+      line-height: 2;
+      color: black;
+    }
 
-    :root {
-      --verde-principal: #00a86b;
-      --verde-suave: #2ecc71;
-      --cinza-escuro: #1e1e1e;
-      --cinza-claro: #f2f2f2;
-      --azul-suave: #3498db;
-      --fonte-principal: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    .tipo-lixo {
+      width: 90px;
+      /* ou 80px, 120px, você escolhe */
+      height: auto;
+      /* mantém a proporção original da imagem */
+      cursor: pointer;
+      margin: auto;
+      transition: transform 0.2s;
+      border-radius: 10px;
+    }
+
+    .tipo-lixo:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
     }
 
     body {
-      margin: 0;
-      padding: 0;
-      font-family: var(--fonte-principal);
-      background-color: var(--cinza-claro);
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      padding: 5px;
+      margin: 100;
+      background: #f5f5f5;
     }
 
-    header {
-      background-color: var(--verde-principal);
+    button {
+      display: block;
+      width: 90%;
+      margin: 10px auto;
+      padding: 12px;
+      font-size: 16px;
+      background-color: #2e7d32;
       color: white;
-      padding: 30px 20px;
-      text-align: center;
-      font-size: 2.8em;
-      font-weight: 600;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
     }
 
-    h2.animated-title {
-      text-align: center;
-      margin: 30px 20px 10px 20px;
-      color: var(--azul-suave);
-      font-size: 2.2em;
-      animation: fadeDown 1.2s ease-in-out;
+    button:disabled {
+      background-color: #999999;
+      cursor: not-allowed;
     }
 
-    @keyframes fadeDown {
-      0% {
-        opacity: 0;
-        transform: translateY(-25px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .project-text {
-      max-width: 1500px;
-      margin: 0 auto;
-      padding: 50px;
-      font-size: 1.51rem;
-      line-height: 1.7;
-      background: white;
-      border-radius: 100px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    }
-
-    .project-text ul {
-      padding-left: 1.5rem;
-    }
-
-    .project-text li {
-      margin-bottom: 15px;
-    }
-
-    .image-container {
-      max-width: 900px;
-      margin: 30px auto;
-      text-align: center;
-    }
-
-    .image-container img {
-      max-width: 100%;
-      height: auto;
+    video,
+    canvas {
+      display: block;
+      margin: 1px auto;
+      max-width: 90%;
       border-radius: 10px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     }
 
-    footer {
-      background-color: var(--cinza-escuro);
-      color: #ccc;
+    pre {
+      white-space: pre-wrap;
+      background: #5445;
+      padding: 1px;
+      border-radius: 5px;
+      margin-top: 1px;
+      font-size: 10px;
+      max-height: 1000px;
+      overflow-y: auto;
+    }
+
+    #status {
       text-align: center;
-      padding: 15px 0;
-      font-size: 0.95em;
-      margin-top: auto;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #2e7d32;
     }
 
-    @media (max-width: 600px) {
-      header {
-        font-size: 2em;
-        padding: 20px 10px;
-      }
+    .voltar-btn {
+      display: inline-block;
+      background-color: white;
+      color: var(--verde-principal);
+      padding: 1px 10px;
+      border-radius: 8px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
 
-      h2.animated-title {
-        font-size: 1.6em;
-        margin: 20px 10px;
-      }
-
-      .project-text {
-        padding: 15px;
-        font-size: 1rem;
-      }
-
-      .image-container {
-        margin: 20px 10px;
-      }
+    .voltar-btn:hover {
+      background-color: var(--verde-suave);
+      color: white;
     }
   </style>
 </head>
+</header>
+
+
+
 <body>
-
-
-
-
-
-
-
-  <header>
-  <div class="titulo-header">Projeto Agro Detector</div>
+  <a href="index.html" class="voltar-btn" title="Voltar para a página principal">
+    &#8592; Página principal
+  </a>
+  <header class="agro-header">
+    <h1 class="agro-titulo">Projeto Agro Detector</h1>
+    <h2 class="agro-subtitulo">Coleta e Mapeamento de Resíduos Tóxicos e Microplásticos</h2>
   </header>
-<a href="index.html" class="voltar-btn" title="Voltar para a página principal">
-  &#8592; Página principal
-</a>
+  <h2 style="text-align:center">Registro de Lixo V 0.56</h2>
+  <img src="icones/lixo dome.png" alt="Lixo Doméstico" class="tipo-lixo" onclick="capture('domestico')">
+  <img src="icones/lixo tox.png" alt="Lixo Tóxico" class="tipo-lixo" onclick="capture('toxicos')">
+  <div id="status"></div>
+  <video id="video" autoplay playsinline></video>
+  <canvas id="canvas" style="display:none;"></canvas>
+  <button id="btnDownloadHistorico" onclick="baixarHistorico()">📥 Baixar Histórico Completo JSON</button>
+<button id="btnLimparHistorico" onclick="limparHistorico()">🗑️ Limpar Histórico</button>
 
- 
+  <pre id="jsonOutput">Nenhum registro ainda.</pre>
 
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const output = document.getElementById('jsonOutput');
+    const status = document.getElementById('status');
+    const btnHistorico = document.getElementById('btnHistorico');
+    const btnDownloadHistorico = document.getElementById('btnDownloadHistorico');
 
+    // Array para armazenar os registros
+    let historicoRegistros = [];
 
+    // Função para inicializar câmera
+    async function initCamera() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+        video.srcObject = stream;
+      } catch (err) {
+        alert("Erro ao acessar a câmera: " + err.message);
+      }
+    }
 
+    // Função para pegar localização
+    async function getLocation() {
+      return new Promise((resolve, reject) => {
+        if (!navigator.geolocation) {
+          reject(new Error("Geolocalização não suportada."));
+          return;
+        }
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+      });
+    }
+function limparHistorico() {
+  if (confirm("Tem certeza que deseja apagar todo o histórico?")) {
+    localStorage.removeItem('dadosLixo');
+    historicoRegistros = [];
+    output.textContent = "Nenhum registro ainda.";
+    alert("Histórico limpo com sucesso.");
+  }
+}
+    // Função para obter data e hora atual formatada
+    function getCurrentDateTime() {
+      const now = new Date();
+      return now.toLocaleString('pt-BR');
+    }
 
+    // Função para capturar a foto
+    function takeSnapshot() {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0);
+      return canvas.toDataURL('image/png');
+    }
 
- <h2 class="animated-title">A Ideia
-</h2>
+    // Função para temperatura (simulada)
+    async function getTemperature() {
+      return (Math.random() * (30 - 18) + 18).toFixed(2);
+    }
 
-    <div class="project-text">
-        <ul>
-            <li>A genialidade do Agro Detector está na sua simplicidade aliada à inovação. Em vez de soluções caras e complexas, o projeto aposta em uma ferramenta tecnológica acessível, que qualquer escola ou comunidade pode adotar.<li>
-              
-              <strong> A proposta é clara: registrar e mapear, de forma prática, pontos onde há descarte irregular de resíduos, sejam eles tóxicos, como frascos de agrotóxicos, ou lixo doméstico comum.</strong></li>
+    // Função para download do arquivo
+    function baixarArquivo(conteudo, nomeArquivo, tipoMime) {
+      const blob = new Blob([conteudo], { type: tipoMime });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = nomeArquivo;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
 
+    // Função para atualizar o histórico no localStorage e na tela
+    function salvarHistoricoLocalStorage() {
+      localStorage.setItem('dadosLixo', JSON.stringify(historicoRegistros));
+      output.textContent = JSON.stringify(historicoRegistros, null, 2);
+    }
 
-            <li>Tudo isso é feito por meio de um dispositivo com GPS integrado e armazenamento local. Com um simples apertar de botão, são gravadas informações como localização, data e hora. Esses dados são posteriormente organizados em formato JSON e enviados para uma API com visualização gráfica, permitindo a criação de mapas interativos e relatórios ambientais.</li>
+    // Função para carregar histórico do localStorage ao abrir página
+    function carregarHistoricoLocalStorage() {
+      const dados = localStorage.getItem('dadosLixo');
+      if (dados) {
+        historicoRegistros = JSON.parse(dados);
+        output.textContent = JSON.stringify(historicoRegistros, null, 2);
+      }
+    }
 
+    // Função principal para captura
+    async function capture(tipo) {
+      try {
+        status.textContent = 'Processando... Aguarde.';
 
-            <li>Prefeituras, ONGs, escolas e até agricultores conseguem identificar áreas críticas, planejar ações de limpeza e conscientizar a comunidade. A ferramenta não exige internet no campo, é de baixo custo e foi pensada para funcionar até em regiões remotas. </li> <strong>É tecnologia com propósito: colocar o poder da transformação nas mãos de quem mais precisa.</strong></li>
+        const position = await getLocation();
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        const datetime = getCurrentDateTime();
+        const temperatura = await getTemperature();
+        const imageDataUrl = takeSnapshot();
 
+        const nomeBase = `IMG_${new Date().toISOString().replace(/[-:.]/g, '').slice(0, 15)}`;
+        const nomeImagem = `${nomeBase}.png`;
 
-        </ul>
-    </div>
-  <div class="image-container">  <img src="RGGUIMA/ID.png" alt="ID">
-  </div>
+        const registro = {
+          lat: lat,
+          lng: lng,
+          info: [
+            tipo === 'toxicos'
+              ? `LIXO TÓXICO RECOLHIDO <a href="https://maps.google.com/maps/?&z=10&q=${lat},${lng}" target="_blank">Ver Localização</a>`
+              : `LIXO DOMÉSTICO A SER COLETADO <a href="https://maps.google.com/maps/?&z=10&q=${lat},${lng}" target="_blank">Ver Localização</a>`,
+            `DATA/HORA: ${datetime}`,
+            `Temperatura: ${temperatura} °C`,
+            `<img src='frascos/${nomeImagem}' alt='${tipo === 'toxicos' ? 'Lixo Tóxico' : 'Lixo Doméstico'}' width='125%' />`
+          ],
+          icon: tipo === 'toxicos' ? 'redIcon' : 'greenIcon'
+        };
 
-  <footer>
-    &copy; 2025 Agro Detector - Todos os direitos reservados
-  </footer>
+        // Adiciona o registro ao histórico e salva localStorage
+        historicoRegistros.push(registro);
+        salvarHistoricoLocalStorage();
 
+        // Baixa arquivos: imagem e JSON (.txt)
+        const res = await fetch(imageDataUrl);
+        const blobImagem = await res.blob();
+        baixarArquivo(blobImagem, nomeImagem, 'image/png');
+        baixarArquivo(JSON.stringify(registro, null, 2), `${nomeBase}.txt`, 'text/plain');
+
+        status.textContent = 'Registro salvo com sucesso!';
+      } catch (error) {
+        alert("Erro: " + error.message);
+        status.textContent = 'Erro ao processar.';
+      } finally {
+        setTimeout(() => status.textContent = '', 3000);
+      } 
+    }
+
+    // Mostrar histórico com alert (pode trocar por visualização no HTML se quiser)
+    function mostrarHistorico() {
+      const historico = JSON.parse(localStorage.getItem('dadosLixo') || '[]');
+      if (historico.length === 0) {
+        alert("Nenhum registro salvo.");
+        return;
+      }
+      alert(JSON.stringify(historico, null, 2));
+    }
+
+    // Baixar todo histórico salvo no localStorage em arquivo JSON
+    function baixarHistorico() {
+      if (historicoRegistros.length === 0) {
+        alert("Nenhum registro para baixar.");
+        return;
+      }
+      const jsonCompleto = JSON.stringify(historicoRegistros, null, 2);
+      baixarArquivo(jsonCompleto, 'historico_completo.json', 'application/json');
+    }
+
+    // Iniciar câmera e carregar histórico ao abrir a página
+    window.onload = () => {
+      initCamera();
+      carregarHistoricoLocalStorage();
+    };
+  </script>
 </body>
+
 </html>
