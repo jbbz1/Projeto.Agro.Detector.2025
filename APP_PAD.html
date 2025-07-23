@@ -235,8 +235,8 @@ function limparHistorico() {
         const lng = position.coords.longitude;
         const datetime = getCurrentDateTime();
         const temperatura = await getTemperature();
-        const imageDataUrl = takeSnapshot();
-
+await new Promise(resolve => setTimeout(resolve, 200));
+const imageDataUrl = takeSnapshot();
         const nomeBase = `IMG_${new Date().toISOString().replace(/[-:.]/g, '').slice(0, 15)}`;
         const nomeImagem = `${nomeBase}.png`;
 
@@ -259,10 +259,11 @@ function limparHistorico() {
         salvarHistoricoLocalStorage();
 
         // Baixa arquivos: imagem e JSON (.txt)
-        const res = await fetch(imageDataUrl);
-        const blobImagem = await res.blob();
-        baixarArquivo(blobImagem, nomeImagem, 'image/png');
-        baixarArquivo(JSON.stringify(registro, null, 2), `${nomeBase}.txt`, 'text/plain');
+await Promise.all([
+  fetch(imageDataUrl).then(res => res.blob()).then(blob => baixarArquivo(blob, nomeImagem, 'image/png')),
+  baixarArquivo(JSON.stringify(registro, null, 2), `${nomeBase}.txt`, 'text/plain')
+]);
+
 
         status.textContent = 'Registro salvo com sucesso!';
       } catch (error) {
