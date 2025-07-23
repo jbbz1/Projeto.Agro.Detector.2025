@@ -6,13 +6,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <title>Agro Detector</title>
   <style>
-    .tipo-lixo {
-      width: 140px;
-      cursor: pointer;
-      margin: 10px;
-      transition: transform 0.2s;
-      border-radius: 10px;
+
+     
+
+    /* Coleta e Mapeamento de Resíduos Tóxicos e Microplásticos
+ */
+  
+   .subtext {
+      font-size: 0.5rem;
+      color: #66;
+      margin-top: -9px;
+      line-height: 3;
+      color: black;
     }
+
+    .cabecalho {
+      position: relative;
+      padding-left: 150px;
+      /* espaço para o texto à esquerda */
+      font-size: 24px;
+      font-weight: bold;
+      /* opcional: cor de fundo suave */
+      padding: 20px;
+      text-align: center;
+      padding: 0px;
+      color: #00ff88;
+      font-family: 'Arial', sans-serif;
+      font-size: 3em;
+    }
+
+
 
     .tipo-lixo:hover {
       transform: scale(1.05);
@@ -73,7 +96,16 @@
 </head>
 
 <body>
+ <header class="cabecalho">
+      Projeto Agro Detector
+      <div class="subtext">
+        <span>Coleta e Mapeamento de Resíduos Tóxicos e Microplásticos</span><br>
+      </div>
+    </header>
   <h2 style="text-align:center">Registro de Lixo v3</h2>
+
+
+
 
   <img src="icones/lixo dome.png" alt="Lixo Doméstico" class="tipo-lixo" onclick="capture('domestico')">
   <img src="icones/lixo tox.png" alt="Lixo Tóxico" class="tipo-lixo" onclick="capture('toxicos')">
