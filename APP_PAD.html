@@ -18,6 +18,10 @@
       border-radius: 8px;
       cursor: pointer;
     }
+    button:disabled {
+      background-color: #999999;
+      cursor: not-allowed;
+    }
     video, canvas {
       display: block;
       margin: 10px auto;
@@ -34,13 +38,21 @@
       max-height: 300px;
       overflow-y: auto;
     }
+    #status {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #2e7d32;
+    }
   </style>
 </head>
 <body>
-  <h2 style="text-align:center">Registro de Lixo v1</h2>
-  <button onclick="capture('domestico')">📦 Registrar Lixo Doméstico</button>
-  <button onclick="capture('toxicos')">☣️ Registrar Lixo Tóxico</button>
-  <button onclick="baixarHistorico()">📥 Baixar Histórico Completo JSON</button>
+  <h2 style="text-align:center">Registro de Lixov2</h2>
+  <button id="btnDomestico" onclick="capture('domestico')">📦 Registrar Lixo Doméstico</button>
+  <button id="btnToxicos" onclick="capture('toxicos')">☣️ Registrar Lixo Tóxico</button>
+  <button id="btnHistorico" onclick="baixarHistorico()">📥 Baixar Histórico Completo JSON</button>
+
+  <div id="status"></div>
 
   <video id="video" autoplay playsinline></video>
   <canvas id="canvas" style="display:none;"></canvas>
@@ -51,8 +63,11 @@
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
     const output = document.getElementById('jsonOutput');
-    
-    // Array para armazenar todos os registros criados na sessão
+    const status = document.getElementById('status');
+    const btnDomestico = document.getElementById('btnDomestico');
+    const btnToxicos = document.getElementById('btnToxicos');
+    const btnHistorico = document.getElementById('btnHistorico');
+
     const historicoRegistros = [];
 
     async function initCamera() {
@@ -98,12 +113,20 @@
       a.href = url;
       a.download = nomeArquivo;
       a.click();
-      // Revoga o URL após um pequeno delay para garantir o download
       setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    function desabilitarBotoes(valor) {
+      btnDomestico.disabled = valor;
+      btnToxicos.disabled = valor;
+      btnHistorico.disabled = valor;
     }
 
     async function capture(tipo) {
       try {
+        desabilitarBotoes(true);
+        status.textContent = 'Processando... Aguarde.';
+        
         const position = await getLocation();
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
@@ -128,26 +151,25 @@
           icon: tipo === 'toxicos' ? 'redIcon' : 'greenIcon'
         };
 
-        // Atualiza o histórico na memória
         historicoRegistros.push(registro);
-
-        // Atualiza a área de texto mostrando todo o histórico
         output.textContent = JSON.stringify(historicoRegistros, null, 2);
 
-        // Prepara blob da imagem
         const res = await fetch(imageDataUrl);
         const blobImagem = await res.blob();
 
-        // Baixa imagem e JSON ligados pelo nome base
         baixarArquivo(blobImagem, nomeImagem, 'image/png');
         baixarArquivo(JSON.stringify(registro, null, 2), `${nomeBase}.json`, 'application/json');
 
+        status.textContent = 'Registro salvo com sucesso!';
       } catch (error) {
         alert("Erro: " + error.message);
+        status.textContent = 'Erro ao processar.';
+      } finally {
+        desabilitarBotoes(false);
+        setTimeout(() => status.textContent = '', 3000);
       }
     }
 
-    // Botão para baixar tudo o que foi registrado na sessão num único JSON
     function baixarHistorico() {
       if (historicoRegistros.length === 0) {
         alert("Nenhum registro para baixar.");
