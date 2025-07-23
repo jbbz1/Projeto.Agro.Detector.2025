@@ -73,24 +73,18 @@
 </head>
 
 <body>
-  <h2 style="text-align:center">Registro de Lixo v5</h2>
+  <h2 style="text-align:center">Registro de Lixo v3</h2>
 
-  <img src="imagens/lixo_domestico.png" alt="Lixo Doméstico" class="tipo-lixo" onclick="capture('domestico')">
-  <img src="imagens/lixo_toxico.png" alt="Lixo Tóxico" class="tipo-lixo" onclick="capture('toxicos')">
+  <img src="icones/lixo dome.png" alt="Lixo Doméstico" class="tipo-lixo" onclick="capture('domestico')">
+  <img src="icones/lixo tox.png" alt="Lixo Tóxico" class="tipo-lixo" onclick="capture('toxicos')">
 
-  <button id="btnHistorico" onclick="baixarHistorico()">📥 Baixar Histórico Completo JSON</button>
+  <button id="btnHistorico" onclick="mostrarHistorico()">👁️ Ver Histórico</button>
+  <button id="btnDownloadHistorico" onclick="baixarHistorico()">📥 Baixar Histórico Completo JSON</button>
 
   <div id="status"></div>
 
   <video id="video" autoplay playsinline></video>
   <canvas id="canvas" style="display:none;"></canvas>
-<button onclick="mostrarHistorico()">Ver Histórico</button>
-<script>
-  function mostrarHistorico() {
-    const historico = JSON.parse(localStorage.getItem('dadosLixo') || '[]');
-    alert(JSON.stringify(historico, null, 2));
-  }
-</script>
 
   <pre id="jsonOutput">Nenhum registro ainda.</pre>
 
@@ -100,9 +94,12 @@
     const output = document.getElementById('jsonOutput');
     const status = document.getElementById('status');
     const btnHistorico = document.getElementById('btnHistorico');
+    const btnDownloadHistorico = document.getElementById('btnDownloadHistorico');
 
-    const historicoRegistros = [];
+    // Array para armazenar os registros
+    let historicoRegistros = [];
 
+    // Função para inicializar câmera
     async function initCamera() {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
@@ -112,6 +109,7 @@
       }
     }
 
+    // Função para pegar localização
     async function getLocation() {
       return new Promise((resolve, reject) => {
         if (!navigator.geolocation) {
@@ -122,11 +120,13 @@
       });
     }
 
+    // Função para obter data e hora atual formatada
     function getCurrentDateTime() {
       const now = new Date();
       return now.toLocaleString('pt-BR');
     }
 
+    // Função para capturar a foto
     function takeSnapshot() {
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
@@ -135,10 +135,12 @@
       return canvas.toDataURL('image/png');
     }
 
+    // Função para temperatura (simulada)
     async function getTemperature() {
       return (Math.random() * (30 - 18) + 18).toFixed(2);
     }
 
+    // Função para download do arquivo
     function baixarArquivo(conteudo, nomeArquivo, tipoMime) {
       const blob = new Blob([conteudo], { type: tipoMime });
       const url = URL.createObjectURL(blob);
@@ -149,6 +151,22 @@
       setTimeout(() => URL.revokeObjectURL(url), 1000);
     }
 
+    // Função para atualizar o histórico no localStorage e na tela
+    function salvarHistoricoLocalStorage() {
+      localStorage.setItem('dadosLixo', JSON.stringify(historicoRegistros));
+      output.textContent = JSON.stringify(historicoRegistros, null, 2);
+    }
+
+    // Função para carregar histórico do localStorage ao abrir página
+    function carregarHistoricoLocalStorage() {
+      const dados = localStorage.getItem('dadosLixo');
+      if (dados) {
+        historicoRegistros = JSON.parse(dados);
+        output.textContent = JSON.stringify(historicoRegistros, null, 2);
+      }
+    }
+
+    // Função principal para captura
     async function capture(tipo) {
       try {
         status.textContent = 'Processando... Aguarde.';
@@ -160,7 +178,7 @@
         const temperatura = await getTemperature();
         const imageDataUrl = takeSnapshot();
 
-        const nomeBase = `IMG_${new Date().toISOString().replace(/[-:.]/g, '').slice(0,15)}`;
+        const nomeBase = `IMG_${new Date().toISOString().replace(/[-:.]/g, '').slice(0, 15)}`;
         const nomeImagem = `${nomeBase}.png`;
 
         const registro = {
@@ -169,7 +187,7 @@
           info: [
             tipo === 'toxicos'
               ? `LIXO TÓXICO RECOLHIDO <a href="https://maps.google.com/maps/?&z=10&q=${lat},${lng}" target="_blank">Ver Localização</a>`
-              : `LIXO DOMÉSTICO A SER COLETADO <a href="https://maps.google.com/maps/?&z=10&q=${lat},${lng}" target="_blank">Ver Localização</a>` ,
+              : `LIXO DOMÉSTICO A SER COLETADO <a href="https://maps.google.com/maps/?&z=10&q=${lat},${lng}" target="_blank">Ver Localização</a>`,
             `DATA/HORA: ${datetime}`,
             `Temperatura: ${temperatura} °C`,
             `<img src='frascos/${nomeImagem}' alt='${tipo === 'toxicos' ? 'Lixo Tóxico' : 'Lixo Doméstico'}' width='125%' />`
@@ -177,12 +195,13 @@
           icon: tipo === 'toxicos' ? 'redIcon' : 'greenIcon'
         };
 
+        // Adiciona o registro ao histórico e salva localStorage
         historicoRegistros.push(registro);
-        output.textContent = JSON.stringify(historicoRegistros, null, 2);
+        salvarHistoricoLocalStorage();
 
+        // Baixa arquivos: imagem e JSON (.txt)
         const res = await fetch(imageDataUrl);
         const blobImagem = await res.blob();
-
         baixarArquivo(blobImagem, nomeImagem, 'image/png');
         baixarArquivo(JSON.stringify(registro, null, 2), `${nomeBase}.txt`, 'text/plain');
 
@@ -192,9 +211,20 @@
         status.textContent = 'Erro ao processar.';
       } finally {
         setTimeout(() => status.textContent = '', 3000);
-      }
+      } 
     }
 
+    // Mostrar histórico com alert (pode trocar por visualização no HTML se quiser)
+    function mostrarHistorico() {
+      const historico = JSON.parse(localStorage.getItem('dadosLixo') || '[]');
+      if (historico.length === 0) {
+        alert("Nenhum registro salvo.");
+        return;
+      }
+      alert(JSON.stringify(historico, null, 2));
+    }
+
+    // Baixar todo histórico salvo no localStorage em arquivo JSON
     function baixarHistorico() {
       if (historicoRegistros.length === 0) {
         alert("Nenhum registro para baixar.");
@@ -204,9 +234,12 @@
       baixarArquivo(jsonCompleto, 'historico_completo.json', 'application/json');
     }
 
-    initCamera();
+    // Iniciar câmera e carregar histórico ao abrir a página
+    window.onload = () => {
+      initCamera();
+      carregarHistoricoLocalStorage();
+    };
   </script>
-  
 </body>
 
 </html>
