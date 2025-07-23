@@ -6,6 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <title>Agro Detector</title>
   <style>
+    .tipo-lixo {
+      width: 140px;
+      cursor: pointer;
+      margin: 10px;
+      transition: transform 0.2s;
+      border-radius: 10px;
+    }
+
+    .tipo-lixo:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+    }
+
     body {
       font-family: Arial, sans-serif;
       padding: 10px;
@@ -60,9 +73,11 @@
 </head>
 
 <body>
-  <h2 style="text-align:center">Registro de Lixo v3</h2>
-  <button id="btnDomestico" onclick="capture('domestico')">📦 Registrar Lixo Doméstico</button>
-  <button id="btnToxicos" onclick="capture('toxicos')">☣️ Registrar Lixo Tóxico</button>
+  <h2 style="text-align:center">Registro de Lixo v4</h2>
+
+  <img src="icones/lixo dome.png" alt="Lixo Doméstico" class="tipo-lixo" onclick="capture('domestico')">
+  <img src="icones/lixo tox.png" alt="Lixo Tóxico" class="tipo-lixo" onclick="capture('toxicos')">
+
   <button id="btnHistorico" onclick="baixarHistorico()">📥 Baixar Histórico Completo JSON</button>
 
   <div id="status"></div>
@@ -77,8 +92,6 @@
     const canvas = document.getElementById('canvas');
     const output = document.getElementById('jsonOutput');
     const status = document.getElementById('status');
-    const btnDomestico = document.getElementById('btnDomestico');
-    const btnToxicos = document.getElementById('btnToxicos');
     const btnHistorico = document.getElementById('btnHistorico');
 
     const historicoRegistros = [];
@@ -129,17 +142,10 @@
       setTimeout(() => URL.revokeObjectURL(url), 1000);
     }
 
-    function desabilitarBotoes(valor) {
-      btnDomestico.disabled = valor;
-      btnToxicos.disabled = valor;
-      btnHistorico.disabled = valor;
-    }
-
     async function capture(tipo) {
       try {
-        desabilitarBotoes(true);
         status.textContent = 'Processando... Aguarde.';
-        
+
         const position = await getLocation();
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
@@ -156,7 +162,7 @@
           info: [
             tipo === 'toxicos'
               ? `LIXO TÓXICO RECOLHIDO <a href="https://maps.google.com/maps/?&z=10&q=${lat},${lng}" target="_blank">Ver Localização</a>`
-              : `LIXO DOMÉSTICO A SER COLETADO <a href="https://maps.google.com/maps/?&z=10&q=${lat},${lng}" target="_blank">Ver Localização</a>`,
+              : `LIXO DOMÉSTICO A SER COLETADO <a href="https://maps.google.com/maps/?&z=10&q=${lat},${lng}" target="_blank">Ver Localização</a>` ,
             `DATA/HORA: ${datetime}`,
             `Temperatura: ${temperatura} °C`,
             `<img src='frascos/${nomeImagem}' alt='${tipo === 'toxicos' ? 'Lixo Tóxico' : 'Lixo Doméstico'}' width='125%' />`
@@ -178,7 +184,6 @@
         alert("Erro: " + error.message);
         status.textContent = 'Erro ao processar.';
       } finally {
-        desabilitarBotoes(false);
         setTimeout(() => status.textContent = '', 3000);
       }
     }
