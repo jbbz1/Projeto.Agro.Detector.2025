@@ -73,10 +73,10 @@
 </head>
 
 <body>
-  <h2 style="text-align:center">Registro de Lixo v4</h2>
+  <h2 style="text-align:center">Registro de Lixo v5</h2>
 
-  <img src="icones/lixo dome.png" alt="Lixo Doméstico" class="tipo-lixo" onclick="capture('domestico')">
-  <img src="icones/lixo tox.png" alt="Lixo Tóxico" class="tipo-lixo" onclick="capture('toxicos')">
+  <img src="imagens/lixo_domestico.png" alt="Lixo Doméstico" class="tipo-lixo" onclick="capture('domestico')">
+  <img src="imagens/lixo_toxico.png" alt="Lixo Tóxico" class="tipo-lixo" onclick="capture('toxicos')">
 
   <button id="btnHistorico" onclick="baixarHistorico()">📥 Baixar Histórico Completo JSON</button>
 
@@ -84,6 +84,13 @@
 
   <video id="video" autoplay playsinline></video>
   <canvas id="canvas" style="display:none;"></canvas>
+<button onclick="mostrarHistorico()">Ver Histórico</button>
+<script>
+  function mostrarHistorico() {
+    const historico = JSON.parse(localStorage.getItem('dadosLixo') || '[]');
+    alert(JSON.stringify(historico, null, 2));
+  }
+</script>
 
   <pre id="jsonOutput">Nenhum registro ainda.</pre>
 
@@ -199,6 +206,7 @@
 
     initCamera();
   </script>
+  
 </body>
 
 </html>
