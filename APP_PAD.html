@@ -131,7 +131,7 @@
   <video id="video" autoplay playsinline></video>
   <canvas id="canvas" style="display:none;"></canvas>
   <button id="btnDownloadHistorico" onclick="baixarHistorico()">📥 Baixar Histórico Completo JSON</button>
-<button id="btnLimparHistorico" onclick="limparHistorico()">🗑️ Limpar Histórico</button>
+  <button id="btnLimparHistorico" onclick="limparHistorico()">🗑️ Limpar Histórico</button>
 
   <pre id="jsonOutput">Nenhum registro ainda.</pre>
 
@@ -205,11 +205,15 @@ function limparHistorico() {
       setTimeout(() => URL.revokeObjectURL(url), 1000);
     }
 
-    // Função para atualizar o histórico no localStorage e na tela
-    function salvarHistoricoLocalStorage() {
-      localStorage.setItem('dadosLixo', JSON.stringify(historicoRegistros));
-      output.textContent = JSON.stringify(historicoRegistros, null, 2);
-    }
+ function salvarHistoricoLocalStorage() {
+  localStorage.setItem('dadosLixo', JSON.stringify(historicoRegistros));
+
+  // Gera uma string com os registros um por um, sem os colchetes do array
+  const registrosFormatados = historicoRegistros
+    .map(obj => JSON.stringify(obj, null, 2))
+
+  output.textContent = registrosFormatados;
+}
 
     // Função para carregar histórico do localStorage ao abrir página
     function carregarHistoricoLocalStorage() {
@@ -279,15 +283,19 @@ function limparHistorico() {
     }
 
     // Baixar todo histórico salvo no localStorage em arquivo JSON
-    function baixarHistorico() {
-      if (historicoRegistros.length === 0) {
-        alert("Nenhum registro para baixar.");
-        return;
-      }
-      const jsonCompleto = JSON.stringify(historicoRegistros, null, 2);
-      baixarArquivo(jsonCompleto, 'historico_completo.json', 'application/json');
-    }
+function baixarHistorico() {
+  if (historicoRegistros.length === 0) {
+    alert("Nenhum registro para baixar.");
+    return;
+  }
 
+  // Gera os registros como uma string separada por vírgulas e quebras de linha
+  const conteudoFormatado = historicoRegistros
+    .map(obj => JSON.stringify(obj, null, 2))
+    .join(',\n\n'); // adiciona vírgula entre os objetos com espaçamento bonito
+
+  baixarArquivo(conteudoFormatado, 'historico_sem_colchetes.json', 'application/json');
+}
     // Iniciar câmera e carregar histórico ao abrir a página
     window.onload = () => {
       initCamera();
