@@ -11,9 +11,30 @@
 
     /* Coleta e Mapeamento de Resíduos Tóxicos e Microplásticos
  */
-  
-  
+    .subtext {
+      font-size: 0.5rem;
+      color: #66;
+      margin-top: -9px;
+      line-height: 1;
+      color: white;
+    }
 
+    .cabecalho {
+      position: relative;
+      padding-left: 150px;
+      /* espaço para o texto à esquerda */
+      font-size: 24px;
+      font-weight: bold;
+      /* opcional: cor de fundo suave */
+      padding: 20px;
+    }
+    .tipo-lixo {
+      width: 140px;
+      cursor: pointer;
+      margin: 10px;
+      transition: transform 0.2s;
+      border-radius: 10px;
+    }
 
     .tipo-lixo:hover {
       transform: scale(1.05);
@@ -48,9 +69,9 @@
     video,
     canvas {
       display: block;
-      margin: 0px auto;
-      max-width: 90%;
-      border-radius: 15px;
+      margin: 10px auto;
+      max-width: 100%;
+      border-radius: 10px;
     }
 
     pre {
@@ -74,10 +95,9 @@
 </head>
 
 <body>
-
-
-
-
+  
+  <h2 style="text-align:center">Registro de Lixo</h2>
+  <h2 style="text-align:center">Fase Beta v3</h2>
 
   <img src="icones/lixo dome.png" alt="Lixo Doméstico" class="tipo-lixo" onclick="capture('domestico')">
   <img src="icones/lixo tox.png" alt="Lixo Tóxico" class="tipo-lixo" onclick="capture('toxicos')">
@@ -88,10 +108,8 @@
 
   <video id="video" autoplay playsinline></video>
   <canvas id="canvas" style="display:none;"></canvas>
-
   <button id="btnDownloadHistorico" onclick="baixarHistorico()">📥 Baixar Histórico Completo JSON</button>
-
-  <button id="btnHistorico" onclick="mostrarHistorico()">👁️ Ver Histórico</button>
+    <button id="btnHistorico" onclick="mostrarHistorico()">👁️ Ver Histórico</button>
 
   <pre id="jsonOutput">Nenhum registro ainda.</pre>
 
