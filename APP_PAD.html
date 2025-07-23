@@ -6,6 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <title>Agro Detector</title>
   <style>
+    #status.loading {
+      color: orange;
+    }
+
+
     /* Coleta e Mapeamento de Resíduos Tóxicos e Microplásticos*/
     .agro-header {
       text-align: center;
@@ -180,14 +185,13 @@ function limparHistorico() {
       return now.toLocaleString('pt-BR');
     }
 
-    // Função para capturar a foto
-    function takeSnapshot() {
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(video, 0, 0);
-      return canvas.toDataURL('image/png');
-    }
+  function takeSnapshot() {
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0);
+    return canvas.toDataURL('image/jpeg', 0.7); // reduz tamanho e acelera tudo
+     }
 
     // Função para temperatura (simulada)
     async function getTemperature() {
@@ -226,53 +230,60 @@ function limparHistorico() {
     }
 
     // Função principal para captura
-    async function capture(tipo) {
-      try {
-        status.textContent = 'Processando... Aguarde.';
-
-        const position = await getLocation();
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
-        const datetime = getCurrentDateTime();
-        const temperatura = await getTemperature();
-await new Promise(resolve => setTimeout(resolve, 200));
-const imageDataUrl = takeSnapshot();
-        const nomeBase = `IMG_${new Date().toISOString().replace(/[-:.]/g, '').slice(0, 15)}`;
-        const nomeImagem = `${nomeBase}.png`;
-
-        const registro = {
-          lat: lat,
-          lng: lng,
-          info: [
-            tipo === 'toxicos'
-              ? `LIXO TÓXICO RECOLHIDO <a href="https://maps.google.com/maps/?&z=10&q=${lat},${lng}" target="_blank">Ver Localização</a>`
-              : `LIXO DOMÉSTICO A SER COLETADO <a href="https://maps.google.com/maps/?&z=10&q=${lat},${lng}" target="_blank">Ver Localização</a>`,
-            `DATA/HORA: ${datetime}`,
-            `Temperatura: ${temperatura} °C`,
-            `<img src='frascos/${nomeImagem}' alt='${tipo === 'toxicos' ? 'Lixo Tóxico' : 'Lixo Doméstico'}' width='125%' />`
-          ],
-          icon: tipo === 'toxicos' ? 'redIcon' : 'greenIcon'
-        };
-
-        // Adiciona o registro ao histórico e salva localStorage
-        historicoRegistros.push(registro);
-        salvarHistoricoLocalStorage();
-
-        // Baixa arquivos: imagem e JSON (.txt)
-await Promise.all([
-  fetch(imageDataUrl).then(res => res.blob()).then(blob => baixarArquivo(blob, nomeImagem, 'image/png')),
-  baixarArquivo(JSON.stringify(registro, null, 2), `${nomeBase}.txt`, 'text/plain')
-]);
+  async function capture(tipo) {
+  try {
+    status.textContent = 'Processando... Aguarde.';
+    status.classList.add('loading'); // ⬅️ Aqui você ativa o visual "carregando"
 
 
-        status.textContent = 'Registro salvo com sucesso!';
-      } catch (error) {
-        alert("Erro: " + error.message);
-        status.textContent = 'Erro ao processar.';
-      } finally {
-        setTimeout(() => status.textContent = '', 3000);
-      } 
-    }
+
+
+    const position = await getLocation();
+    const lat = position.coords.latitude;
+    const lng = position.coords.longitude;
+    const datetime = getCurrentDateTime();
+    const temperatura = await getTemperature();
+
+    await new Promise(resolve => setTimeout(resolve, 100)); // Delay pro vídeo estabilizar
+    const imageDataUrl = takeSnapshot(); // Agora JPEG e leve
+
+    const nomeBase = `IMG_${new Date().toISOString().replace(/[-:.]/g, '').slice(0, 15)}`;
+    const nomeImagem = `${nomeBase}.jpg`; // agora extensão JPEG
+
+    const registro = {
+      lat: lat,
+      lng: lng,
+      info: [
+        tipo === 'toxicos'
+          ? `LIXO TÓXICO RECOLHIDO <a href="https://maps.google.com/maps/?&z=10&q=${lat},${lng}" target="_blank">Ver Localização</a>`
+          : `LIXO DOMÉSTICO A SER COLETADO <a href="https://maps.google.com/maps/?&z=10&q=${lat},${lng}" target="_blank">Ver Localização</a>`,
+        `DATA/HORA: ${datetime}`,
+        `Temperatura: ${temperatura} °C`,
+        `<img src='frascos/${nomeImagem}' alt='${tipo === 'toxicos' ? 'Lixo Tóxico' : 'Lixo Doméstico'}' width='125%' />`
+      ],
+      icon: tipo === 'toxicos' ? 'redIcon' : 'greenIcon'
+    };
+
+    historicoRegistros.push(registro);
+    salvarHistoricoLocalStorage();
+
+    await Promise.all([
+      fetch(imageDataUrl).then(res => res.blob()).then(blob => baixarArquivo(blob, nomeImagem, 'image/jpeg')),
+      baixarArquivo(JSON.stringify(registro, null, 2), `${nomeBase}.txt`, 'text/plain')
+    ]);
+
+    status.textContent = 'Registro salvo com sucesso!';
+  } catch (error) {
+    alert("Erro: " + error.message);
+    status.textContent = 'Erro ao processar.';
+  } finally {
+    setTimeout(() => {
+  status.textContent = '';
+  status.classList.remove('loading'); // ⬅️ Aqui você remove quando terminar
+}, 3000);
+  }
+}
+
 
     // Mostrar histórico com alert (pode trocar por visualização no HTML se quiser)
     function mostrarHistorico() {
