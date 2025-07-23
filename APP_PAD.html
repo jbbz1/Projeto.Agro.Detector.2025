@@ -9,13 +9,13 @@
     /* Coleta e Mapeamento de Resíduos Tóxicos e Microplásticos*/
     .agro-header {
       text-align: center;
-      font-size: 10px;
+      font-size: 15px;
       font-weight: bold;
     }
 
     .agro-titulo {
       color: #00ff88;
-      margin-bottom: 5px;
+      margin-bottom: 8px;
       font-weight: bold;
     }
 
@@ -131,7 +131,7 @@
   <video id="video" autoplay playsinline></video>
   <canvas id="canvas" style="display:none;"></canvas>
   <button id="btnDownloadHistorico" onclick="baixarHistorico()">📥 Baixar Histórico Completo JSON</button>
-  <button id="btnHistorico" onclick="mostrarHistorico()">👁️ Ver Histórico</button>
+<button id="btnLimparHistorico" onclick="limparHistorico()">🗑️ Limpar Histórico</button>
 
   <pre id="jsonOutput">Nenhum registro ainda.</pre>
 
@@ -166,7 +166,14 @@
         navigator.geolocation.getCurrentPosition(resolve, reject);
       });
     }
-
+function limparHistorico() {
+  if (confirm("Tem certeza que deseja apagar todo o histórico?")) {
+    localStorage.removeItem('dadosLixo');
+    historicoRegistros = [];
+    output.textContent = "Nenhum registro ainda.";
+    alert("Histórico limpo com sucesso.");
+  }
+}
     // Função para obter data e hora atual formatada
     function getCurrentDateTime() {
       const now = new Date();
