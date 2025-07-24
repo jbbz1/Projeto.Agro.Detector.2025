@@ -40,6 +40,7 @@
       margin: auto;
       transition: transform 0.2s;
       border-radius: 10px;
+
     }
 
   .hover-zoom:hover {
@@ -83,7 +84,7 @@
       background: #5445;
       padding: 1px;
       border-radius: 5px;
-      margin-top: 1px;
+      margin-top: 0px;
       font-size: 10px;
       max-height: 1000px;
       overflow-y: auto;
@@ -113,6 +114,34 @@
       background-color: var(--verde-suave);
       color: white;
     }
+
+    #loadingScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(6px);
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.loading-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1.5rem;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
   </style>
 </head>
 </header>
@@ -127,10 +156,17 @@
     <h1 class="agro-titulo">Projeto Agro Detector</h1>
     <h2 class="agro-subtitulo">Coleta e Mapeamento de Resíduos Tóxicos e Microplásticos</h2>
   </header>
-  <h2 style="text-align:center">Registro de Lixo V 0.63</h2>
+  <h2 style="text-align:center">Registro de Lixo V 0.64</h2>
 
 
-
+<!-- Tela de carregamento -->
+<div id="loadingScreen" style="display: none;">
+  <div class="overlay"></div>
+  <div class="loading-content">
+    <img src="RGGUIMA/PAD.png" alt="Salvando..." style="width: 100px;" />
+    <p>Salvando dados...</p>
+  </div>
+</div>
 
   
   <div id="status"></div>
@@ -251,6 +287,9 @@ function limparHistorico() {
 
     // Função principal para captura
   async function capture(tipo) {
+      const loadingScreen = document.getElementById('loadingScreen');
+  // Mostrar tela de carregamento
+  loadingScreen.style.display = 'block';
   try {
     status.textContent = 'Processando... Aguarde.';
     status.classList.add('loading'); // ⬅️ Aqui você ativa o visual "carregando"
@@ -297,11 +336,11 @@ function limparHistorico() {
     alert("Erro: " + error.message);
     status.textContent = 'Erro ao processar.';
   } finally {
-    setTimeout(() => {
-  status.textContent = '';
-  status.classList.remove('loading'); // ⬅️ Aqui você remove quando terminar
-}, 3000);
-  }
+ setTimeout(() => {
+    loadingScreen.style.display = 'none';
+    alert(`Dados de "${tipo}" salvos com sucesso!`);
+  }, 3000); // 3 segundos de espera
+}
 }
 
 
