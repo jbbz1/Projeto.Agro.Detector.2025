@@ -43,9 +43,10 @@
 
     }
 
-  .hover-zoom:hover {
-    transform: scale(1.1);
-  }
+    .hover-zoom:hover {
+      transform: scale(1.1);
+    }
+
     body {
       font-family: Arial, sans-serif;
       padding: 5px;
@@ -116,32 +117,46 @@
     }
 
     #loadingScreen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 9999;
-}
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+    }
 
-.overlay {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backdrop-filter: blur(6px);
-  background-color: rgba(0, 0, 0, 0.3);
-}
+    .overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(6px);
+      background-color: rgba(0, 0, 0, 0.3);
+    }
 
-.loading-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-size: 1.5rem;
-  text-align: center;
-  font-family: Arial, sans-serif;
-}
+    .loading-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 1.5rem;
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+
+    @keyframes girar {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .rotating {
+      animation: girar 2s linear infinite;
+    }
   </style>
 </head>
 </header>
@@ -156,40 +171,40 @@
     <h1 class="agro-titulo">Projeto Agro Detector</h1>
     <h2 class="agro-subtitulo">Coleta e Mapeamento de Resíduos Tóxicos e Microplásticos</h2>
   </header>
-  <h2 style="text-align:center">Registro de Lixo V 0.64</h2>
+  <h2 style="text-align:center">Registro de Lixo V 0.65</h2>
 
 
-<!-- Tela de carregamento -->
-<div id="loadingScreen" style="display: none;">
-  <div class="overlay"></div>
-  <div class="loading-content">
-    <img src="RGGUIMA/PAD.png" alt="Salvando..." style="width: 100px;" />
-    <p>Salvando dados...</p>
+  <!-- Tela de carregamento -->
+  <div id="loadingScreen" style="display: none;">
+    <div class="overlay"></div>
+    <div class="loading-content">
+      <img src="icones/salvando.png" alt="Salvando..." class="rotating" style="width: 100px;" />
+      <p>Salvando dados...</p>
+    </div>
   </div>
-</div>
 
-  
+
   <div id="status"></div>
   <video id="video" autoplay playsinline></video>
   <canvas id="canvas" style="display:none;"></canvas>
 
 
-<div style="display: flex; justify-content: center; align-items: center; gap: 40px; margin: 20px 0;">
-  <div style="text-align: center;">
-    <img src="icones/lixo dome.png" alt="Lixo Doméstico"
+  <div style="display: flex; justify-content: center; align-items: center; gap: 40px; margin: 20px 0;">
+    <div style="text-align: center;">
+      <img src="icones/lixo dome.png" alt="Lixo Doméstico"
          style="width: 90px; cursor: pointer; border-radius: 10px; transition: transform 0.2s;"
          class="hover-zoom"
          onclick="capture('domestico')">
-    <p><strong>Lixo Doméstico</strong></p>
-  </div>
-  <div style="text-align: center;">
-    <img src="icones/lixo tox.png" alt="Lixo Tóxico"
+      <p><strong>Lixo Doméstico</strong></p>
+    </div>
+    <div style="text-align: center;">
+      <img src="icones/lixo tox.png" alt="Lixo Tóxico"
          style="width: 90px; cursor: pointer; border-radius: 10px; transition: transform 0.2s;"
          class="hover-zoom"
          onclick="capture('toxicos')">
-    <p><strong>Lixo Tóxico</strong></p>
+      <p><strong>Lixo Tóxico</strong></p>
+    </div>
   </div>
-</div>
 
   <button id="btnDownloadHistorico" onclick="baixarHistorico()">📥 Baixar Histórico Completo JSON</button>
   <button id="btnLimparHistorico" onclick="limparHistorico()">🗑️ Limpar Histórico</button>
