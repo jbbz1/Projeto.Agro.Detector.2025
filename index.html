@@ -20,6 +20,21 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet-distortableimage/dist/leaflet.distortableimage.css" />
 <script src="https://unpkg.com/leaflet-distortableimage/dist/leaflet.distortableimage.js"></script>
+
+
+<!-- Favicons para diferentes dispositivos -->
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+<link rel="manifest" href="favicon/site.webmanifest">
+<link rel="shortcut icon" href="favicon/favicon.ico" type="image/x-icon">
+ <meta charset="UTF-8" />
+  <title>Agro Detector</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="manifest" href="favicon/site.webmanifest">
+  <link rel="shortcut icon" href="favicon/favicon.ico" type="image/x-icon">
   <style>
     .leaflet-control-layers {
       vertical-align: middle;
@@ -836,7 +851,6 @@
 
 <!-- Contêiner do mapa -->
 <div id="mapContainer">
-  <img src="icones/mapa_base.png" alt="Mapa Base" id="mapaBase">
   
   <!-- Camada do Rio Encantado (sua imagem PNG sobreposta) -->
   <img src="icones/rio_encantado.png" alt="Camada Hídrica" id="camadaRioEncantado">
@@ -892,7 +906,7 @@ function toggleCamadaHidrica() {
   // Inicializa o mapa COM a camada híbrida ativa
   var map = L.map('map', { 
     center: [-24.405990, -53.513975],
-    zoom: 13,
+    zoom: 13, 
     minZoom: 2,
     maxZoom: 18,
     zoomControl: false,
@@ -2487,7 +2501,7 @@ var redIcon = L.icon({
     "icon": "greenIcon"
 },
 
-{  
+{   
     "lat": -24.424721906966624,
     "lng": -53.48830916987602,
     "info": [
