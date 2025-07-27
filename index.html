@@ -160,16 +160,17 @@
       text-align: center;
     }
 
-    @keyframes girar {
-      0% {
-        transform: rotate(0deg);
-      }
+ .icone-girando { 
+    animation: girar 2s linear infinite;
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
+    transform-origin: center center;
+    display: block;
+  }
 
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
+  @keyframes girar {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 
 
     /* Coleta e Mapeamento de Resíduos Tóxicos e Microplásticos
@@ -2802,27 +2803,35 @@ doc.save("Relatorio_Agro_Detector.pdf");
 
 
 
-  <!-- Overlay com spinner e texto -->
-  <div id="overlay-carregando" style="display:none; 
-    position:fixed; top:0; left:0; width:100%; height:100%; 
-    background:rgba(0,0,0,0.7); color:white; font-family: monospace; 
-    z-index:9999; justify-content:center; align-items:center; flex-direction: column;">
-
-    <div class="spinner" style="margin-bottom:20px;">
-      <!-- Aqui você pode colocar uma animação de loading se quiser -->
-
-    </div>
-    <div class="texto">Gerando relatório, por favor aguarde...</div>
-    <div id="checklist-status" style="text-align:left; max-width: 400px;">
-      <div id="etapa1">🔍 Coletando dados...</div>
-      <div id="etapa2">🧹 Limpando informações...</div>
-      <div id="etapa3">📡 Buscando imagens...</div>
-      <div id="etapa4">🧠 Convertendo imagens em base64...</div>
-      <div id="etapa5">🎨 Redimensionando imagens...</div>
-      <div id="etapa6">🖨️ Inserindo no PDF...</div>
-      <div id="etapa7">📄 Finalizando relatório...</div>
-    </div>
+<!-- Overlay com ícone girando -->
+<div id="overlay-carregando" style="
+  display:none; 
+  position:fixed; 
+  top:0; left:0; 
+  width:100%; 
+  height:100%; 
+  background:rgba(0,0,0,0.7); 
+  color:white; 
+  font-family: monospace; 
+  z-index:9999; 
+  justify-content:center;  
+  align-items:center; 
+  flex-direction: column;
+">
+  <img src="RGGUIMA/PAD.png" alt="Carregando" class="icone-girando" style="width: 80px; height: auto; margin-bottom: 20px;">
+  
+  <div class="texto">Gerando relatório, por favor aguarde...</div>
+  
+  <div id="checklist-status" style="text-align:left; max-width: 400px;">
+    <div id="etapa1">🔍 Coletando dados...</div>
+    <div id="etapa2">🧹 Limpando informações...</div>
+    <div id="etapa3">📡 Buscando imagens...</div>
+    <div id="etapa4">🧠 Convertendo imagens em base64...</div>
+    <div id="etapa5">🎨 Redimensionando imagens...</div> 
+    <div id="etapa6">🖨️ Inserindo no PDF...</div>
+    <div id="etapa7">📄 Finalizando relatório...</div>
   </div>
+</div>
 
   <script>
     async function gerarPDF() {
