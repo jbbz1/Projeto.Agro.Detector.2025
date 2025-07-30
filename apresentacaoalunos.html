@@ -132,39 +132,62 @@
 
 <body>
 
-    <!-- Tela de senha -->
+    <!-- Tela de senha 
     <div id="telaSenha">
         <h2>Digite a senha para continuar</h2>
         <input type="password" id="senha" placeholder="Senha">
         <button onclick="verificarSenha()">Entrar</button>
-    </div>
+    </div>-->
 
     <header>
         <div class="top-buttons">
             <a href="index.html"><button>Voltar à Página Inicial</button></a>
             <button onclick="entrarTelaCheia()">Tela Inteira</button>
         </div>
-        Experiência Pedagógica
+        Apresentação dos alunos
     </header>
 
-    <div class="slideshow-container" id="apresentacao" style="display:none;">
-        <div class="slide"><img src="apresentacaoexperienciapedagogica/slide1.png" alt="slide1"></div>
-        <div class="slide"><img src="apresentacaoexperienciapedagogica/slide2.PNG" alt="slide2"></div>
-        <div class="slide"><img src="apresentacaoexperienciapedagogica/slide3.PNG" alt="slide3"></div>
-        <div class="slide"><img src="apresentacaoexperienciapedagogica/slide4.PNG" alt="slide4"></div>
-        <div class="slide"><img src="apresentacaoexperienciapedagogica/slide5.PNG" alt="slide5"></div>
-        <div class="slide"><img src="apresentacaoexperienciapedagogica/slide6.PNG" alt="slide6"></div>
-        <div class="slide"><img src="apresentacaoexperienciapedagogica/slide7.PNG" alt="slide7"></div>
-        <div class="slide"><img src="apresentacaoexperienciapedagogica/slide8.PNG" alt="slide8"></div>
-        <div class="slide"><img src="apresentacaoexperienciapedagogica/slide9.PNG" alt="slide9"></div>
-        <div class="slide"><img src="apresentacaoexperienciapedagogica/slide10.PNG" alt="slide10"></div>
-        <div class="slide"><img src="apresentacaoexperienciapedagogica/slide11.PNG" alt="slide11"></div>
-        <div class="slide"><img src="apresentacaoexperienciapedagogica/slide12.PNG" alt="slide12"></div>
-        <div class="slide"><img src="apresentacaoexperienciapedagogica/slide13.PNG" alt="slide13"></div>
-        <div class="slide"><img src="apresentacaoexperienciapedagogica/slide14.PNG" alt="slide14"></div>
-        <div class="slide"><img src="apresentacaoexperienciapedagogica/slide15.PNG" alt="slide15"></div>
-        <div class="slide"><img src="apresentacaoexperienciapedagogica/slide16.PNG" alt="slide16"></div>
-        <div class="slide"><img src="apresentacaoexperienciapedagogica/slide17.PNG" alt="slide17"></div>
+    <!--<div class="slideshow-container" id="apresentacao" style="display:none;">-->
+
+    <div class="slideshow-container" id="apresentacao">
+
+         <div class="slide"><img src="apresentacaoalunos/1.jpg" alt="slide1"></div>
+        <div class="slide"><img src="apresentacaoalunos/2.jpg" alt="slide2"></div>
+        <div class="slide"><img src="apresentacaoalunos/3.jpg" alt="slide3"></div>
+        <div class="slide"><img src="apresentacaoalunos/4.jpg" alt="slide4"></div>
+        <div class="slide"><img src="apresentacaoalunos/5.jpg" alt="slide5"></div>
+        <div class="slide"><img src="apresentacaoalunos/6.jpg" alt="slide6"></div>
+        <div class="slide"><img src="apresentacaoalunos/7.jpg" alt="slide7"></div>
+        <div class="slide"><img src="apresentacaoalunos/8.jpg" alt="slide8"></div>
+        <div class="slide"><img src="apresentacaoalunos/9.jpg" alt="slide9"></div>
+        <div class="slide"><img src="apresentacaoalunos/10.jpg" alt="slide10"></div>
+        <div class="slide"><img src="apresentacaoalunos/11.jpg" alt="slide11"></div>
+        <div class="slide"><img src="apresentacaoalunos/12.jpg" alt="slide12"></div>
+        <div class="slide"><img src="apresentacaoalunos/13.jpg" alt="slide13"></div>
+        <div class="slide"><img src="apresentacaoalunos/14.jpg" alt="slide14"></div>
+        <div class="slide"><img src="apresentacaoalunos/15.jpg" alt="slide15"></div>
+        <div class="slide"><img src="apresentacaoalunos/16.jpg" alt="slide16"></div>
+        <div class="slide"><img src="apresentacaoalunos/17.jpg" alt="slide17"></div>
+        <div class="slide"><img src="apresentacaoalunos/18.jpg" alt="slide17"></div>
+        <div class="slide"><img src="apresentacaoalunos/19.jpg" alt="slide17"></div>
+        <div class="slide"><img src="apresentacaoalunos/20.jpg" alt="slide17"></div>
+        <div class="slide"><img src="apresentacaoalunos/21.jpg" alt="slide17"></div>
+        <div class="slide"><img src="apresentacaoalunos/22.jpg" alt="slide17"></div>
+        <div class="slide"><img src="apresentacaoalunos/23.jpg" alt="slide17"></div>
+        <div class="slide"><img src="apresentacaoalunos/24.jpg" alt="slide17"></div>
+        <div class="slide"><img src="apresentacaoalunos/25.jpg" alt="slide17"></div>
+        <div class="slide"><img src="apresentacaoalunos/26.jpg" alt="slide17"></div>
+        <div class="slide"><img src="apresentacaoalunos/27.jpg" alt="slide17"></div>
+        <div class="slide"><img src="apresentacaoalunos/28.jpg" alt="slide17"></div>
+        <div class="slide"><img src="apresentacaoalunos/29.jpg" alt="slide17"></div>
+        <div class="slide"><img src="apresentacaoalunos/30.jpg" alt="slide17"></div>
+        <div class="slide"><img src="apresentacaoalunos/31.jpg" alt="slide17"></div>
+        <div class="slide"><img src="apresentacaoalunos/32.jpg" alt="slide17"></div>
+        <div class="slide"><img src="apresentacaoalunos/33.jpg" alt="slide17"></div>
+        <div class="slide"><img src="apresentacaoalunos/34.jpg" alt="slide17"></div>
+        <div class="slide"><img src="apresentacaoalunos/35.jpg" alt="slide17"></div>
+
+
 
 
         <a class="prev" onclick="mudarSlide(-1)">&#10094;</a>
@@ -172,28 +195,6 @@
     </div>
 
     <script>
-        function verificarSenha() {
-            var senha = document.getElementById("senha").value;
-            if (senha === "1234") {
-                document.getElementById("telaSenha").style.display = "none";
-                document.getElementById("apresentacao").style.display = "block";
-                mostrarSlides(slideAtual); // iniciar apresentação
-            } else {
-                alert("Senha incorreta! Tente novamente.");
-                document.getElementById("senha").value = "";
-            }
-        }
-
-        // Permitir Enter para enviar a senha
-        document.addEventListener("DOMContentLoaded", function () {
-            var campoSenha = document.getElementById("senha");
-            campoSenha.addEventListener("keypress", function (event) {
-                if (event.key === "Enter") {
-                    verificarSenha();
-                }
-            });
-        });
-
         let slideAtual = 0;
 
         function mudarSlide(n) {
@@ -220,6 +221,8 @@
                 elem.msRequestFullscreen();
             }
         }
+        mostrarSlides(slideAtual);
+
     </script>
 
 </body>
